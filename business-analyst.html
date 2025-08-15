@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Business Analysis | Silvio di Rubbo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Merriweather', serif;
+      color: #232b3d;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 760px;
+      margin: 2em auto 2em;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 2px 20px rgba(120,130,170,.06);
+      padding: 2em 2em 2em;
+    }
+    header {
+      margin-bottom: 1.3em;
+      text-align: center;
+    }
+    .back {
+      font-size: 0.97em;
+      margin-bottom: 2em;
+      display: block;
+      color: #a89c87;
+      text-decoration: none;
+    }
+    .back:hover {
+      text-decoration: underline;
+      color: #232b3d;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8em;
+      letter-spacing: -.5px;
+      color: #232b3d;
+      font-weight: 700;
+      margin-bottom: 0.5em;
+    }
+    h2, h3 {
+      font-family: 'Playfair Display', serif;
+      color: #a89c87;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-top: 2em;
+    }
+    ul {
+      margin-left: 1.3em;
+      margin-bottom: 1.3em;
+    }
+    img.screenshot {
+      max-width: 340px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 1em 0;
+    }
+    details {
+      margin-bottom: 1.2em;
+    }
+    blockquote {
+      background: #f7f7f7;
+      border-left: 4px solid #a89c87;
+      padding: 1em 1.5em;
+      margin: 1em 0 2em 0;
+      font-style: italic;
+      color: #555;
+    }
+    a {
+      color: #a89c87;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    a:hover {
+      text-decoration: underline;
+      color: #232b3d;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a class="back" href="index.html">&larr; Back to homepage</a>
+      <h1>Business Analysis</h1>
+    </header>
+    <section>
+      <blockquote>
+        Selected, anonymised projects developed at Ralph Lauren (EMEA).<br>
+        Each card follows: <b>Problem → Solution → Result</b>.
+      </blockquote>
+      <h2>Market Tracker Dashboard</h2>
+      <ul>
+        <li><b>Problem:</b> Commercial and merchandising teams needed a single view of sell-in / sell-out and market performance across countries and seasons.</li>
+        <li><b>Solution:</b> Built a Power BI dashboard with country filters, dynamic period comparisons, and category drill-downs. Automated refresh via Power Query.</li>
+        <li><b>Result:</b> Reduced weekly reporting time by ~70% and aligned discussions around one source of truth.</li>
+        <li><b>Stack:</b> Power BI, Power Query, Excel</li>
+        <li><b>Media:</b> <img src="./images/market-tracker.png" class="screenshot" alt="Market Tracker"></li>
+      </ul>
+      <h2>Deliveries Tracker</h2>
+      <ul>
+        <li><b>Problem:</b> Fragmented visibility on PO deliveries vs store floorset dates created last-minute firefighting.</li>
+        <li><b>Solution:</b> A tracker that reconciled ERP exports with planning calendars, flagged risks, and emailed exceptions.</li>
+        <li><b>Result:</b> Earlier risk detection; fewer escalations before floorsets.</li>
+        <li><b>Stack:</b> Power Query, Excel (Power Pivot), VBA (optional)</li>
+        <li><b>Media:</b> <img src="./images/deliveries-tracker.png" class="screenshot" alt="Deliveries Tracker"></li>
+      </ul>
+      <h2>Assortment Scorecard</h2>
+      <ul>
+        <li><b>Problem:</b> Needed a quick way to evaluate assortment breadth and depth by account vs design intent.</li>
+        <li><b>Solution:</b> Scorecard with configurable KPIs, traffic-light thresholds, and PDF one-pagers.</li>
+        <li><b>Result:</b> Faster adoption reviews and clearer cross-team alignment.</li>
+        <li><b>Stack:</b> Power BI, DAX, Excel</li>
+        <li><b>Media:</b> <img src="./images/assortment-scorecard.png" class="screenshot" alt="Scorecard"></li>
+      </ul>
+      <details>
+        <summary><strong>Other internal tools (click to expand)</strong></summary>
+        <ul>
+          <li><b>Account Planning Model (Power Query)</b> — rebuilt query logic for speed and reusability.</li>
+          <li><b>Attribution & Pagination Utilities</b> — generated dynamic line sheets and attributes.</li>
+          <li><b>Pricing Support Files</b> — aligned regional price ladders with design direction.</li>
+        </ul>
+      </details>
+      <p><i>Note: All examples here are redacted and anonymised.</i></p>
+    </section>
+  </div>
+</body>
+</html>
