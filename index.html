@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Silvio di Rubbo Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 760px; margin: 2em auto; padding: 0 1em; line-height: 1.7; background: #fafaff; color: #222;}
+    h1, h2, h3 { color: #213e60; }
+    code { background: #f4f4f4; padding: 2px 4px; border-radius: 4px; }
+    ul, ol { margin-left: 1.5em; }
+    section { margin-bottom: 2.5em; }
+    .tag { background: #eaf1fb; color: #2c3e50; border-radius: 3px; padding: 0.1em 0.5em; font-size: 0.95em; margin-right: 0.5em;}
+    .contact a { color: #3066be; text-decoration: none; }
+    .contact a:hover { text-decoration: underline; }
+    details { background: #f6faff; border-radius: 5px; padding: 0.5em;}
+    summary { font-weight: bold; cursor: pointer;}
+    .toc ul { list-style: square; }
+    hr { border: none; border-top: 1px solid #e0e0e0; margin: 2em 0; }
+    .colophon { font-size: 0.97em; color: #555; border-left: 3px solid #3066be; padding-left: 1em; margin-top: 2em;}
+    img.screenshot { max-width: 400px; border:1px solid #ddd; border-radius:8px; margin: 1em 0;}
+  </style>
+</head>
+<body>
+
+  <h1>👋 Hi, I am Silvio</h1>
+  <p>
+    My interest lies between <b>business analysis</b> and <b>culture</b>.<br>
+    I enjoy transforming complex information into clear meanings and decisions — and writing about how economic policy, history, and culture shape the world we live in.
+  </p>
+  <ul>
+    <li>📍 Genève, Switzerland</li>
+    <li>🎓 Bocconi University (BSc + MSc)</li>
+    <li>🗣 Italian (C2), English (C2), French (B1), Spanish (B1)</li>
+    <li>🔭 Currently focused on finding my place in the world. In the meantime, I am writing about my interests, developing my coding and analytics skills, and improving my French.</li>
+  </ul>
+
+  <hr>
+
+  <section class="toc">
+    <h2>🧭 Table of Contents</h2>
+    <ul>
+      <li><a href="#business-analysis">Business Analysis</a></li>
+      <li><a href="#borderliner">Borderliner</a></li>
+      <li><a href="#cinema">Cinema</a></li>
+      <li><a href="#sommelier">Sommelier</a></li>
+      <li><a href="#university">University</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#learning-roadmap">Learning & Roadmap</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </section>
+
+  <section id="business-analysis">
+    <h2>💼 Business Analysis</h2>
+    <blockquote>
+      Selected, anonymised projects developed at Ralph Lauren (EMEA).<br>
+      Each card follows: <b>Problem → Solution → Result</b>.
+    </blockquote>
+
+    <h3>1) Market Tracker Dashboard</h3>
+    <ul>
+      <li><b>Problem:</b> Commercial and merchandising teams needed a single view of <b>sell-in / sell-out</b> and <b>market performance</b> across countries and seasons.</li>
+      <li><b>Solution:</b> Built a <b>Power BI</b> dashboard with country filters, dynamic period comparisons, and category drill-downs. Automated refresh via <b>Power Query</b>.</li>
+      <li><b>Result:</b> Reduced weekly reporting time by ~<b>70%</b> and aligned discussions around one source of truth.</li>
+      <li><b>Stack:</b> Power BI, Power Query, Excel</li>
+      <li><b>Media:</b> <br>
+        <img src="./images/market-tracker.png" alt="Market Tracker Screenshot" class="screenshot">
+        <small>Add a redacted screenshot here</small>
+      </li>
+    </ul>
+
+    <h3>2) Deliveries Tracker</h3>
+    <ul>
+      <li><b>Problem:</b> Fragmented visibility on <b>PO deliveries</b> vs <b>store floorset dates</b> created last-minute firefighting.</li>
+      <li><b>Solution:</b> A tracker that reconciled ERP exports with planning calendars, flagged risks, and emailed exceptions.</li>
+      <li><b>Result:</b> Earlier risk detection; fewer escalations before floorsets.</li>
+      <li><b>Stack:</b> Power Query, Excel (Power Pivot), VBA (optional)</li>
+      <li><b>Media:</b> <br>
+        <img src="./images/deliveries-tracker.png" alt="Deliveries Tracker Screenshot" class="screenshot">
+      </li>
+    </ul>
+
+    <h3>3) Assortment Scorecard</h3>
+    <ul>
+      <li><b>Problem:</b> Needed a quick way to evaluate <b>assortment breadth</b> and <b>depth</b> by account vs design intent.</li>
+      <li><b>Solution:</b> Scorecard with configurable <b>KPIs</b>, traffic-light thresholds, and PDF one-pagers.</li>
+      <li><b>Result:</b> Faster adoption reviews and clearer cross-team alignment.</li>
+      <li><b>Stack:</b> Power BI, DAX, Excel</li>
+      <li><b>Media:</b> <br>
+        <img src="./images/assortment-scorecard.png" alt="Scorecard Screenshot" class="screenshot">
+      </li>
+    </ul>
+
+    <details>
+      <summary><strong>Other internal tools (click to expand)</strong></summary>
+      <ul>
+        <li><b>Account Planning Model (Power Query)</b> — rebuilt query logic for speed and reusability.</li>
+        <li><b>Attribution & Pagination Utilities</b> — generated dynamic line sheets and attributes.</li>
+        <li><b>Pricing Support Files</b> — aligned regional price ladders with design direction.</li>
+      </ul>
+    </details>
+
+    <p><i>Note: All examples here are <b>redacted</b> and <b>anonymised</b>.</i></p>
+  </section>
+
+  <hr>
+
+  <section id="borderliner">
+    <h2>📰 Borderliner</h2>
+    <p>
+      <b>Borderliner</b> is my independent newsletter on <b>economics, history, and culture</b>.<br>
+      🔗 Read & subscribe: <a href="https://borderliner.substack.com/" target="_blank">https://borderliner.substack.com/</a><br>
+      🧩 What I explore: incentives, institutions, and the trade-offs behind “progress”.
+    </p>
+    <ul>
+      <li><i>Embrace the Suck</i> — ESG impact and why real change has a cost.</li>
+      <li><i>The Triple Lock (and other British amenities)</i> — UK fiscal design and inequality.</li>
+      <li><i>Bosnia’s Federation</i> — institutions, vetoes, and the High Representative.</li>
+    </ul>
+    <blockquote>
+      I aim to make complex topics readable without simplifying away the mechanisms that matter.
+    </blockquote>
+  </section>
+
+  <section id="cinema">
+    <h2>🎬 Cinema</h2>
+    <p>
+      Film is how I test ideas about <b>identity, power, and memory</b> — then write short reviews.<br>
+      🎞 Letterboxd: <span style="color:#888;">[Add your Letterboxd profile link]</span><br>
+      🧠 Current threads: box-ing as a metaphor, urban loneliness, and political cinema.<br>
+      ✍️ Occasional cross-posts into Borderliner when themes overlap.
+    </p>
+  </section>
+
+  <section id="sommelier">
+    <h2>🍷 Sommelier</h2>
+    <ul>
+      <li>🎓 <b>AIS Sommelier Certificate</b> (May 2022)</li>
+      <li>🌱 Origin of the passion: vineyards of <b>Irpinia</b> and the cultural history of wine.</li>
+      <li>🗺 Interests: terroir as policy, denominations, and the economics of quality.</li>
+      <li>📝 Plans: tasting notes and regional profiles (Piemonte, Irpinia, Valais).</li>
+    </ul>
+  </section>
+
+  <section id="university">
+    <h2>🎓 University</h2>
+    <p>
+      <b>Bocconi University</b><br>
+      <b>MSc</b> Economics & Management for Arts, Culture, Media & Entertainment — 110/110<br>
+      Thesis: <i>Wine tourism in Irpinia: reasons to enter the industry</i><br>
+      <b>BSc</b> Economics & Management for Arts, Culture & Communication — 110/110<br>
+      Thesis: <i>Transcript and Analysis of the Accounting Ledger from the Dealers Grandi of Milan</i>
+    </p>
+    <p>
+      Selected coursework: Art/Museum Management (30/30), Cultural Mediation (30/30), Project & Team Management (29/30), IP Law (28/30), Marketing & CRM in the Arts (28/30), Heritage Management (29/30).
+    </p>
+  </section>
+
+  <section id="skills">
+    <h2>🛠 Skills</h2>
+    <ul>
+      <li><b>Data & BI</b><br>Power BI · Power Query · Power Pivot · Excel · R Studio · Google Analytics</li>
+      <li><b>Project & Process</b><br>ProjectLibre · Miro · Microsoft Project</li>
+      <li><b>Web & Content</b><br>WordPress · Shopify · Canva</li>
+      <li><b>Domain</b><br>Cultural management · Economic policy · Wine</li>
+      <li><b>Languages</b><br>Italian (C2) · English (C2) · French (B1) · Spanish (B1)</li>
+    </ul>
+  </section>
+
+  <section id="learning-roadmap">
+    <h2>🚀 Learning & Roadmap</h2>
+    <ul>
+      <li><b>Python</b> — data wrangling, analysis notebooks, lightweight apps</li>
+      <li><b>Tableau</b> — visual storytelling and fast exploration</li>
+      <li><b>CMA</b> — managerial accounting depth (transfer pricing, ABC, planning & control)</li>
+      <li><b>Salesforce / GA</b> — analytics and process integration</li>
+    </ul>
+    <blockquote>
+      I keep small, open repositories to document progress (links coming soon).
+    </blockquote>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>📫 Contact</h2>
+    <ul>
+      <li>📧 <b>Email</b>: <a href="mailto:silvio.dirubbo21@gmail.com">silvio.dirubbo21@gmail.com</a></li>
+      <li>💼 <b>LinkedIn</b>: <span style="color:#888;">[Add your profile link]</span></li>
+      <li>📰 <b>Borderliner</b>: <a href="https://borderliner.substack.com/" target="_blank">https://borderliner.substack.com/</a></li>
+      <li>🎞 <b>Letterboxd</b>: <span style="color:#888;">[Add link]</span></li>
+    </ul>
+  </section>
+
+  <div class="colophon">
+    <b>Colophon:</b> This page is deliberately split between <b>professional outputs</b> (Business Analysis) and <b>intellectual projects</b> (Borderliner, Cinema, Sommelier), because both inform how I work.
+  </div>
+
+  <p style="text-align:center; font-size:0.9em; color:#aaa; margin-top:3em;">&copy; Silvio di Rubbo</p>
+</body>
+</html>
