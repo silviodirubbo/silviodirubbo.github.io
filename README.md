@@ -1,13 +1,13 @@
 # silviodirubbo.github.io
 # 👋 Hi, I am Silvio
 
-I work at the intersection of **business analysis**, **data**, and **culture**.  
-I enjoy turning messy information into clear decisions — and writing about how policy, history, wine, and cinema shape the world we live in.
+My interest lies between **business analysis** and **culture**. 
+I enjoy transforming complex information into clear meanings and decisions — and writing about how **economic policy**, **history**, and **culture** shape the world we live in.
 
-- 📍 Geneva, Switzerland
+- 📍 Genève, Switzerland
 - 🎓 Bocconi University (BSc + MSc)
-- 🗣 Italian (C2), English (C1), French (B1), Spanish (B1)
-- 🔭 Currently focused on **Python**, **Tableau**, and **CMA** (managerial accounting)
+- 🗣 Italian (C2), English (C2), French (B1), Spanish (B1)
+- 🔭 Currently focused on finding my place in the world. In the meantime, I am writing about my interests, developing my coding and analytics skills, and improving my French.
 
 ---
 
@@ -67,8 +67,8 @@ I enjoy turning messy information into clear decisions — and writing about how
 
 ## 📰 Borderliner
 
-**Borderliner** is my independent newsletter on **economics, history, policy, wine, and cinema**.  
-- 🔗 Read & subscribe: **[Add your Substack link]**  
+**Borderliner** is my independent newsletter on **economics, history, and culture**.  
+- 🔗 Read & subscribe: **https://borderliner.substack.com/**  
 - 🧩 What I explore: incentives, institutions, and the trade-offs behind “progress”.  
 - 🧵 Recent pieces (curated):
   - *Embrace the Suck* — ESG impact and why real change has a cost.  
