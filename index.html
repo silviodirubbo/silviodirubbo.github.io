@@ -1,150 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Borderliner — Silvio di Rubbo</title>
-  <meta name="description" content="Silvio di Rubbo — business analysis, data and culture." />
-  <!-- Fonts: Substack-like (serif headlines + clean sans for UI/body) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#ffffff;
-      --text:#111315; /* near-black like Substack */
-      --muted:#6b7280; /* gray-500 */
-      --line:#e5e7eb;  /* gray-200 */
-      --link:#111315;
-      --hover:#0a0a0a;
-      --accent:#111315; /* active underline */
-      --chip-bg:#f6f7f8;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);}
-    body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;}
-    a{color:var(--link);text-decoration:none}
-    a:hover{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
-    .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-
-    /* Topbar (Substack-like) */
-    header{position:sticky;top:0;background:var(--bg);z-index:50;border-bottom:1px solid var(--line)}
-    .top{display:flex;align-items:center;justify-content:space-between;height:64px}
-    .brand{font-family:'Source Serif 4', Georgia, 'Times New Roman', serif;font-weight:700;font-size:22px}
-    nav{display:flex;gap:22px;align-items:center}
-    nav a{display:inline-flex;align-items:center;height:64px;padding:0 6px;border-bottom:2px solid transparent;color:#374151}
-    nav a.active{border-bottom-color:var(--accent);color:var(--text)}
-
-    /* Hero summary */
-    .hero{display:flex;flex-direction:column;align-items:center;text-align:center;padding:42px 0 28px}
-    .h1{font-family:'Source Serif 4', Georgia, serif;font-weight:700;line-height:1.15;font-size:clamp(28px,5vw,44px);margin:0 0 10px}
-    .lead{max-width:820px;color:#374151;font-size:18px;line-height:1.6;margin:0 auto 14px}
-    .contact{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:12px}
-    .pill{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;color:#111}
-    .pill:hover{background:#fafafa}
-    .portrait{margin:22px auto 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;max-width:680px}
-    .portrait img{display:block;width:100%;height:auto}
-
-    /* Section grid */
-    .sections{padding:24px 0 40px;border-top:1px solid var(--line)}
-    .sections h2{font-family:'Source Serif 4', Georgia, serif;font-weight:700;font-size:22px;margin:0 0 8px}
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
-    .card{grid-column:span 6;border:1px solid var(--line);border-radius:12px;padding:18px;background:#fff}
-    .card p{color:var(--muted);margin:6px 0 0}
-    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .chip{background:var(--chip-bg);border:1px solid var(--line);padding:6px 10px;border-radius:999px;font-size:13px;color:#374151}
-    @media (max-width: 900px){
-      .card{grid-column:span 12}
-    }
-    footer{border-top:1px solid var(--line);padding:18px 0 36px;color:#6b7280;font-size:14px}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Borderliner — Silvio di Rubbo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {--bg:#fff;--text:#111315;--line:#e5e7eb;--muted:#6b7280;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html {scroll-behavior:smooth;}
+  [id]{scroll-margin-top:88px;}
+  body{font-family:Inter, sans-serif;background:var(--bg);color:var(--text);}
+  a{text-decoration:none;color:inherit}
+  header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+  .wrap{max-width:1120px;margin:auto;padding:0 24px}
+  .top{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{font-family:'Source Serif 4',serif;font-weight:700;font-size:22px}
+  nav{display:flex;gap:22px}
+  nav a{display:inline-flex;align-items:center;border-bottom:2px solid transparent;height:64px;color:var(--muted)}
+  nav a.active{border-bottom-color:var(--text);color:var(--text)}
+  .hero{text-align:center;padding:42px 0}
+  .hero h1{font-family:'Source Serif 4',serif;font-size:44px;margin-bottom:12px}
+  .hero p{max-width:800px;margin:auto;color:var(--muted);line-height:1.5}
+  .contact{margin-top:16px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  .pill{border:1px solid var(--line);border-radius:999px;padding:8px 14px;}
+  .portrait{max-width:600px;margin:24px auto 0;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+  .portrait img{width:100%;display:block}
+  .sections{padding:40px 0;border-top:1px solid var(--line)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+  .card{border:1px solid var(--line);border-radius:12px;padding:18px}
+  .card h2{font-family:'Source Serif 4',serif;font-size:20px;margin-bottom:6px}
+  .card p{color:var(--muted);font-size:15px;line-height:1.4}
+  footer{border-top:1px solid var(--line);padding:18px 0;margin-top:40px;color:var(--muted);font-size:14px}
+</style>
 </head>
 <body>
-  <header>
-    <div class="wrap top">
-      <div class="brand">Borderliner</div>
-      <nav>
-        <a class="active" href="#home">Home</a>
-        <a href="#business">Business Analysis</a>
-        <a href="#borderliner">Borderliner</a>
-        <a href="#university">University</a>
-        <a href="#cinema">Cinema</a>
-        <a href="#wine">Wine</a>
-      </nav>
+<header>
+  <div class="wrap top">
+    <div class="brand">Borderliner</div>
+    <nav>
+      <a class="active" href="#home">Home</a>
+      <a href="#business">Business Analysis</a>
+      <a href="#borderliner">Borderliner</a>
+      <a href="#university">University</a>
+      <a href="#cinema">Cinema</a>
+      <a href="#wine">Wine</a>
+    </nav>
+  </div>
+</header>
+<main id="home" class="wrap">
+  <section class="hero">
+    <h1>Silvio di Rubbo</h1>
+    <p>Business analysis, data, and culture. I turn complex information into clear decisions — and write about how policy, history, wine, and cinema shape the world we live in.</p>
+    <div class="contact">
+      <a class="pill" href="mailto:silvio.dirubbo21@gmail.com">Email</a>
+      <a class="pill" href="https://linkedin.com/in/silvio-dirubbo" target="_blank">LinkedIn</a>
+      <a class="pill" href="#borderliner">Borderliner</a>
+      <a class="pill" href="#cinema">Letterboxd</a>
     </div>
-  </header>
-
-  <main id="home" class="wrap">
-    <!-- Minimal summary + contacts -->
-    <section class="hero" aria-labelledby="intro">
-      <h1 id="intro" class="h1">Silvio di Rubbo</h1>
-      <p class="lead">Business analysis, data, and culture. I turn complex information into clear decisions — and write about how policy, history, wine, and cinema shape the world we live in.</p>
-      <div class="contact">
-        <a class="pill" href="mailto:silvio.dirubbo21@gmail.com">Email</a>
-        <a class="pill" href="https://linkedin.com/in/silvio-dirubbo" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="pill" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
-        <a class="pill" href="#borderliner">Borderliner</a>
-        <a class="pill" href="#cinema">Letterboxd</a>
+    <div class="portrait"><img src="your-image.jpg" alt="Silvio di Rubbo" /></div>
+  </section>
+  <section class="sections">
+    <div class="grid">
+      <div id="business" class="card">
+        <h2>Business Analysis</h2>
+        <p>Models and dashboards for pricing, assortment, and performance readouts.</p>
       </div>
-      <!-- Portrait below summary -->
-      <figure class="portrait">
-        <img src="https://images.unsplash.com/photo-1520975922284-ec47c628d6d4?q=80&w=1200&auto=format&fit=crop" alt="Silvio di Rubbo portrait or cover" />
-      </figure>
-    </section>
-
-    <!-- Sections overview (cards) -->
-    <section class="sections" id="sections">
-      <div class="grid">
-        <article id="business" class="card">
-          <h2>Business Analysis</h2>
-          <p>Models and dashboards for pricing, assortment, and performance readouts.</p>
-          <div class="chips">
-            <span class="chip">Power BI</span><span class="chip">Power Query</span><span class="chip">Managerial Accounting</span>
-          </div>
-          <p style="margin-top:12px"><a href="#">Repository folder ↗</a></p>
-        </article>
-        <article id="borderliner" class="card">
-          <h2>Borderliner</h2>
-          <p>Essays on Switzerland, economics, politics, cinema, and wine.</p>
-          <p style="margin-top:12px"><a href="#">Read the latest ↗</a> · <a href="#">All issues ↗</a></p>
-        </article>
-        <article id="university" class="card">
-          <h2>University</h2>
-          <p>Academic work and notes from Bocconi: art markets, heritage, and museums — with grades and selected papers.</p>
-          <p style="margin-top:12px"><a href="#">Overview ↗</a></p>
-        </article>
-        <article id="cinema" class="card">
-          <h2>Cinema</h2>
-          <p>Short reviews and curated lists. Northern Ireland on screen; Thelma; the endurance of boxing films.</p>
-          <p style="margin-top:12px"><a href="#">Letterboxd ↗</a></p>
-        </article>
-        <article id="wine" class="card">
-          <h2>Wine</h2>
-          <p>AIS Sommelier. Notes on Swiss regions, grape varieties, and tastings.</p>
-          <p style="margin-top:12px"><a href="#">Tasting notes ↗</a> · <a href="#">Cellar sheet ↗</a></p>
-        </article>
+      <div id="borderliner" class="card">
+        <h2>Borderliner</h2>
+        <p>Essays on Switzerland, economics, politics, cinema, and wine.</p>
       </div>
-    </section>
-  </main>
-
-  <footer class="wrap">
-    <small>© <span id="y"></span> Silvio di Rubbo</small>
-  </footer>
-
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-    // Make top nav underline active when clicking
-    document.querySelectorAll('header nav a').forEach(a=>{
-      a.addEventListener('click', e=>{
-        const id=a.getAttribute('href');
-        if(id.startsWith('#')){
-          e.preventDefault();
-          document.querySelectorAll('header nav a').forEach(x=>x.classList.remove('active'));
-          a.classList.add('active');
-          document.querySelector(id)?.scrollIntoView({behavior:'smooth',block:'start'});
-        }
-      });
+      <div id="university" class="card">
+        <h2>University</h2>
+        <p>Academic work and notes from Bocconi.</p>
+      </div>
+      <div id="cinema" class="card">
+        <h2>Cinema</h2>
+        <p>Short reviews and curated lists.</p>
+      </div>
+      <div id="wine" class="card">
+        <h2>Wine</h2>
+        <p>AIS Sommelier. Notes on Swiss regions and tastings.</p>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="wrap">
+  <small>© <span id="y"></span> Silvio di Rubbo</small>
+</footer>
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+  document.querySelectorAll('header nav a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.querySelectorAll('header nav a').forEach(x => x.classList.remove('active'));
+      a.classList.add('active');
     });
-  </script>
+  });
+</script>
 </body>
 </html>
