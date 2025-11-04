@@ -2272,17 +2272,3 @@ button,
     border-top: 0;
     margin-top: 0;
     padding-top: 0; }
-
-/* Force line break in homepage title on mobile */
-@media (max-width: 736px) {
-  #banner h1 {
-    white-space: normal; /* allow wrapping */
-    word-break: break-word;
-  }
-
-  /* optional: reduce size slightly for balance */
-  #banner h1 {
-    font-size: 2em;
-    line-height: 1.2em;
-  }
-}
