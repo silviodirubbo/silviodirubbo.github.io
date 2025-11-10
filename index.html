@@ -14,61 +14,56 @@
 
 <!-- 🎨 Custom Earth-Tone Palette -->
 <style>
-  :root {
-    --main-color: #8B7355;
-    --main-color-alt: #A6906C;
-    --sidebar-bg: #D9CBB3;
-    --background-color: #FAF7F2;
-    --line-color: #E5D8C0;
-    --text-color: #3A3A3A;
+  /* ===== Palette ===== */
+  :root{
+    --sidebar-bg:   #4A382A;  /* marrone pieno, elegante */
+    --sidebar-text: #F3EDE3;  /* testo chiaro in sidebar */
+    --beige-accent: #D9CBB3;  /* beige sabbia per linee & icone */
+    --page-bg:      #FAF7F2;  /* bianco crema */
+    --text-color:   #2F2A25;  /* testo principale */
   }
 
-  body {
-    background-color: var(--background-color);
+  /* ===== Sfondo e testo generali ===== */
+  body{ background-color: var(--page-bg); color: var(--text-color); }
+
+  /* ===== Sidebar (colonna sinistra) ===== */
+  #sidebar{ background-color: var(--sidebar-bg); color: var(--sidebar-text); }
+  #sidebar a,
+  #sidebar strong,
+  #sidebar h1, #sidebar h2, #sidebar h3, #sidebar h4, #sidebar h5, #sidebar h6{ color: var(--sidebar-text); }
+  /* righe/menu in sidebar del colore beige per armonia */
+  #sidebar hr,
+  #sidebar .opener:before,
+  #sidebar .inner > hr{ border-color: var(--beige-accent); background-color: var(--beige-accent); }
+
+  /* ===== Linee/underline/marker (ovunque) in beige ===== */
+  hr,
+  .major:after,                 /* underline dei titoli sezione del tema */
+  #header .logo:after,
+  #header .logo:before{ border-color: var(--beige-accent) !important; background-color: var(--beige-accent) !important; }
+
+  /* ===== Icone (social, hamburger, ecc.) in beige ===== */
+  .icons a,
+  #header .icons a,
+  #header .toggle,
+  .icon{ color: var(--beige-accent) !important; }
+  .icons a:hover,
+  #header .icons a:hover{ opacity: .85; }
+
+  /* (facoltativo) bordo dei bottoni in beige per coerenza con le linee/icône */
+  .button{
+    border: 1px solid var(--beige-accent);
     color: var(--text-color);
   }
-
-  #sidebar {
-    background-color: var(--sidebar-bg);
-  }
-
-  h1, h2, h3, h4, h5, h6, strong {
-    color: var(--main-color);
-  }
-
-  a {
-    color: var(--main-color);
-    transition: color 0.3s ease;
-  }
-  a:hover {
-    color: var(--main-color-alt);
-  }
-
-  hr, .major:after {
-    border-color: var(--line-color);
-    background-color: var(--line-color);
-  }
-
-  .button {
-    border: 1px solid var(--main-color);
-    color: var(--main-color);
-    background-color: transparent;
-    transition: all 0.3s ease;
-  }
-
-  .button:hover {
-    background-color: var(--main-color);
-    color: #fff !important;
-  }
-
-  .icons a {
-    color: var(--main-color);
-  }
-  .icons a:hover {
-    color: var(--main-color-alt);
+  .button:hover{
+    background-color: var(--beige-accent);
+    color: #3A2F26 !important; /* testo scuro sopra il beige */
   }
 </style>
 
+    
+
+<!-- END of 🎨 Custom Earth-Tone Palette -->
 
     
 
@@ -356,6 +351,7 @@
     <script src="assets/js/main.js"></script>
   </body>
 </html>
+
 
 
 
