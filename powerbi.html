@@ -1,5 +1,68 @@
 <!DOCTYPE HTML>
 <html>
+
+  <!-- 🎨 Custom Earth-Tone Palette -->
+<style>
+  /* ===== Palette base ===== */
+  :root{
+    --page-bg:      #FAF7F2;  /* crema */
+    --text-color:   #2F2A25;  /* testo principale */
+    --sidebar-bg:   #3B2A21;  /* marrone pieno */
+    --sidebar-text: #F8F4ED;  /* testo chiaro */
+    --beige:        #D9CBB3;  /* beige accenti */
+  }
+
+  body{ background: var(--page-bg); color: var(--text-color); }
+
+  /* ===== Sidebar leggibile + linee beige ===== */
+  #sidebar{ background: var(--sidebar-bg) !important; color: var(--sidebar-text) !important; }
+  #sidebar, #sidebar *{ color: var(--sidebar-text) !important; }
+  #sidebar hr, #sidebar .inner > hr{ border-color: var(--beige) !important; background: var(--beige) !important; }
+  /* Riga sotto "Menu" (header.major dentro la sidebar) */
+  #sidebar .major:after{ background: var(--beige) !important; border-color: var(--beige) !important; }
+
+  /* ===== Riga lunga sotto header principale in beige ===== */
+  /* Tema Editorial: spesso usa pseudo-elementi per la lineetta */
+  #header .logo:after,
+  #header .logo:before,
+  #header:after,
+  #header .inner:after{
+    background: var(--beige) !important;
+    border-color: var(--beige) !important;
+  }
+
+  /* ===== Link: underline/dotted in beige (es. Borderliner/Letterboxd) ===== */
+  a{ color: inherit; border-bottom-color: var(--beige) !important; }
+  a:hover{ opacity:.9; border-bottom-color: var(--beige) !important; }
+
+  /* ===== Bottoni: bordo beige + hover pieno beige ===== */
+  .button{
+    /* il tema usa spesso box-shadow per il bordo */
+    box-shadow: inset 0 0 0 2px var(--beige) !important;
+    border-color: var(--beige) !important; /* per sicurezza */
+    color: var(--text-color) !important;
+    background: transparent !important;
+    transition: all .25s ease;
+  }
+  .button:hover{
+    background: var(--beige) !important;
+    color: #3A2F26 !important;
+  }
+
+  /* ===== Titoli/underline di sezione (lineetta sotto h2) ===== */
+  .major:after{ background: var(--beige) !important; }
+
+  /* ===== Icone rosse delle feature (What I do) → beige ===== */
+  /* icona dentro il rombo */
+  .features .icon,
+  .features .icon:before{
+    color: var(--beige) !important;
+    border-color: var(--beige) !important;
+  }
+</style>
+
+<!-- END of 🎨 Custom Earth-Tone Palette -->
+  
   <head>
     <title>Power BI Projects — Silvio Di Rubbo</title>
     <meta charset="utf-8" />
