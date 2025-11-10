@@ -77,51 +77,43 @@
   /* Qui ci sono già i tuoi stili attuali */
 </style>
 
-<!-- 🎨 Finiture: linee e icone beige -->
 <style>
-  hr,
-  .divider,
-  .inner > hr,
-  #footer hr,
-  #main > section,
-  .posts article,
-  .contact,
-  .split > section,
-  .features,
-  .posts,
-  .contact > section,
-  .inner section {
-    border-color: #D9CBB3 !important;
-    background-color: #D9CBB3 !important;
+  /* colore beige usato per gli accenti */
+  :root { --beige: #D9CBB3; }
+
+  /* 1) Riga sotto "Menu" nella sidebar */
+  #sidebar .major:after {
+    background: var(--beige) !important;
+    border-color: var(--beige) !important;
   }
 
-  #footer .icons:before,
-  #footer .icons:after,
-  #footer .inner > hr,
-  #footer .split > section {
-    border-color: #D9CBB3 !important;
-    background-color: #D9CBB3 !important;
+  /* 2) Riga lunga sotto l’header principale */
+  #header .inner:after,
+  #header .logo:after,
+  #header .logo:before {
+    background: var(--beige) !important;
+    border-color: var(--beige) !important;
   }
 
-  #footer .icons a,
-  #footer .icons .icon,
-  .icons.alt a,
-  .icons.alt .icon,
-  #footer .icons li a {
-    color: #D9CBB3 !important;
-    fill: #D9CBB3 !important;
-    border-color: #D9CBB3 !important;
-    transition: opacity 0.2s ease;
+  /* 3) Righe sotto i titoli di sezione (What I do, Projects, About, Contact) */
+  .major:after {
+    background: var(--beige) !important;
   }
 
-  #footer .icons a:hover,
-  #footer .icons .icon:hover {
-    opacity: 0.8;
+  /* 4) Sottolineature/underline dei link in beige (Borderliner, Letterboxd, ecc.) */
+  a { border-bottom-color: var(--beige) !important; }
+
+  /* 5) Linee tra le icone in fondo pagina (elenco verticale) in beige */
+  .icons.alt li { border-top-color: var(--beige) !important; }
+  .icons.alt li:last-child { border-bottom-color: var(--beige) !important; }
+
+  /* 6) Colore delle icone in fondo pagina in beige */
+  #footer .icons a, #footer .icons .icon, .icons.alt a, .icons.alt .icon {
+    color: var(--beige) !important;
+    fill: var(--beige) !important;
+    border-color: var(--beige) !important;
   }
 </style>
-</head>
-
-
 
 
 <!-- END of 🎨 Custom Earth-Tone Palette -->
@@ -412,6 +404,7 @@
     <script src="assets/js/main.js"></script>
   </body>
 </html>
+
 
 
 
