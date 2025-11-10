@@ -14,54 +14,74 @@
 
 <!-- 🎨 Custom Earth-Tone Palette -->
 <style>
-  /* ===== Palette ===== */
+  /* ====== Palette ====== */
   :root{
-    --sidebar-bg:   #4A382A;  /* marrone pieno, elegante */
-    --sidebar-text: #F3EDE3;  /* testo chiaro in sidebar */
-    --beige-accent: #D9CBB3;  /* beige sabbia per linee & icone */
-    --page-bg:      #FAF7F2;  /* bianco crema */
+    --page-bg:      #FAF7F2;  /* crema */
     --text-color:   #2F2A25;  /* testo principale */
+    --sidebar-bg:   #3B2A21;  /* marrone pieno */
+    --sidebar-text: #F8F4ED;  /* testo chiarissimo in sidebar */
+    --beige-accent: #D9CBB3;  /* beige per linee e icone */
   }
 
-  /* ===== Sfondo e testo generali ===== */
-  body{ background-color: var(--page-bg); color: var(--text-color); }
+  /* ====== Sfondo e testo generali ====== */
+  body{ background: var(--page-bg); color: var(--text-color); }
 
-  /* ===== Sidebar (colonna sinistra) ===== */
-  #sidebar{ background-color: var(--sidebar-bg); color: var(--sidebar-text); }
-  #sidebar a,
-  #sidebar strong,
-  #sidebar h1, #sidebar h2, #sidebar h3, #sidebar h4, #sidebar h5, #sidebar h6{ color: var(--sidebar-text); }
-  /* righe/menu in sidebar del colore beige per armonia */
+  /* ====== Sidebar (colonna sinistra) ====== */
+  #sidebar{
+    background: var(--sidebar-bg) !important;
+    color: var(--sidebar-text) !important;
+  }
+  /* Testo e link leggibili in sidebar */
+  #sidebar, #sidebar *{
+    color: var(--sidebar-text) !important;
+  }
+  /* Divisori/linee della sidebar in beige */
   #sidebar hr,
-  #sidebar .opener:before,
-  #sidebar .inner > hr{ border-color: var(--beige-accent); background-color: var(--beige-accent); }
+  #sidebar .inner > hr,
+  #sidebar nav ul li{ 
+    border-color: var(--beige-accent) !important;
+  }
+  /* Sottolinea del menu (lineette) in beige tenue */
+  #sidebar nav ul li a{
+    border-bottom-color: var(--beige-accent) !important;
+  }
 
-  /* ===== Linee/underline/marker (ovunque) in beige ===== */
+  /* ====== Linee globali (sotto logo, titoli di sezione, hr) in beige ====== */
   hr,
-  .major:after,                 /* underline dei titoli sezione del tema */
+  .major:after,
   #header .logo:after,
-  #header .logo:before{ border-color: var(--beige-accent) !important; background-color: var(--beige-accent) !important; }
+  #header .logo:before,
+  #header:after,
+  #header .inner:after{
+    border-color: var(--beige-accent) !important;
+    background-color: var(--beige-accent) !important;
+  }
 
-  /* ===== Icone (social, hamburger, ecc.) in beige ===== */
+  /* ====== Icone (social, hamburger) in beige ====== */
   .icons a,
   #header .icons a,
+  .icon,
   #header .toggle,
-  .icon{ color: var(--beige-accent) !important; }
+  #header .toggle:before{
+    color: var(--beige-accent) !important;
+    border-color: var(--beige-accent) !important;
+  }
   .icons a:hover,
-  #header .icons a:hover{ opacity: .85; }
+  #header .icons a:hover{ opacity:.85; }
 
-  /* (facoltativo) bordo dei bottoni in beige per coerenza con le linee/icône */
+  /* ====== Bottoni coerenti (bordo beige, hover pieno beige) ====== */
   .button{
-    border: 1px solid var(--beige-accent);
-    color: var(--text-color);
+    border: 1px solid var(--beige-accent) !important;
+    color: var(--text-color) !important;
+    background: transparent !important;
+    transition: all .25s ease;
   }
   .button:hover{
-    background-color: var(--beige-accent);
-    color: #3A2F26 !important; /* testo scuro sopra il beige */
+    background: var(--beige-accent) !important;
+    color: #3A2F26 !important;
   }
 </style>
 
-    
 
 <!-- END of 🎨 Custom Earth-Tone Palette -->
 
@@ -351,6 +371,7 @@
     <script src="assets/js/main.js"></script>
   </body>
 </html>
+
 
 
 
