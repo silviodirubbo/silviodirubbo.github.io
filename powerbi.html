@@ -1,5 +1,4 @@
 <!DOCTYPE HTML>
-<!-- Power BI Projects -->
 <html>
   <head>
     <title>Power BI Projects — Silvio Di Rubbo</title>
@@ -7,39 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>
+      /* Più spazio in alto nella pagina */
+      #main .inner { padding-top: 4.5rem; }
+
+      /* Descrizione in minuscole sotto il titolo */
+      .powerbi-desc {
+        text-transform: lowercase;
+        letter-spacing: 0.02em;
+      }
+
+      /* Linea divisoria più corta tra card (se presente) */
+      .posts article + article { border-left-color: rgba(0,0,0,0.08); }
+
+      /* Spazio extra tra header e sezioni */
+      header.major { margin-bottom: 2.25rem; }
+    </style>
   </head>
   <body class="is-preload">
     <div id="wrapper">
+
+      <!-- Contenuto principale -->
       <div id="main">
         <div class="inner">
 
           <header class="major">
             <h2>Power BI Projects</h2>
+            <p class="powerbi-desc">
+              a selection of power bi reports designed to complement my tableau work, offering alternative perspectives and flexibility with the available data.
+              each report focuses on clarity, interactivity, and decision-oriented insights.
+            </p>
             <p>
-              A selection of Power BI reports designed to complement my Tableau work, offering alternative perspectives
-              and flexibility with the available data. Each report focuses on clarity, interactivity, and decision-oriented insights.
+              Power BI dashboards are available here as <strong>PDF only</strong>. As an individual user, I do not hold a license that allows public online publishing of interactive reports.
             </p>
           </header>
 
           <section class="posts">
 
+            <!-- Unico progetto attuale -->
             <article>
-              <h3>Sales Overview</h3>
+              <h3>Sales Dashboard</h3>
               <p>
-                Overview of sales trends, regional performance, and contribution analysis using dynamic measures and date intelligence.
+                Overview of sales trends, regional performance, and contribution analysis using dynamic measures and date intelligence.  
+                This PDF presents the structure, visuals, and logic of the interactive report.
               </p>
               <ul class="actions">
-                <li><a href="assets/powerbi/Sales_Overview.pdf" class="button" target="_blank" rel="noopener">View PDF</a></li>
-              </ul>
-            </article>
-
-            <article>
-              <h3>Market Tracker</h3>
-              <p>
-                Category growth and market share evolution with flexible slicers and drill-down exploration.
-              </p>
-              <ul class="actions">
-                <li><a href="assets/powerbi/Market_Tracker.pdf" class="button" target="_blank" rel="noopener">View PDF</a></li>
+                <li>
+                  <a href="assets/powerbi/Sales_Dashboard.pdf" class="button" target="_blank" rel="noopener">
+                    View PDF
+                  </a>
+                </li>
               </ul>
             </article>
 
@@ -48,11 +64,20 @@
         </div>
       </div>
 
-      <!-- Sidebar / Footer come nel tuo tema -->
+      <!-- Sidebar sinistra (colonna grigia) -->
       <div id="sidebar">
         <div class="inner">
-          <!-- Puoi copiare qui il contenuto della sidebar da generic.html se lo usi -->
-          <!-- Footer -->
+
+          <nav id="menu">
+            <header class="major">
+              <h2>Navigation</h2>
+            </header>
+            <ul>
+              <li><a href="index.html">← Back to Portfolio</a></li>
+              <li><a href="https://public.tableau.com/app/profile/silvio.dirubbo" target="_blank" rel="noopener">View on Tableau</a></li>
+            </ul>
+          </nav>
+
           <footer id="footer">
             <p class="copyright">&copy; Silvio Di Rubbo.</p>
           </footer>
