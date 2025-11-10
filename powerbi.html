@@ -8,18 +8,27 @@
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
     <style>
       /* Più spazio in alto nella pagina */
-      #main .inner { padding-top: 4.5rem; }
+      #main .inner { padding-top: 3.5rem; }
 
-      /* Descrizione in minuscole sotto il titolo */
+      /* Descrizione in minuscole ma con A maiuscola */
       .powerbi-desc {
-        text-transform: lowercase;
+        text-transform: none;
         letter-spacing: 0.02em;
       }
 
-      /* Linea divisoria più corta tra card (se presente) */
-      .posts article + article { border-left-color: rgba(0,0,0,0.08); }
+      /* Migliora layout card */
+      .posts article {
+        text-align: left;
+      }
 
-      /* Spazio extra tra header e sezioni */
+      .posts img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 6px;
+        margin-bottom: 1rem;
+      }
+
       header.major { margin-bottom: 2.25rem; }
     </style>
   </head>
@@ -33,8 +42,8 @@
           <header class="major">
             <h2>Power BI Projects</h2>
             <p class="powerbi-desc">
-              A selection of power bi reports designed to complement my tableau work, offering alternative perspectives and flexibility with the available data.
-              each report focuses on clarity, interactivity, and decision-oriented insights.
+              A selection of Power BI reports designed to complement my Tableau work, offering alternative perspectives and flexibility with the available data.
+              Each report focuses on clarity, interactivity, and decision-oriented insights.
             </p>
             <p>
               Power BI dashboards are available here as <strong>PDF only</strong>. As an individual user, I do not hold a license that allows public online publishing of interactive reports.
@@ -45,9 +54,12 @@
 
             <!-- Unico progetto attuale -->
             <article>
+              <a href="assets/powerbi/Sales_Dashboard.pdf" target="_blank" rel="noopener">
+                <img src="assets/powerbi/Sales_Dashboard.jpg" alt="Sales Dashboard Preview" />
+              </a>
               <h3>Sales Dashboard</h3>
               <p>
-                Overview of sales trends, regional performance, and contribution analysis using dynamic measures and date intelligence.  
+                Overview of sales trends, regional performance, and contribution analysis using dynamic measures and date intelligence.
                 This PDF presents the structure, visuals, and logic of the interactive report.
               </p>
               <ul class="actions">
@@ -74,7 +86,7 @@
             </header>
             <ul>
               <li><a href="index.html">← Back to Portfolio</a></li>
-              <li><a href="https://public.tableau.com/app/profile/silvio.di.rubbo/vizzes" target="_blank" rel="noopener">View on Tableau</a></li>
+              <li><a href="https://public.tableau.com/app/profile/silvio.dirubbo" target="_blank" rel="noopener">View on Tableau</a></li>
             </ul>
           </nav>
 
@@ -93,3 +105,4 @@
     <script src="assets/js/main.js"></script>
   </body>
 </html>
+
