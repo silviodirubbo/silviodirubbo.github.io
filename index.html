@@ -14,73 +14,64 @@
 
 <!-- 🎨 Custom Earth-Tone Palette -->
 <style>
-  /* ====== Palette ====== */
+  /* ===== Palette base ===== */
   :root{
     --page-bg:      #FAF7F2;  /* crema */
     --text-color:   #2F2A25;  /* testo principale */
     --sidebar-bg:   #3B2A21;  /* marrone pieno */
-    --sidebar-text: #F8F4ED;  /* testo chiarissimo in sidebar */
-    --beige-accent: #D9CBB3;  /* beige per linee e icone */
+    --sidebar-text: #F8F4ED;  /* testo chiaro */
+    --beige:        #D9CBB3;  /* beige accenti */
   }
 
-  /* ====== Sfondo e testo generali ====== */
   body{ background: var(--page-bg); color: var(--text-color); }
 
-  /* ====== Sidebar (colonna sinistra) ====== */
-  #sidebar{
-    background: var(--sidebar-bg) !important;
-    color: var(--sidebar-text) !important;
-  }
-  /* Testo e link leggibili in sidebar */
-  #sidebar, #sidebar *{
-    color: var(--sidebar-text) !important;
-  }
-  /* Divisori/linee della sidebar in beige */
-  #sidebar hr,
-  #sidebar .inner > hr,
-  #sidebar nav ul li{ 
-    border-color: var(--beige-accent) !important;
-  }
-  /* Sottolinea del menu (lineette) in beige tenue */
-  #sidebar nav ul li a{
-    border-bottom-color: var(--beige-accent) !important;
-  }
+  /* ===== Sidebar leggibile + linee beige ===== */
+  #sidebar{ background: var(--sidebar-bg) !important; color: var(--sidebar-text) !important; }
+  #sidebar, #sidebar *{ color: var(--sidebar-text) !important; }
+  #sidebar hr, #sidebar .inner > hr{ border-color: var(--beige) !important; background: var(--beige) !important; }
+  /* Riga sotto "Menu" (header.major dentro la sidebar) */
+  #sidebar .major:after{ background: var(--beige) !important; border-color: var(--beige) !important; }
 
-  /* ====== Linee globali (sotto logo, titoli di sezione, hr) in beige ====== */
-  hr,
-  .major:after,
+  /* ===== Riga lunga sotto header principale in beige ===== */
+  /* Tema Editorial: spesso usa pseudo-elementi per la lineetta */
   #header .logo:after,
   #header .logo:before,
   #header:after,
   #header .inner:after{
-    border-color: var(--beige-accent) !important;
-    background-color: var(--beige-accent) !important;
+    background: var(--beige) !important;
+    border-color: var(--beige) !important;
   }
 
-  /* ====== Icone (social, hamburger) in beige ====== */
-  .icons a,
-  #header .icons a,
-  .icon,
-  #header .toggle,
-  #header .toggle:before{
-    color: var(--beige-accent) !important;
-    border-color: var(--beige-accent) !important;
-  }
-  .icons a:hover,
-  #header .icons a:hover{ opacity:.85; }
+  /* ===== Link: underline/dotted in beige (es. Borderliner/Letterboxd) ===== */
+  a{ color: inherit; border-bottom-color: var(--beige) !important; }
+  a:hover{ opacity:.9; border-bottom-color: var(--beige) !important; }
 
-  /* ====== Bottoni coerenti (bordo beige, hover pieno beige) ====== */
+  /* ===== Bottoni: bordo beige + hover pieno beige ===== */
   .button{
-    border: 1px solid var(--beige-accent) !important;
+    /* il tema usa spesso box-shadow per il bordo */
+    box-shadow: inset 0 0 0 2px var(--beige) !important;
+    border-color: var(--beige) !important; /* per sicurezza */
     color: var(--text-color) !important;
     background: transparent !important;
     transition: all .25s ease;
   }
   .button:hover{
-    background: var(--beige-accent) !important;
+    background: var(--beige) !important;
     color: #3A2F26 !important;
   }
+
+  /* ===== Titoli/underline di sezione (lineetta sotto h2) ===== */
+  .major:after{ background: var(--beige) !important; }
+
+  /* ===== Icone rosse delle feature (What I do) → beige ===== */
+  /* icona dentro il rombo */
+  .features .icon,
+  .features .icon:before{
+    color: var(--beige) !important;
+    border-color: var(--beige) !important;
+  }
 </style>
+
 
 
 <!-- END of 🎨 Custom Earth-Tone Palette -->
@@ -371,6 +362,7 @@
     <script src="assets/js/main.js"></script>
   </body>
 </html>
+
 
 
 
