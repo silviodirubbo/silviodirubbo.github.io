@@ -634,11 +634,15 @@
   }
 
   .reveal {
-    opacity: 0;
-    transform: translateY(24px);
+    opacity: 1;
+    transform: translateY(0);
     transition: opacity 0.7s ease, transform 0.7s ease;
   }
-  .reveal.visible {
+  .js-ready .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  .js-ready .reveal.visible {
     opacity: 1;
     transform: translateY(0);
   }
@@ -697,7 +701,7 @@
         <div class="hero-meta-item">Permit &nbsp;<span>B EU/AELE · valid 01/2028</span></div>
       </div>
       <div class="hero-cta">
-        <a href="/cdn-cgi/l/email-protection#16657f7a607f7938727f6463747479242756717b777f7a3875797b" class="btn-primary">Get in touch</a>
+        <a href="mailto:silvio.dirubbo21@gmail.com" class="btn-primary">Get in touch</a>
         <a href="https://silviodirubbo.github.io/Resume.pdf" class="btn-secondary" target="_blank">Download CV</a>
       </div>
     </div>
@@ -963,9 +967,9 @@
         </p>
       </div>
       <div class="contact-links">
-        <a href="/cdn-cgi/l/email-protection#c7b4aeabb1aea8e9a3aeb5b2a5a5a8f5f687a0aaa6aeabe9a4a8aa" class="contact-link-item">
+        <a href="mailto:silvio.dirubbo21@gmail.com" class="contact-link-item">
           <span class="contact-link-label">Email</span>
-          <span class="contact-link-value"><span class="__cf_email__" data-cfemail="384b51544e5157165c514a4d5a5a570a09785f55595154165b5755">[email&#160;protected]</span></span>
+          <span class="contact-link-value">silvio.dirubbo21@gmail.com</span>
         </a>
         <a href="https://www.linkedin.com/in/silvio-dirubbo" target="_blank" class="contact-link-item">
           <span class="contact-link-label">LinkedIn</span>
@@ -993,14 +997,26 @@
   <span class="footer-copy">© 2026 Silvio di Rubbo</span>
   <span class="footer-permit">Permit B EU/AELE · Geneva · silviodirubbo.github.io</span>
 </footer>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Nav scroll state
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
+<script>
+  const nav = document.getElementById("nav");
+  window.addEventListener("scroll", () => {
+    nav.classList.toggle("scrolled", window.scrollY > 40);
   });
 
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => 
+  if ("IntersectionObserver" in window) {
+    document.body.classList.add("js-ready");
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -30px 0px" });
+    reveals.forEach(el => observer.observe(el));
+  }
+</script>
+
+</body>
+</html>
