@@ -1,190 +1,494 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Power BI Reports — Silvio di Rubbo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 
-  <!-- 🎨 Custom Earth-Tone Palette -->
 <style>
-  /* ===== Palette base ===== */
-  :root{
-    --page-bg:      #FAF7F2;  /* crema */
-    --text-color:   #2F2A25;  /* testo principale */
-    --sidebar-bg:   #3B2A21;  /* marrone pieno */
-    --sidebar-text: #F8F4ED;  /* testo chiaro */
-    --beige:        #D9CBB3;  /* beige accenti */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --off-white: #F7F5F0;
+    --warm-white: #FDFCFA;
+    --ink: #1A1814;
+    --ink-mid: #4A4640;
+    --ink-light: #8A8480;
+    --ink-faint: #C8C4BE;
+    --accent: #2C4A3E;
+    --accent-warm: #8B6914;
+    --rule: #E2DED8;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', 'Courier New', monospace;
   }
 
-  body{ background: var(--page-bg); color: var(--text-color); }
+  html { scroll-behavior: smooth; }
 
-  /* ===== Sidebar leggibile + linee beige ===== */
-  #sidebar{ background: var(--sidebar-bg) !important; color: var(--sidebar-text) !important; }
-  #sidebar, #sidebar *{ color: var(--sidebar-text) !important; }
-  #sidebar hr, #sidebar .inner > hr{ border-color: var(--beige) !important; background: var(--beige) !important; }
-  /* Riga sotto "Menu" (header.major dentro la sidebar) */
-  #sidebar .major:after{ background: var(--beige) !important; border-color: var(--beige) !important; }
-
-  /* ===== Riga lunga sotto header principale in beige ===== */
-  /* Tema Editorial: spesso usa pseudo-elementi per la lineetta */
-  #header .logo:after,
-  #header .logo:before,
-  #header:after,
-  #header .inner:after{
-    background: var(--beige) !important;
-    border-color: var(--beige) !important;
+  body {
+    background: var(--warm-white);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* ===== Link: underline/dotted in beige (es. Borderliner/Letterboxd) ===== */
-  a{ color: inherit; border-bottom-color: var(--beige) !important; }
-  a:hover{ opacity:.9; border-bottom-color: var(--beige) !important; }
-
-  /* ===== Bottoni: bordo beige + hover pieno beige ===== */
-  .button{
-    /* il tema usa spesso box-shadow per il bordo */
-    box-shadow: inset 0 0 0 2px var(--beige) !important;
-    border-color: var(--beige) !important; /* per sicurezza */
-    color: var(--text-color) !important;
-    background: transparent !important;
-    transition: all .25s ease;
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: var(--warm-white);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
   }
-  .button:hover{
-    background: var(--beige) !important;
-    color: #3A2F26 !important;
+  nav.scrolled { border-bottom-color: var(--rule); }
+
+  .nav-name {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
   }
 
-  /* ===== Titoli/underline di sezione (lineetta sotto h2) ===== */
-  .major:after{ background: var(--beige) !important; }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
 
-  /* ===== Icone rosse delle feature (What I do) → beige ===== */
-  /* icona dentro il rombo */
-  .features .icon,
-  .features .icon:before{
-    color: var(--beige) !important;
-    border-color: var(--beige) !important;
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* LAYOUT */
+  section { padding: 7rem 4rem; }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* PAGE HEADER */
+  #header {
+    padding-top: 10rem;
+    padding-bottom: 5rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+  }
+
+  .back-link {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--ink); }
+
+  .page-title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+
+  .page-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .header-right {
+    padding-bottom: 0.4rem;
+  }
+
+  .header-desc {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--ink-mid);
+    line-height: 1.8;
+    border-left: 1px solid var(--rule);
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .license-note {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    line-height: 1.6;
+  }
+
+  /* REPORTS */
+  #reports { background: var(--warm-white); }
+
+  .report-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    padding: 3.5rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .report-item:last-child { border-bottom: 1px solid var(--rule); }
+
+  .report-preview {
+    display: block;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    transition: border-color 0.2s;
+  }
+  .report-preview:hover { border-color: var(--ink-faint); }
+
+  .report-preview img {
+    width: 100%;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .report-preview:hover img { transform: scale(1.02); }
+
+  .report-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 0.5rem;
+  }
+
+  .report-number {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+  }
+
+  .report-title {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .report-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .report-desc {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--ink-mid);
+    line-height: 1.8;
+  }
+
+  .report-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    border: 1px solid var(--rule);
+    padding: 0.3rem 0.7rem;
+  }
+
+  .report-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--warm-white);
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+  .report-link:hover { background: var(--accent); border-color: var(--accent); }
+
+  /* OTHER WORK */
+  #other { background: var(--off-white); }
+
+  .other-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .other-card {
+    background: var(--warm-white);
+    padding: 2.5rem;
+    text-decoration: none;
+    display: block;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .other-card:hover { background: #EDE9E2; }
+
+  .other-card-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 1rem;
+  }
+
+  .other-card-title {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+
+  .other-card-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .other-card-link {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2px;
+  }
+
+  .other-card-arrow {
+    position: absolute;
+    top: 2.5rem;
+    right: 2.5rem;
+    font-size: 1.1rem;
+    color: var(--ink-faint);
+    transition: transform 0.2s, color 0.2s;
+  }
+  .other-card:hover .other-card-arrow { transform: translate(3px, -3px); color: var(--ink-mid); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 1.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+  }
+
+  .footer-link {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-link:hover { color: rgba(255,255,255,0.5); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    #header { padding: 8rem 2rem 4rem; }
+    section { padding: 5rem 2rem; }
+    .header-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .report-item { grid-template-columns: 1fr; gap: 2rem; }
+    .other-grid { grid-template-columns: 1fr; }
+    footer { padding: 1.2rem 2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
   }
 </style>
+</head>
+<body>
 
-<!-- END of 🎨 Custom Earth-Tone Palette -->
-  
-  <head>
-    <title>Power BI Projects — Silvio Di Rubbo</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-    <style>
-      /* Più spazio in alto nella pagina */
-      #main .inner { padding-top: 3.5rem; }
+<!-- NAV -->
+<nav id="nav">
+  <a href="https://silviodirubbo.github.io/" class="nav-name">Silvio di Rubbo</a>
+  <ul class="nav-links">
+    <li><a href="https://silviodirubbo.github.io/#about">About</a></li>
+    <li><a href="https://silviodirubbo.github.io/#experience">Experience</a></li>
+    <li><a href="https://silviodirubbo.github.io/#skills">Skills</a></li>
+    <li><a href="https://silviodirubbo.github.io/#projects">Projects</a></li>
+    <li><a href="https://silviodirubbo.github.io/#contact">Contact</a></li>
+  </ul>
+</nav>
 
-      /* Descrizione in minuscole ma con A maiuscola */
-      .powerbi-desc {
-        text-transform: none;
-        letter-spacing: 0.02em;
-      }
+<!-- PAGE HEADER -->
+<div id="header">
+  <div class="header-inner">
+    <div>
+      <a href="https://silviodirubbo.github.io/#projects" class="back-link">← Back to portfolio</a>
+      <h1 class="page-title">Power BI<br><em>Reports</em></h1>
+    </div>
+    <div class="header-right">
+      <p class="header-desc">
+        A selection of Power BI reports built to practise and explore decision-oriented data visualisation. Each one focuses on clarity, interactivity, and practical insight — the same approach used professionally at Ralph Lauren across EMEA.
+      </p>
+      <p class="license-note">Reports available as PDF · Interactive publishing requires a Pro licence</p>
+    </div>
+  </div>
+</div>
 
-      /* Migliora layout card */
-      .posts article {
-        text-align: left;
-      }
+<!-- REPORTS -->
+<section id="reports">
+  <div class="container">
+    <p class="section-label">Reports</p>
 
-      .posts img {
-        width: 100%;
-        height: 250px;
-        object-fit: cover;
-        border-radius: 6px;
-        margin-bottom: 1rem;
-      }
-
-      header.major { margin-bottom: 2.25rem; }
-    </style>
-  </head>
-  <body class="is-preload">
-    <div id="wrapper">
-
-      <!-- Contenuto principale -->
-      <div id="main">
-        <div class="inner">
-
-          <header class="major">
-            <h2>Power BI Projects</h2>
-            <p class="powerbi-desc">
-              A selection of Power BI reports designed to complement my Tableau work, offering alternative perspectives and flexibility with the available data.
-              Each report focuses on clarity, interactivity, and decision-oriented insights.
-            </p>
-            <p>
-              Power BI dashboards are available here as <strong>PDF only</strong>. As an individual user, I do not hold a license that allows public online publishing of interactive reports.
-            </p>
-          </header>
-
-          <section class="posts">
-
-            <!-- Progetto 1 -->
-            <article>
-              <a href="assets/powerbi/Sales_Dashboard.pdf" target="_blank" rel="noopener">
-                <img src="assets/powerbi/Sales_Dashboard.jpg" alt="Sales Dashboard Preview" />
-              </a>
-              <h3>Sales Dashboard</h3>
-              <p>
-                Overview of sales trends, regional performance, and contribution analysis using dynamic measures and date intelligence.
-                This PDF presents the structure, visuals, and logic of the interactive report.
-              </p>
-              <ul class="actions">
-                <li>
-                  <a href="assets/powerbi/Sales_Dashboard.pdf" class="button" target="_blank" rel="noopener">
-                    View PDF
-                  </a>
-                </li>
-              </ul>
-            </article>
-
-            <!-- Progetto 2 -->
-             <article>
-              <a href="assets/powerbi/Sales_Dashboard_2.pdf" target="_blank" rel="noopener">
-                <img src="assets/powerbi/Sales_Dashboard_2.jpg" alt="Sales Dashboard Preview" />
-              </a>
-              <h3>Sales Dashboard 2</h3>
-              <p>
-                Overview of sales performance across distribution channels, US states, and monthly patterns, supported by dynamic measures and date intelligence. 
-                This dashboard highlights trends, contributions, and behaviours through clear visuals that reflect the structure and logic of the interactive report.
-              </p>
-              <ul class="actions">
-                <li>
-                  <a href="assets/powerbi/Sales_Dashboard_2.pdf" class="button" target="_blank" rel="noopener">
-                    View PDF
-                  </a>
-                </li>
-              </ul>
-            </article>
-
-          </section>
-
+    <div class="report-item">
+      <a href="https://silviodirubbo.github.io/assets/powerbi/Sales_Dashboard.pdf" target="_blank" class="report-preview">
+        <img src="https://silviodirubbo.github.io/assets/powerbi/Sales_Dashboard.jpg" alt="Sales Dashboard preview" />
+      </a>
+      <div class="report-content">
+        <p class="report-number">Report 01</p>
+        <h2 class="report-title">Sales <em>Dashboard</em></h2>
+        <p class="report-desc">
+          Overview of sales trends, regional performance, and contribution analysis using dynamic measures and date intelligence. Tracks performance across dimensions and time periods, built to support commercial decision-making at a glance.
+        </p>
+        <div class="report-tags">
+          <span class="tag">Sales Analysis</span>
+          <span class="tag">Regional Performance</span>
+          <span class="tag">Date Intelligence</span>
+          <span class="tag">Dynamic Measures</span>
         </div>
+        <a href="https://silviodirubbo.github.io/assets/powerbi/Sales_Dashboard.pdf" target="_blank" class="report-link">View PDF ↗</a>
       </div>
-
-      <!-- Sidebar sinistra (colonna grigia) -->
-      <div id="sidebar">
-        <div class="inner">
-
-          <nav id="menu">
-            <header class="major">
-              <h2>Navigation</h2>
-            </header>
-            <ul>
-              <li><a href="index.html">← Back to Portfolio</a></li>
-              <li><a href="https://public.tableau.com/app/profile/silvio.di.rubbo/vizzes" target="_blank" rel="noopener">View on Tableau</a></li>
-            </ul>
-          </nav>
-
-          <footer id="footer">
-            <p class="copyright">&copy; Silvio Di Rubbo.</p>
-          </footer>
-        </div>
-      </div>
-
     </div>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
-  </body>
-</html>
+    <div class="report-item">
+      <a href="https://silviodirubbo.github.io/assets/powerbi/Sales_Dashboard_2.pdf" target="_blank" class="report-preview">
+        <img src="https://silviodirubbo.github.io/assets/powerbi/Sales_Dashboard_2.jpg" alt="Sales Dashboard 2 preview" />
+      </a>
+      <div class="report-content">
+        <p class="report-number">Report 02</p>
+        <h2 class="report-title">Sales Dashboard <em>II</em></h2>
+        <p class="report-desc">
+          Analysis of sales performance across distribution channels, US states, and monthly patterns. Highlights trends, contributions, and behavioural patterns through structured visuals — with a focus on channel mix and geographic granularity.
+        </p>
+        <div class="report-tags">
+          <span class="tag">Channel Mix</span>
+          <span class="tag">Geographic Analysis</span>
+          <span class="tag">Monthly Patterns</span>
+          <span class="tag">Contribution Analysis</span>
+        </div>
+        <a href="https://silviodirubbo.github.io/assets/powerbi/Sales_Dashboard_2.pdf" target="_blank" class="report-link">View PDF ↗</a>
+      </div>
+    </div>
 
+  </div>
+</section>
+
+<!-- OTHER WORK -->
+<section id="other">
+  <div class="container">
+    <p class="section-label">Other projects</p>
+    <div class="other-grid">
+      <a href="https://public.tableau.com/app/profile/silvio.di.rubbo/vizzes" target="_blank" class="other-card">
+        <span class="other-card-arrow">↗</span>
+        <p class="other-card-label">Data Visualisation · Tableau</p>
+        <h3 class="other-card-title">Public <em>Dashboards</em></h3>
+        <span class="other-card-link">View on Tableau Public</span>
+      </a>
+      <a href="https://borderliner.substack.com" target="_blank" class="other-card">
+        <span class="other-card-arrow">↗</span>
+        <p class="other-card-label">Newsletter · Ongoing</p>
+        <h3 class="other-card-title"><em>Borderliner</em></h3>
+        <span class="other-card-link">Read on Substack</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-copy">© 2026 Silvio di Rubbo</span>
+  <a href="https://silviodirubbo.github.io/" class="footer-link">← Back to portfolio</a>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+</script>
+
+</body>
+</html>
