@@ -1,390 +1,1006 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <title>Silvio di Rubbo</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <meta name="description" content="Silvio's Portfolio" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <style>
-      #header .icons a:hover,
-      #contact .contact a:hover { color:#f56a6a; transition:color .2s ease; }
-      #contact .contact li { margin:0.75rem 0; }
-    </style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silvio di Rubbo — Financial Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 
-<!-- 🎨 Custom Earth-Tone Palette -->
 <style>
-  /* ===== Palette base ===== */
-  :root{
-    --page-bg:      #FAF7F2;  /* crema */
-    --text-color:   #2F2A25;  /* testo principale */
-    --sidebar-bg:   #3B2A21;  /* marrone pieno */
-    --sidebar-text: #F8F4ED;  /* testo chiaro */
-    --beige:        #D9CBB3;  /* beige accenti */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --off-white: #F7F5F0;
+    --warm-white: #FDFCFA;
+    --ink: #1A1814;
+    --ink-mid: #4A4640;
+    --ink-light: #8A8480;
+    --ink-faint: #C8C4BE;
+    --accent: #2C4A3E;
+    --accent-warm: #8B6914;
+    --rule: #E2DED8;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', 'Courier New', monospace;
   }
 
-  body{ background: var(--page-bg); color: var(--text-color); }
+  html { scroll-behavior: smooth; }
 
-  /* ===== Sidebar leggibile + linee beige ===== */
-  #sidebar{ background: var(--sidebar-bg) !important; color: var(--sidebar-text) !important; }
-  #sidebar, #sidebar *{ color: var(--sidebar-text) !important; }
-  #sidebar hr, #sidebar .inner > hr{ border-color: var(--beige) !important; background: var(--beige) !important; }
-  /* Riga sotto "Menu" (header.major dentro la sidebar) */
-  #sidebar .major:after{ background: var(--beige) !important; border-color: var(--beige) !important; }
-
-  /* ===== Riga lunga sotto header principale in beige ===== */
-  /* Tema Editorial: spesso usa pseudo-elementi per la lineetta */
-  #header .logo:after,
-  #header .logo:before,
-  #header:after,
-  #header .inner:after{
-    background: var(--beige) !important;
-    border-color: var(--beige) !important;
+  body {
+    background: var(--warm-white);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* ===== Link: underline/dotted in beige (es. Borderliner/Letterboxd) ===== */
-  a{ color: inherit; border-bottom-color: var(--beige) !important; }
-  a:hover{ opacity:.9; border-bottom-color: var(--beige) !important; }
-
-  /* ===== Bottoni: bordo beige + hover pieno beige ===== */
-  .button{
-    /* il tema usa spesso box-shadow per il bordo */
-    box-shadow: inset 0 0 0 2px var(--beige) !important;
-    border-color: var(--beige) !important; /* per sicurezza */
-    color: var(--text-color) !important;
-    background: transparent !important;
-    transition: all .25s ease;
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: var(--warm-white);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
   }
-  .button:hover{
-    background: var(--beige) !important;
-    color: #3A2F26 !important;
+  nav.scrolled { border-bottom-color: var(--rule); }
+
+  .nav-name {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
   }
 
-  /* ===== Titoli/underline di sezione (lineetta sotto h2) ===== */
-  .major:after{ background: var(--beige) !important; }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
 
-  /* ===== Icone rosse delle feature (What I do) → beige ===== */
-  /* icona dentro il rombo */
-  .features .icon,
-  .features .icon:before{
-    color: var(--beige) !important;
-    border-color: var(--beige) !important;
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* SECTIONS */
+  section { padding: 7rem 4rem; }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 6rem;
+    padding-top: 8rem;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.1s;
+  }
+
+  .hero-name {
+    font-size: clamp(3.2rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.2s;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.4s;
+  }
+
+  .hero-bio {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--ink-mid);
+    line-height: 1.75;
+    border-left: 1px solid var(--rule);
+    padding-left: 1.5rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .hero-meta-item {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+  }
+
+  .hero-meta-item span {
+    color: var(--ink-mid);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+
+  .btn-primary {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--warm-white);
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    padding: 0.75rem 1.75rem;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+
+  .btn-secondary {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-secondary:hover { color: var(--ink); border-color: var(--ink-mid); }
+
+  /* SECTION HEADERS */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* ABOUT */
+  #about { background: var(--off-white); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-text h2 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+  }
+
+  .about-text h2 em { font-style: italic; color: var(--accent); }
+
+  .about-text p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--ink-mid);
+    line-height: 1.85;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 0.5rem;
+  }
+
+  .sidebar-block {
+    border-top: 1px solid var(--rule);
+    padding-top: 1.2rem;
+  }
+
+  .sidebar-block-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 0.6rem;
+  }
+
+  .sidebar-block-value {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--ink-mid);
+    line-height: 1.5;
+  }
+
+  /* EXPERIENCE */
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .exp-item:last-child { border-bottom: 1px solid var(--rule); }
+
+  .exp-meta {}
+
+  .exp-period {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 0.4rem;
+  }
+
+  .exp-company {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--ink-mid);
+  }
+
+  .exp-content {}
+
+  .exp-role {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.01em;
+  }
+
+  .exp-desc {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--ink-mid);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .exp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.8rem;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    border: 1px solid var(--rule);
+    padding: 0.3rem 0.7rem;
+  }
+
+  /* EDUCATION */
+  #education { background: var(--off-white); }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .edu-card {
+    background: var(--warm-white);
+    padding: 2.5rem;
+  }
+
+  .edu-degree-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 1rem;
+  }
+
+  .edu-degree {
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+
+  .edu-school {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--ink-mid);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+
+  .edu-grade {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--accent-warm);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 0.5rem;
+  }
+
+  .skill-group {
+    background: var(--off-white);
+    padding: 2rem 1.75rem;
+  }
+
+  .skill-group-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .skill-list li {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--ink-mid);
+  }
+
+  /* CERTIFICATION CALLOUT */
+  .cert-strip {
+    margin-top: 2px;
+    background: var(--accent);
+    padding: 2rem 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .cert-text {}
+
+  .cert-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 0.4rem;
+  }
+
+  .cert-title {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #fff;
+  }
+
+  .cert-sub {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    font-style: italic;
+  }
+
+  .cert-badge {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: #fff;
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .project-card {
+    background: var(--off-white);
+    padding: 2.5rem;
+    text-decoration: none;
+    display: block;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card:hover { background: #EDE9E2; }
+
+  .project-card-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 1.2rem;
+  }
+
+  .project-card-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  .project-card-title em { font-style: italic; color: var(--accent); }
+
+  .project-card-desc {
+    font-size: 0.92rem;
+    font-weight: 300;
+    color: var(--ink-mid);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-card-link {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .project-card:hover .project-card-link { color: var(--ink); border-color: var(--ink-mid); }
+
+  .project-card-arrow {
+    position: absolute;
+    top: 2.5rem;
+    right: 2.5rem;
+    font-size: 1.2rem;
+    color: var(--ink-faint);
+    transition: transform 0.2s, color 0.2s;
+  }
+  .project-card:hover .project-card-arrow { transform: translate(3px, -3px); color: var(--ink-mid); }
+
+  /* CONTACT */
+  #contact { background: var(--ink); }
+
+  #contact .section-label { color: rgba(255,255,255,0.3); }
+  #contact .section-label::after { background: rgba(255,255,255,0.1); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact-heading {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-heading em { font-style: italic; color: var(--ink-faint); }
+
+  .contact-text {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding-top: 0.5rem;
+  }
+
+  .contact-link-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .contact-link-item:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .contact-link-item:hover { opacity: 0.7; }
+
+  .contact-link-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .contact-link-value {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 1.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+  }
+
+  .footer-permit {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    section { padding: 5rem 2rem; }
+    .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero-name { font-size: 3rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.8rem; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    footer { padding: 1.2rem 2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    .cert-strip { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .hero-cta { flex-direction: column; align-items: flex-start; }
   }
 </style>
+</head>
+<body>
 
-<!-- END of 🎨 Custom Earth-Tone Palette -->
-
-    
-  </head>
-  <body class="is-preload">
-
-    <div id="wrapper">
-
-      <div id="main">
-        <div class="inner">
-
-          <header id="header">
-            <a href="index.html" class="logo"><strong>Silvio di Rubbo</strong></a>
-            <ul class="icons">
-              <li>
-                <a href="https://www.linkedin.com/in/silvio-dirubbo"
-                   class="icon brands fa-linkedin-in"
-                   target="_blank" rel="noopener"
-                   title="LinkedIn">
-                  <span class="label">LinkedIn</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/silviodirubbo"
-                   class="icon brands fa-github"
-                   target="_blank" rel="noopener"
-                   title="GitHub">
-                  <span class="label">GitHub</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://borderliner.substack.com"
-                   class="icon solid fa-pen-nib"
-                   target="_blank" rel="noopener"
-                   title="Borderliner">
-                  <span class="label">Borderliner</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://letterboxd.com/sifolo"
-                   class="icon solid fa-film"
-                   target="_blank" rel="noopener"
-                   title="Letterboxd">
-                  <span class="label">Letterboxd</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://www.instagram.com/silvio.dirubbo/"
-                   class="icon brands fa-instagram"
-                   target="_blank" rel="noopener"
-                   title="Instagram">
-                  <span class="label">Instagram</span>
-                </a>
-              </li>
-              <li>
-                <a href="mailto:silvio.dirubbo21@gmail.com"
-                   class="icon solid fa-envelope"
-                   title="Email">
-                  <span class="label">Email</span>
-                </a>
-              </li>
-            </ul>
-          </header>
-
-          <section id="banner">
-            <div class="content">
-              <header>
-       <h1 style="font-size: 2.6em; line-height: 1.25em; text-align: center;">
-  <span style="display: block;">Ciao, I am Silvio</span>
-  <span style="display: block;">Welcome on My Portfolio!</span>
-</h1>
-                <p>
-                  Business Analyst · 
-                  <a href="https://borderliner.substack.com" target="_blank" rel="noopener">Borderliner</a> · 
-                  <a href="https://letterboxd.com/sifolo" target="_blank" rel="noopener">Letterboxd</a> · 
-                  Sommelier
-                </p>
-              </header>
-             <p>
-  Originally from Irpinia and now based in Geneva, I am a Business Analyst with international experience at Ralph Lauren, educated in Economics and Management at Bocconi University.
-</p>
-
-<p>
-  My work bridges data and storytelling: I use analysis to make sense of systems and decisions, while exploring culture, history, and economics through my newsletter <em>Borderliner</em>, my reflections on cinema, and my passion for wine.
-</p>
-
-<p>
-  This website is my way of introducing who I am and what I do. It brings together my professional and technical background, my interests, and a few personal projects. I invite you to explore them.
-</p>
-              <ul class="actions">
-                <li><a href="#portfolio" class="button big">View My Projects</a></li>
-      <li><a href="Resume.pdf" class="button" download>Download CV</a></li>
-              </ul>
-            </div>
-            <span class="image object">
-    <img src="images/SD_PICTURE.jpg" alt="Silvio di Rubbo Portrait" />
-            </span>
-          </section>
-
-          <section id="skills">
-            <header class="major">
-              <h2>What I do</h2>
-            </header>
-            <div class="features">
-              <article>
-                <span class="icon solid fa-chart-line"></span>
-                <div class="content">
-                  <h3>Business Analyst</h3>
-                  <p>
-                    My work is about using data to make sense of reality.
-                    This means turning raw data into clear visualisations that inform decisions and build awareness.
-                  </p>
-                </div>
-              </article>
-              <article>
-                <span class="icon solid fa-book-open"></span>
-                <div class="content">
-                  <h3>Borderliner</h3>
-                  <p>
-                    An independent newsletter exploring how history, economics, and culture intersect.
-                    Articles that try to read the present through context.
-                    <a href="https://borderliner.substack.com" target="_blank" rel="noopener">Read more</a>.
-                  </p>
-                </div>
-              </article>
-              <article>
-                <span class="icon solid fa-film"></span>
-                <div class="content">
-                  <h3>Cinema</h3>
-                  <p>
-                    Cinema is my passion. It helps me discover different points of view and it never stops fascinating me.
-                    You can find reviews and lists on
-                    <a href="https://letterboxd.com/sifolo" target="_blank" rel="noopener">Letterboxd</a>.
-                  </p>
-                </div>
-              </article>
-              <article>
-                <span class="icon solid fa-wine-glass"></span>
-                <div class="content">
-                  <h3>Sommelier</h3>
-                  <p>
-                     I have always loved wine, so I earned a sommelier certificate to understand it better. 
-  It remains my way to stay close to my Irpinian origins and to explore new places through their roots and traditions.
-                  </p>
-                </div>
-              </article>
-            </div>
-          </section>
-
-       <section id="portfolio">
-  <header class="major">
-    <h2>Projects</h2>
-  </header>
-
-  <div class="posts">
-
-      <!-- Borderliner -->
-    <article>
-      <a href="https://borderliner.substack.com" class="image" target="_blank" rel="noopener">
-        <img src="BORDERLINER_ICON.jpg" alt="Borderliner Newsletter" style="width:100%; height:220px; object-fit:cover;" />
-      </a>
-      <h3>Borderliner</h3>
-      <p>
-        With <em>Borderliner</em>, I invite readers to join me in exploring the political and cultural landscapes
-        that define our time — one story at a time.
-      </p>
-      <ul class="actions">
-        <li><a href="https://borderliner.substack.com" class="button" target="_blank" rel="noopener">Read on Substack</a></li>
-      </ul>
-    </article>
-
-
-    <!-- Tableau -->
-    <article>
-      <a href="https://public.tableau.com/app/profile/silvio.di.rubbo/vizzes" class="image" target="_blank" rel="noopener">
-        <img src="TABLEAU_ICON.jpg" alt="Tableau Dashboards" style="width:100%; height:220px; object-fit:cover;" />
-      </a>
-      <h3>Tableau</h3>
-      <p>
-        Selection of public dashboards that I have developed to practise and explore new functionalities.
-        Each one is an exercise in turning data into something visual, meaningful, and simple to read.
-      </p>
-      <ul class="actions">
-        <li><a href="https://public.tableau.com/app/profile/silvio.di.rubbo/vizzes" class="button" target="_blank" rel="noopener">View Tableau Projects</a></li>
-      </ul>
-    </article>
-
-  
-    <!-- Power BI -->
-    <article>
-  <a href="https://silviodirubbo.github.io/powerbi.html" class="image">
-    <img src="POWERBI_ICON.jpg" alt="Power BI Reports" style="width:100%; height:220px; object-fit:cover;" />
-  </a>
-  <h3>Power BI</h3>
-  <p>
-    Selection of Power BI reports designed to complement my Tableau work, offering alternative perspectives
-    and flexibility with the available data. Each report focuses on clarity, interactivity, and decision-oriented insights.
-  </p>
-  <ul class="actions">
-    <li><a href="https://silviodirubbo.github.io/powerbi.html" class="button">View Power BI Projects</a></li>
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-name">Silvio di Rubbo</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
-</article>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid">
+    <div>
+      <p class="hero-label">Financial Analyst · Geneva</p>
+      <h1 class="hero-name">Silvio<br><em>di Rubbo</em></h1>
+    </div>
+    <div class="hero-right">
+      <p class="hero-bio">
+        Financial analyst with a background in FP&A, reporting, and data visualisation. I make numbers legible — for decisions, for strategy, for people who need clarity fast.
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">Languages &nbsp;<span>IT · EN · FR · ES</span></div>
+        <div class="hero-meta-item">Certification &nbsp;<span>CFI FPAP · 2025</span></div>
+        <div class="hero-meta-item">Permit &nbsp;<span>B EU/AELE · valid 01/2028</span></div>
+      </div>
+      <div class="hero-cta">
+        <a href="/cdn-cgi/l/email-protection#16657f7a607f7938727f6463747479242756717b777f7a3875797b" class="btn-primary">Get in touch</a>
+        <a href="https://silviodirubbo.github.io/Resume.pdf" class="btn-secondary" target="_blank">Download CV</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <p class="section-label reveal">About</p>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <h2>Data-driven.<br><em>Context-obsessed.</em></h2>
+        <p>
+          Originally from Irpinia and now based in Geneva, I am a financial analyst with three years of international experience at Ralph Lauren Europe. I have worked across the full planning cycle — budgeting, forecasting, variance analysis, KPI reporting — covering EMEA and APAC markets and delivering to regional CEOs, CFOs, and Managing Directors.
+        </p>
+        <p>
+          Educated at Bocconi University in Economics & Management, I recently completed the Financial Planning & Analysis Professional (FPAP) certification from the Corporate Finance Institute — a formal consolidation of what I had already been building in practice.
+        </p>
+        <p>
+          Outside of finance, I run <em>Borderliner</em>, an editorial newsletter on economics, history, and culture. I am also a certified sommelier — a discipline that, like financial analysis, demands precision, context, and the ability to read what is not immediately visible.
+        </p>
+      </div>
+      <div class="about-sidebar">
+        <div class="sidebar-block">
+          <p class="sidebar-block-label">Based</p>
+          <p class="sidebar-block-value">Geneva, Switzerland</p>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-block-label">Education</p>
+          <p class="sidebar-block-value">BSc + MSc<br>Università Bocconi</p>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-block-label">Target roles</p>
+          <p class="sidebar-block-value">FP&A Analyst<br>Financial Controller<br>Financial Analyst</p>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-block-label">Other</p>
+          <p class="sidebar-block-value">Borderliner newsletter<br>AIS Certified Sommelier</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label reveal">Experience</p>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <p class="exp-period">Jan 2023 — Sep 2025</p>
+        <p class="exp-company">Ralph Lauren Europe Sàrl<br>Geneva</p>
+        <p class="exp-company" style="margin-top:0.6rem; font-size:0.78rem; color:var(--ink-light); font-style:italic;">Intern → Business Analyst</p>
+      </div>
+      <div class="exp-content">
+        <p class="exp-role">Business Analyst</p>
+
+        <p style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);margin-bottom:0.5rem;margin-top:0.2rem;">Sep 2023 — Sep 2025</p>
+        <p class="exp-desc">
+          Built 5 weekly financial and performance dashboards (Power BI, Excel, Power Query) tracking sales, margins, deliveries, and KPIs across 7 EMEA regions and APAC, distributed to top management. Automated end-to-end reporting workflows, reducing time-to-insight by 70% and enabling deeper regional granularity. Developed region-level rolling forecasts and sell-in/sell-out variance analyses, improving category forecast accuracy by double digits through granular decomposition across markets. Delivered ad hoc financial analyses and budget-support reports to senior leadership.
+        </p>
+
+        <p style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);margin-bottom:0.5rem;margin-top:1rem;">Jan 2023 — Aug 2023 · Internship</p>
+        <p class="exp-desc">
+          Analysed wholesale digital business performance across EMEA, producing weekly and monthly reporting packages shared with 200+ stakeholders including regional CEO, CFO, and Managing Directors. Monitored 20 e-commerce partners across EMEA & LATAM, with dedicated weekly performance tracking and direct dialogue with 7 key accounts. Controlled e-commerce partner compliance (brand assets, content standards) and flagged performance deviations for corrective action.
+        </p>
+
+        <div class="exp-tags">
+          <span class="tag">FP&A</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Power Query</span>
+          <span class="tag">SAP ERP</span>
+          <span class="tag">Excel</span>
+          <span class="tag">Forecasting</span>
+          <span class="tag">Variance Analysis</span>
+          <span class="tag">KPI Dashboards</span>
+          <span class="tag">SQL</span>
+          <span class="tag">MicroStrategy</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <p class="exp-period">Sep 2022 — Feb 2023</p>
+        <p class="exp-company">Palazzina di Caccia di Stupinigi<br>UNESCO Site · Remote</p>
+      </div>
+      <div class="exp-content">
+        <p class="exp-role">Communication Consultant</p>
+        <p class="exp-desc">
+          Designed a communication strategy to re-launch the cultural offer of a UNESCO heritage site. Analysed visitor profiles and market positioning to define target audiences and outreach actions. Recommended partnerships, media channels, and events to broaden cultural engagement.
+        </p>
+        <div class="exp-tags">
+          <span class="tag">Communication Strategy</span>
+          <span class="tag">Cultural Heritage</span>
+          <span class="tag">Market Analysis</span>
+          <span class="tag">Audience Development</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <p class="exp-period">Mar 2022 — Apr 2022</p>
+        <p class="exp-company">Four Seasons Hotels and Resorts<br>Milan · Internship</p>
+      </div>
+      <div class="exp-content">
+        <p class="exp-role">Procurement Analyst</p>
+        <p class="exp-desc">
+          Supported sourcing, contracting, and purchasing activities for the F&B department. Conducted cost and supplier analysis to improve procurement efficiency. Represented the team in the ESG Committee, contributing to sustainable sourcing initiatives.
+        </p>
+        <div class="exp-tags">
+          <span class="tag">Procurement</span>
+          <span class="tag">Cost Analysis</span>
+          <span class="tag">Supplier Management</span>
+          <span class="tag">ESG</span>
+        </div>
+      </div>
+    </div>
+
+
 
   </div>
 </section>
 
-
-          <section id="about">
-            <header class="major">
-              <h2>About</h2>
-            </header>
-           <p>
-    Originally from Irpinia and now based in Geneva, I am a <strong>Business Analyst</strong> with three years of international experience at Ralph Lauren, where I worked across EMEA and LATAM on data analysis, reporting, and performance management.
-  </p>
-  <p>
-            Educated in Economics and Management at <strong>Bocconi University</strong> (BSc and MSc), I have always been fascinated by how numbers tell stories — from monetary policy and business strategy to culture and current affairs.
- </p>
-  <p>
-   I like to understand how systems work, but also how stories shape them: the way a country organises itself, how a film frames a moment, or how a glass of wine can tell where it comes from. 
-    For me, business analysis is another way of doing that — using data to make sense of reality, building clarity from complexity, and helping decisions become more aware and informed. 
-    It represents a form of structured curiosity, not so different from writing or watching a film with the wish to understand what lies underneath.
-  </p>
-
-             <p>
-   That curiosity also takes other forms. 
-               Through <strong>Borderliner</strong>, my personal newsletter, I explore the intersections of history, economics, and culture. 
-               On <strong>Letterboxd</strong>, I collect reflections on cinema — my favourite way to pause and look at the world. 
-               And as a <strong>certified sommelier</strong>, I continue to nurture my passion for wine and regional development, first explored in my master’s thesis on wine tourism in Irpinia.
-
- <p>
-  Since moving to Switzerland, I have been continuing to grow both personally and professionally, with a deep commitment to understanding and integrating into its culture and society.
-  </p>
- 
-
-  <p>
-    This website brings all of that together — the work I do, the things I love, and the curiosity that links them.
-  </p>
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <p class="section-label reveal">Education</p>
+    <div class="edu-grid reveal">
+      <div class="edu-card">
+        <p class="edu-degree-label">Master of Science · 2022</p>
+        <p class="edu-degree">Economics & Management</p>
+        <p class="edu-school">Università Bocconi, Milan</p>
+        <p class="edu-grade">110 / 110</p>
+      </div>
+      <div class="edu-card">
+        <p class="edu-degree-label">Bachelor of Science · 2020</p>
+        <p class="edu-degree">Economics & Management</p>
+        <p class="edu-school">Università Bocconi, Milan</p>
+        <p class="edu-grade">100 / 110</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-          <section id="contact">
-            <header class="major">
-              <h2>Contact</h2>
-            </header>
-            <p>Here you have my external links.</p>
-            <ul class="contact">
-              <li class="icon solid fa-envelope"><a href="mailto:silvio.dirubbo21@gmail.com">silvio.dirubbo21@gmail.com</a></li>
-              <li class="icon brands fa-linkedin-in"><a href="https://www.linkedin.com/in/silvio-dirubbo" target="_blank" rel="noopener">LinkedIn</a></li>
-              <li class="icon brands fa-github"><a href="https://github.com/silviodirubbo" target="_blank" rel="noopener">GitHub</a></li>
-              <li class="icon solid fa-pen-nib"><a href="https://borderliner.substack.com" target="_blank" rel="noopener">Borderliner</a></li>
-              <li class="icon solid fa-film"><a href="https://letterboxd.com/sifolo" target="_blank" rel="noopener">Letterboxd</a></li>
-              <li class="icon brands fa-instagram"><a href="https://www.instagram.com/silvio.dirubbo/" target="_blank" rel="noopener">Instagram</a></li>
-            </ul>
-          </section>
-
-        </div>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label reveal">Skills & Tools</p>
+    <div class="skills-grid reveal">
+      <div class="skill-group">
+        <p class="skill-group-label">Financial Analysis</p>
+        <ul class="skill-list">
+          <li>FP&A</li>
+          <li>Budgeting & Forecasting</li>
+          <li>Variance Analysis</li>
+          <li>Scenario Modelling</li>
+          <li>KPI Design</li>
+        </ul>
       </div>
-
-      <div id="sidebar">
-        <div class="inner">
-          <nav id="menu">
-            <header class="major">
-              <h2>Menu</h2>
-            </header>
-            <ul>
-              <li><a href="#banner">Home</a></li>
-              <li><a href="#skills">What I Do</a></li>
-              <li><a href="#portfolio">Projects</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </nav>
-          <footer id="footer">
-            <p class="copyright">&copy; 2025 Silvio di Rubbo. Design: <a href="https://html5up.net" target="_blank" rel="noopener">HTML5 UP</a>. Images: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>.</p>
-          </footer>
-        </div>
+      <div class="skill-group">
+        <p class="skill-group-label">Data & Reporting</p>
+        <ul class="skill-list">
+          <li>Power BI</li>
+          <li>Tableau</li>
+          <li>Power Query</li>
+          <li>SQL</li>
+          <li>Excel (Advanced)</li>
+        </ul>
       </div>
-
+      <div class="skill-group">
+        <p class="skill-group-label">Systems</p>
+        <ul class="skill-list">
+          <li>SAP ERP</li>
+          <li>MicroStrategy</li>
+          <li>Microsoft 365</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <p class="skill-group-label">Languages</p>
+        <ul class="skill-list">
+          <li>Italian — C2</li>
+          <li>English — C2</li>
+          <li>French — B2</li>
+          <li>Spanish — B1</li>
+        </ul>
+      </div>
     </div>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
-  </body>
-</html>
+    <div class="cert-strip reveal">
+      <div class="cert-text">
+        <p class="cert-label">Certification · 2025</p>
+        <p class="cert-title">Financial Planning & Analysis Professional (FPAP)</p>
+        <p class="cert-sub">Corporate Finance Institute — including FP&A Excel Modeling, Forecasting Techniques, Scenario & Sensitivity Analysis, Budgeting Processes, Variance Analysis, Dashboard Visualizations</p>
+      </div>
+      <div class="cert-badge">CFI · FPAP</div>
+    </div>
+  </div>
+</section>
 
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <p class="section-label reveal">Projects</p>
+    <div class="projects-grid reveal">
 
+      <a href="https://borderliner.substack.com" target="_blank" class="project-card">
+        <span class="project-card-arrow">↗</span>
+        <p class="project-card-label">Newsletter · Ongoing</p>
+        <h3 class="project-card-title"><em>Borderliner</em></h3>
+        <p class="project-card-desc">
+          An independent publication at the crossroads of economics, history, and culture. Each issue reads the present through context — monetary policy, geopolitics, cultural production, the long shadow of decisions made decades ago.
+        </p>
+        <span class="project-card-link">Read on Substack</span>
+      </a>
 
+      <a href="https://public.tableau.com/app/profile/silvio.di.rubbo/vizzes" target="_blank" class="project-card">
+        <span class="project-card-arrow">↗</span>
+        <p class="project-card-label">Data Visualisation · Tableau</p>
+        <h3 class="project-card-title">Public <em>Dashboards</em></h3>
+        <p class="project-card-desc">
+          A selection of Tableau dashboards built to practise and explore data storytelling. Each one translates a dataset into something visual, structured, and decision-oriented — from economic indicators to cultural trends.
+        </p>
+        <span class="project-card-link">View on Tableau Public</span>
+      </a>
 
+      <a href="https://silviodirubbo.github.io/powerbi.html" target="_blank" class="project-card">
+        <span class="project-card-arrow">↗</span>
+        <p class="project-card-label">Data Visualisation · Power BI</p>
+        <h3 class="project-card-title">Power BI <em>Reports</em></h3>
+        <p class="project-card-desc">
+          Complementary Power BI reports developed alongside the Tableau work. The focus is on clarity, interactivity, and practical decision support — the same language I used professionally at Ralph Lauren across EMEA.
+        </p>
+        <span class="project-card-link">View Reports</span>
+      </a>
 
+      <a href="https://letterboxd.com/sifolo" target="_blank" class="project-card">
+        <span class="project-card-arrow">↗</span>
+        <p class="project-card-label">Cinema · Letterboxd</p>
+        <h3 class="project-card-title">Film <em>Diary</em></h3>
+        <p class="project-card-desc">
+          A personal record of films watched, revisited, and reconsidered. Cinema as a way of paying attention — to history, to form, to the things a society chooses to put on screen.
+        </p>
+        <span class="project-card-link">View on Letterboxd</span>
+      </a>
 
+    </div>
+  </div>
+</section>
 
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label">Contact</p>
+    <div class="contact-grid">
+      <div>
+        <h2 class="contact-heading">Let's talk<br><em>numbers.</em></h2>
+        <p class="contact-text">
+          Open to FP&A, Financial Controlling, and Business Analyst roles in Geneva and the Grand-Genève area. Available for a conversation at any stage.
+        </p>
+      </div>
+      <div class="contact-links">
+        <a href="/cdn-cgi/l/email-protection#c7b4aeabb1aea8e9a3aeb5b2a5a5a8f5f687a0aaa6aeabe9a4a8aa" class="contact-link-item">
+          <span class="contact-link-label">Email</span>
+          <span class="contact-link-value"><span class="__cf_email__" data-cfemail="384b51544e5157165c514a4d5a5a570a09785f55595154165b5755">[email&#160;protected]</span></span>
+        </a>
+        <a href="https://www.linkedin.com/in/silvio-dirubbo" target="_blank" class="contact-link-item">
+          <span class="contact-link-label">LinkedIn</span>
+          <span class="contact-link-value">/in/silvio-dirubbo</span>
+        </a>
+        <a href="https://github.com/silviodirubbo" target="_blank" class="contact-link-item">
+          <span class="contact-link-label">GitHub</span>
+          <span class="contact-link-value">silviodirubbo</span>
+        </a>
+        <a href="https://borderliner.substack.com" target="_blank" class="contact-link-item">
+          <span class="contact-link-label">Newsletter</span>
+          <span class="contact-link-value">Borderliner on Substack</span>
+        </a>
+        <a href="tel:+41782184273" class="contact-link-item">
+          <span class="contact-link-label">Phone</span>
+          <span class="contact-link-value">+41 78 218 42 73</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- FOOTER -->
+<footer>
+  <span class="footer-copy">© 2026 Silvio di Rubbo</span>
+  <span class="footer-permit">Permit B EU/AELE · Geneva · silviodirubbo.github.io</span>
+</footer>
 
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => 
