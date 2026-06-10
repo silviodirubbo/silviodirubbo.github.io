@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Silvio di Rubbo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --off-white: #F7F5F0; --warm-white: #FDFCFA; --ink: #1A1814;
+  --ink-mid: #4A4640; --ink-light: #8A8480; --ink-faint: #C8C4BE;
+  --accent: #2C4A3E; --accent-warm: #8B6914; --rule: #E2DED8;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --mono: 'DM Mono', 'Courier New', monospace;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--warm-white); color: var(--ink); font-family: var(--serif); font-size: 18px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; background: var(--warm-white); border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+nav.scrolled { border-bottom-color: var(--rule); }
+.nav-name { font-family: var(--serif); font-size: 0.95rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { font-family: var(--mono); font-size: 0.68rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-links a.active { color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 1px; }
+.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 1px; background: var(--ink); transition: transform 0.3s, opacity 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.nav-mobile { display: none; position: fixed; top: 57px; left: 0; right: 0; z-index: 199; background: var(--warm-white); border-bottom: 1px solid var(--rule); padding: 1.5rem 2rem; flex-direction: column; gap: 1.2rem; }
+.nav-mobile.open { display: flex; }
+.nav-mobile a { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; }
+.nav-mobile a:hover, .nav-mobile a.active { color: var(--ink); }
+
+/* PAGE HEADER */
+#page-header { padding: 10rem 4rem 5rem; border-bottom: 1px solid var(--rule); }
+.page-header-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; }
+.page-title { font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; }
+.page-title em { font-style: italic; color: var(--accent); }
+.page-header-desc { font-size: 1rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; border-left: 1px solid var(--rule); padding-left: 1.5rem; }
+
+/* PROJECTS SECTION */
+#projects { padding: 7rem 4rem; }
+.container { max-width: 960px; margin: 0 auto; }
+.section-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem; }
+.section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--rule); }
+
+/* PROJECT CARDS — BRANDED */
+.project-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 340px;
+  margin-bottom: 2px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.project-card:hover { opacity: 0.93; }
+
+/* Brand panels */
+.project-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 3rem;
+  position: relative;
+}
+.project-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3rem;
+  background: var(--warm-white);
+}
+.project-content.dark { background: var(--ink); }
+
+/* BORDERLINER */
+.brand-borderliner { background: #222222; }
+.borderliner-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+}
+.brand-borderliner .project-logo-label {
+  font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: rgba(255,255,255,0.35);
+  margin-bottom: 0.8rem; position: relative; z-index: 1;
+}
+.brand-borderliner .project-wordmark {
+  font-family: var(--serif); font-size: 2rem; font-weight: 300;
+  font-style: italic; color: rgba(255,255,255,0.85); position: relative; z-index: 1;
+  letter-spacing: -0.01em;
+}
+
+/* CELLAR */
+.brand-cellar { background: #2C4A3E; }
+.brand-cellar .project-logo-label {
+  font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: rgba(253,252,250,0.45); margin-bottom: 1.2rem;
+}
+.cellar-mark { display: flex; align-items: center; gap: 0.75rem; }
+.cellar-wordmark { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(253,252,250,0.85); }
+
+/* KHOLLAR */
+.brand-khollar { background: #3B1F3A; }
+.brand-khollar .project-logo-label {
+  font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: rgba(240,235,225,0.35); margin-bottom: 1.2rem;
+}
+.khollar-mark { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+.khollar-wordmark { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; letter-spacing: 0.12em; color: #F0EBE1; }
+.khollar-sub { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(240,235,225,0.45); }
+.coming-soon-badge {
+  display: inline-block; margin-top: 1rem;
+  font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #7D4E7A; background: rgba(240,235,225,0.1); border: 1px solid rgba(125,78,122,0.4);
+  padding: 0.3rem 0.7rem;
+}
+
+/* LETTERBOXD */
+.brand-letterboxd { background: #7A3200; }
+.brand-letterboxd .project-logo-label {
+  font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 1.2rem;
+}
+.letterboxd-wordmark {
+  font-family: var(--serif); font-size: 2rem; font-weight: 300;
+  font-style: italic; color: rgba(255,255,255,0.85); letter-spacing: -0.01em;
+}
+.letterboxd-dot { color: #FF8000; }
+
+/* Content area shared styles */
+.project-content-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1rem; }
+.project-content-label.on-dark { color: rgba(255,255,255,0.35); }
+.project-content-title { font-size: 1.25rem; font-weight: 400; color: var(--ink); margin-bottom: 1rem; line-height: 1.3; }
+.project-content-title.on-dark { color: rgba(255,255,255,0.85); }
+.project-content-desc { font-size: 0.9rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; flex: 1; }
+.project-content-desc.on-dark { color: rgba(255,255,255,0.5); }
+.project-content-link { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); border-bottom: 1px solid var(--rule); padding-bottom: 2px; align-self: flex-start; }
+.project-content-link.on-dark { color: rgba(255,255,255,0.4); border-bottom-color: rgba(255,255,255,0.15); }
+.project-content-link.coming { color: rgba(255,255,255,0.2); border-bottom-color: rgba(255,255,255,0.08); cursor: default; }
+
+/* FOOTER */
+footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+.footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+.footer-nav { display: flex; gap: 2rem; }
+.footer-nav a { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
+.footer-nav a:hover { color: rgba(255,255,255,0.5); }
+
+.reveal { opacity: 1; transform: translateY(0); transition: opacity 0.7s ease, transform 0.7s ease; }
+.js-ready .reveal { opacity: 0; transform: translateY(24px); }
+.js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+  nav { padding: 1.2rem 2rem; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  #page-header { padding: 8rem 2rem 4rem; }
+  .page-header-inner { grid-template-columns: 1fr; gap: 2rem; }
+  #projects { padding: 5rem 2rem; }
+  .project-card { grid-template-columns: 1fr; min-height: auto; }
+  .project-brand { min-height: 200px; }
+  footer { padding: 1.2rem 2rem; flex-direction: column; gap: 0.8rem; text-align: center; }
+  .footer-nav { justify-content: center; flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-name">Silvio di Rubbo</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="cv.html">CV</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="nav-mobile">
+  <a href="index.html">Home</a>
+  <a href="cv.html">CV</a>
+  <a href="projects.html" class="active">Projects</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<div id="page-header">
+  <div class="page-header-inner">
+    <div>
+      <h1 class="page-title">Personal<br><em>Projects</em></h1>
+    </div>
+    <div>
+      <p class="page-header-desc">Things built and written beyond the office — a newsletter, a wine diary, a film log, and work in progress.</p>
+    </div>
+  </div>
+</div>
+
+<section id="projects">
+  <div class="container">
+    <p class="section-label reveal">Work</p>
+
+    <!-- BORDERLINER -->
+    <a href="https://borderliner.substack.com" target="_blank" class="project-card reveal">
+      <div class="project-brand brand-borderliner">
+        <!-- Borderliner flowing lines logo -->
+        <svg class="borderliner-lines" viewBox="0 0 818 818" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <g fill="none" stroke="#8e8e8e" stroke-width="4" stroke-linecap="round">
+            <path d="M 0,423 C 0.2,423.3 -1.8,424.2 1,425 C 3.8,425.8 8.0,427.2 17,428 C 26.0,428.8 42.8,428.8 55,430 C 67.2,431.2 76.7,434.2 90,435 C 103.3,435.8 121.3,436.2 135,435 C 148.7,433.8 154.8,433.2 172,428 C 189.2,422.8 222.8,409.0 238,404 C 253.2,399.0 248.2,404.3 263,398 C 277.8,391.7 306.7,374.5 327,366 C 347.3,357.5 372.2,351.8 385,347 C 397.8,342.2 395.0,343.0 404,337 C 413.0,331.0 426.8,318.2 439,311 C 451.2,303.8 462.3,299.3 477,294 C 491.7,288.7 512.8,283.8 527,279 C 541.2,274.2 543.0,275.3 562,265 C 581.0,254.7 624.0,226.0 641,217 C 658.0,208.0 647.0,214.2 664,211 C 681.0,207.8 722.5,202.2 743,198 C 763.5,193.8 775.0,188.7 787,186 C 799.0,183.3 810.3,182.7 815,182"/>
+            <path d="M 717,274 C 712.3,275.3 701.0,277.8 689,282 C 677.0,286.2 665.5,293.3 645,299 C 624.5,304.7 582.7,311.5 566,316 C 549.3,320.5 554.2,320.8 545,326 C 535.8,331.2 525.8,339.7 511,347 C 496.2,354.3 468.3,364.3 456,370 C 443.7,375.7 446.8,376.8 437,381 C 427.2,385.2 407.0,390.7 397,395 C 387.0,399.3 384.0,403.5 377,407 C 370.0,410.5 359.0,414.0 355,416 C 351.0,418.0 351.7,418.3 353,419 C 354.3,419.7 359.8,420.2 363,420 C 366.2,419.8 368.2,418.3 372,418 C 375.8,417.7 382.0,417.5 386,418 C 390.0,418.5 387.8,419.8 396,421 C 404.2,422.2 416.8,421.7 435,425 C 453.2,428.3 490.7,437.2 505,441 C 519.3,444.8 516.3,446.5 521,448 C 525.7,449.5 520.3,446.2 533,450 C 545.7,453.8 575.2,464.3 597,471 C 618.8,477.7 647.3,484.7 664,490 C 680.7,495.3 687.8,499.0 697,503 C 706.2,507.0 705.0,508.8 719,514 C 733.0,519.2 767.3,528.8 781,534 C 794.7,539.2 795.0,541.0 801,545 C 807.0,549.0 814.3,555.8 817,558"/>
+            <path d="M 0,485 C 4.2,484.8 14.5,482.3 25,484 C 35.5,485.7 52.8,492.5 63,495 C 73.2,497.5 70.5,497.2 86,499 C 101.5,500.8 132.7,504.8 156,506 C 179.3,507.2 212.2,506.3 226,506 C 239.8,505.7 233.5,505.7 239,504 C 244.5,502.3 251.0,498.5 259,496 C 267.0,493.5 275.8,491.0 287,489 C 298.2,487.0 311.5,484.8 326,484 C 340.5,483.2 349.5,482.0 374,484 C 398.5,486.0 446.8,491.5 473,496 C 499.2,500.5 512.2,506.8 531,511 C 549.8,515.2 566.0,515.5 586,521 C 606.0,526.5 635.7,537.7 651,544 C 666.3,550.3 670.3,555.5 678,559 C 685.7,562.5 686.7,560.8 697,565 C 707.3,569.2 730.7,579.3 740,584 C 749.3,588.7 744.2,588.3 753,593 C 761.8,597.7 782.7,606.2 793,612 C 803.3,617.8 811.3,625.3 815,628"/>
+          </g>
+        </svg>
+        <p class="project-logo-label">Newsletter</p>
+        <p class="project-wordmark">Borderliner</p>
+      </div>
+      <div class="project-content dark">
+        <div>
+          <p class="project-content-label on-dark">Economics · History · Culture · Ongoing</p>
+          <h2 class="project-content-title on-dark">An independent publication reading the present through context.</h2>
+        </div>
+        <p class="project-content-desc on-dark">Each issue explores a question at the crossroads of economics, history, and culture — monetary policy, geopolitics, cultural production, the long shadow of decisions made decades ago. One story at a time.</p>
+        <span class="project-content-link on-dark">Read on Substack ↗</span>
+      </div>
+    </a>
+
+    <!-- CELLAR -->
+    <a href="https://silviodirubbo.github.io/cellar" target="_blank" class="project-card reveal">
+      <div class="project-brand brand-cellar">
+        <p class="project-logo-label">Wine diary</p>
+        <div class="cellar-mark">
+          <svg width="96" height="32" viewBox="0 0 96 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="13" stroke="rgba(253,252,250,0.35)" stroke-width="1.3"/>
+            <circle cx="48" cy="16" r="13" fill="rgba(253,252,250,0.65)"/>
+            <circle cx="80" cy="16" r="13" stroke="rgba(253,252,250,0.35)" stroke-width="1.3"/>
+          </svg>
+          <span class="cellar-wordmark">CELLAR</span>
+        </div>
+      </div>
+      <div class="project-content">
+        <div>
+          <p class="project-content-label">Wine · Geneva · Ongoing</p>
+          <h2 class="project-content-title">A structured way to share wine tastings with friends.</h2>
+        </div>
+        <p class="project-content-desc">One grape, one region, one question per evening — with a website to track what we have opened, plan what comes next, and make sure not a single drop is wasted.</p>
+        <span class="project-content-link">Visit the Cellar ↗</span>
+      </div>
+    </a>
+
+    <!-- KHOLLAR -->
+    <div class="project-card reveal" style="cursor:default;">
+      <div class="project-brand brand-khollar">
+        <p class="project-logo-label">Wine application</p>
+        <div class="khollar-mark">
+          <svg width="48" height="48" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" rx="16" fill="#3B1F3A"/>
+            <circle cx="50" cy="50" r="38" fill="#F0EBE1"/>
+            <circle cx="50" cy="50" r="26" fill="#7D4E7A"/>
+            <circle cx="50" cy="50" r="13" fill="#F0EBE1"/>
+          </svg>
+          <div>
+            <p class="khollar-wordmark">KHOLLAR</p>
+            <p class="khollar-sub">Your wine diary</p>
+          </div>
+        </div>
+        <span class="coming-soon-badge">Coming Soon</span>
+      </div>
+      <div class="project-content dark">
+        <div>
+          <p class="project-content-label on-dark">App · In development · 2026</p>
+          <h2 class="project-content-title on-dark">A personal wine diary — structured, searchable, yours.</h2>
+        </div>
+        <p class="project-content-desc on-dark">Khollar is a wine tracking application currently in development. More details to follow.</p>
+        <span class="project-content-link coming">In development</span>
+      </div>
+    </div>
+
+    <!-- LETTERBOXD -->
+    <a href="https://letterboxd.com/sifolo" target="_blank" class="project-card reveal">
+      <div class="project-brand brand-letterboxd">
+        <p class="project-logo-label">Film diary</p>
+        <p class="letterboxd-wordmark">Letter<span class="letterboxd-dot">·</span>boxd</p>
+      </div>
+      <div class="project-content">
+        <div>
+          <p class="project-content-label">Cinema · Ongoing</p>
+          <h2 class="project-content-title">A personal record of films watched, revisited, and reconsidered.</h2>
+        </div>
+        <p class="project-content-desc">Cinema as a way of paying attention — to history, to form, to the things a society chooses to put on screen. Reviews, lists, and a running log.</p>
+        <span class="project-content-link">View on Letterboxd ↗</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2026 Silvio di Rubbo</span>
+  <nav class="footer-nav">
+    <a href="index.html">Home</a>
+    <a href="cv.html">CV</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+  const hamburger = document.getElementById('hamburger');
+  const navMobile = document.getElementById('nav-mobile');
+  hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); navMobile.classList.toggle('open'); });
+  if ('IntersectionObserver' in window) {
+    document.body.classList.add('js-ready');
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  }
+</script>
+</body>
+</html>
