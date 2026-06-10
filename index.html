@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Silvio di Rubbo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Ccircle cx='55' cy='55' r='42' stroke='%231A1814' stroke-width='4' fill='none'/%3E%3Ccircle cx='55' cy='55' r='14' fill='%232C4A3E'/%3E%3Cpath d='M30 36 C30 36 44 44 55 55 C66 66 80 72 82 72' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M55 55 L80 84' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -42,7 +43,10 @@
   .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
   .btn-secondary { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
   .btn-secondary:hover { color: var(--ink); border-color: var(--ink-mid); }
-  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+  .footer-mark { opacity: 0.3; display: flex; align-items: center; }
+  .footer-mark svg circle, .footer-mark svg path { stroke: #fff; }
+  .footer-mark svg circle:nth-child(2) { fill: rgba(255,255,255,0.4); stroke: none; }
   .footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
   .footer-nav { display: flex; gap: 2rem; }
   .footer-nav a { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
@@ -51,30 +55,29 @@
   .js-ready .reveal { opacity: 0; transform: translateY(24px); }
   .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  #hero { min-height: 100vh; display: flex; align-items: flex-end; padding: 8rem 4rem 6rem; }
-  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; width: 100%; max-width: 960px; margin: 0 auto; }
-  .hero-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s ease forwards 0.1s; }
-  .hero-name { font-size: clamp(3.2rem, 6vw, 5.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; color: var(--ink); opacity: 0; animation: fadeUp 0.9s ease forwards 0.2s; }
+  #hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 4rem 6rem; }
+  .hero-inner { max-width: 960px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .hero-left { display: flex; flex-direction: column; gap: 1.5rem; }
+  .hero-mark { opacity: 0; animation: fadeUp 0.8s ease forwards 0.05s; }
+  .hero-name { font-size: clamp(3.2rem, 6vw, 5.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; color: var(--ink); opacity: 0; animation: fadeUp 0.9s ease forwards 0.15s; }
   .hero-name em { font-style: italic; color: var(--accent); }
+  .hero-location { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-light); opacity: 0; animation: fadeUp 0.8s ease forwards 0.3s; }
   .hero-right { display: flex; flex-direction: column; gap: 2rem; opacity: 0; animation: fadeUp 0.9s ease forwards 0.4s; }
-  .hero-bio { font-size: 1.05rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; border-left: 1px solid var(--rule); padding-left: 1.5rem; }
-  .hero-meta { display: flex; flex-direction: column; gap: 0.4rem; }
-  .hero-meta-item { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); }
-  .hero-meta-item span { color: var(--ink-mid); }
-  .hero-cta { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; margin-top: 0.5rem; }
+  .hero-intro { font-size: 1.05rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; border-left: 1px solid var(--rule); padding-left: 1.5rem; }
+  .hero-cta { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
   #featured { background: var(--off-white); padding: 7rem 4rem; }
   .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-  .featured-card { background: var(--warm-white); padding: 2.5rem; text-decoration: none; display: flex; flex-direction: column; gap: 1.2rem; transition: background 0.2s; position: relative; min-height: 280px; }
+  .featured-card { background: var(--warm-white); padding: 2.5rem; text-decoration: none; display: flex; flex-direction: column; gap: 1.2rem; transition: background 0.2s; position: relative; min-height: 260px; }
   .featured-card:hover { background: #EDE9E2; }
   .featured-card-arrow { position: absolute; top: 2rem; right: 2rem; font-size: 1.1rem; color: var(--ink-faint); transition: transform 0.2s, color 0.2s; }
   .featured-card:hover .featured-card-arrow { transform: translate(3px,-3px); color: var(--ink-mid); }
   .featured-card-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); }
-  .featured-card-title { font-size: 1.6rem; font-weight: 400; color: var(--ink); line-height: 1.15; letter-spacing: -0.01em; }
+  .featured-card-title { font-size: 1.5rem; font-weight: 400; color: var(--ink); line-height: 1.15; letter-spacing: -0.01em; }
   .featured-card-title em { font-style: italic; color: var(--accent); }
   .featured-card-desc { font-size: 0.9rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; flex: 1; }
   .featured-card-link { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); border-bottom: 1px solid var(--rule); padding-bottom: 2px; align-self: flex-start; }
   .featured-card:hover .featured-card-link { color: var(--ink); border-color: var(--ink-mid); }
-  @media (max-width: 768px) { #hero { padding: 7rem 2rem 5rem; } .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; } .hero-name { font-size: 3rem; } #featured { padding: 5rem 2rem; } .featured-grid { grid-template-columns: 1fr; } .hero-cta { flex-direction: column; align-items: flex-start; } }
+  @media (max-width: 768px) { #hero { padding: 7rem 2rem 5rem; } .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; } .hero-name { font-size: 3rem; } #featured { padding: 5rem 2rem; } .featured-grid { grid-template-columns: 1fr; } .hero-cta { flex-direction: column; align-items: flex-start; } }
   @media (max-width: 768px) {
     #nav-container nav { padding: 1.2rem 2rem; }
     .nav-links { display: none; }
@@ -90,21 +93,22 @@
 <script src="/nav.js"></script>
 
 <section id="hero">
-  <div class="hero-grid">
-    <div>
-      <p class="hero-label">Financial Analyst · Geneva</p>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-mark"><svg width="44" height="44" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Silvio di Rubbo mark">
+  <circle cx="55" cy="55" r="42" stroke="#1A1814" stroke-width="2"/>
+  <circle cx="55" cy="55" r="14" fill="#2C4A3E"/>
+  <path d="M 30,36 C 30,36 44,44 55,55 C 66,66 80,72 82,72" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 55,55 L 80,84" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg></div>
       <h1 class="hero-name">Silvio<br><em>di Rubbo</em></h1>
+      <p class="hero-location">Geneva</p>
     </div>
     <div class="hero-right">
-      <p class="hero-bio">Financial analyst with a background in FP&amp;A, reporting, and data visualisation. Originally from Irpinia, based in Geneva. I make numbers legible — for decisions, for strategy, for people who need clarity fast.</p>
-      <div class="hero-meta">
-        <div class="hero-meta-item">Languages &nbsp;<span>IT · EN · FR · ES</span></div>
-        <div class="hero-meta-item">Certification &nbsp;<span>CFI FPAP · 2025</span></div>
-        <div class="hero-meta-item">Permit &nbsp;<span>B EU/AELE · valid 01/2028</span></div>
-      </div>
+      <p class="hero-intro">This is a space where professional work, analytical projects, and personal interests converge. You will find my CV and data visualisation work, alongside Borderliner — an editorial newsletter on economics and culture — and other things I build and think about.</p>
       <div class="hero-cta">
-        <a href="/contact/" class="btn-primary">Get in touch</a>
-        <a href="/Resume.pdf" class="btn-secondary" target="_blank">Download CV</a>
+        <a href="/cv/" class="btn-primary">Explore my work</a>
+        <a href="/contact/" class="btn-secondary">Get in touch</a>
       </div>
     </div>
   </div>
@@ -112,13 +116,13 @@
 
 <section id="featured">
   <div class="container">
-    <p class="section-label reveal">Explore</p>
+    <p class="section-label reveal">What you will find here</p>
     <div class="featured-grid reveal">
       <a href="/cv/" class="featured-card">
         <span class="featured-card-arrow">→</span>
         <p class="featured-card-label">Professional profile</p>
         <h2 class="featured-card-title">CV &amp;<br><em>Experience</em></h2>
-        <p class="featured-card-desc">Three years at Ralph Lauren Europe, Bocconi Economics &amp; Management, CFI FPAP certification. FP&amp;A, Power BI, forecasting, variance analysis.</p>
+        <p class="featured-card-desc">Three years at Ralph Lauren Europe in financial analysis and reporting. Skills, tools, certifications, and data visualisation work.</p>
         <span class="featured-card-link">View full profile</span>
       </a>
       <a href="/projects/" class="featured-card">
@@ -130,15 +134,21 @@
       </a>
       <a href="/contact/" class="featured-card">
         <span class="featured-card-arrow">→</span>
-        <p class="featured-card-label">Get in touch</p>
+        <p class="featured-card-label">Conversations</p>
         <h2 class="featured-card-title">Contact &amp;<br><em>Links</em></h2>
-        <p class="featured-card-desc">Open to FP&amp;A, Financial Controller, and Financial Analyst roles in Geneva and Grand-Genève. Available for a conversation at any stage.</p>
-        <span class="featured-card-link">Go to contact</span>
+        <p class="featured-card-desc">Open to professional opportunities, editorial collaborations, and conversations on finance, culture, and everything in between.</p>
+        <span class="featured-card-link">Get in touch</span>
       </a>
     </div>
   </div>
 </section>
 <footer>
+  <div class="footer-mark"><svg width="28" height="28" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Silvio di Rubbo mark">
+  <circle cx="55" cy="55" r="42" stroke="#1A1814" stroke-width="2"/>
+  <circle cx="55" cy="55" r="14" fill="#2C4A3E"/>
+  <path d="M 30,36 C 30,36 44,44 55,55 C 66,66 80,72 82,72" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 55,55 L 80,84" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg></div>
   <span class="footer-copy">© 2026 Silvio di Rubbo</span>
   <nav class="footer-nav">
     <a href="/">Home</a>
