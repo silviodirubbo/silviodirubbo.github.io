@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Power BI Reports — Silvio di Rubbo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --off-white: #F7F5F0; --warm-white: #FDFCFA; --ink: #1A1814;
+    --ink-mid: #4A4640; --ink-light: #8A8480; --ink-faint: #C8C4BE;
+    --accent: #2C4A3E; --accent-warm: #8B6914; --rule: #E2DED8;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', 'Courier New', monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--warm-white); color: var(--ink); font-family: var(--serif); font-size: 18px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  #nav-container nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; background: var(--warm-white); border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+  #nav-container nav.scrolled { border-bottom-color: var(--rule); }
+  .nav-name { font-family: var(--serif); font-size: 0.95rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--mono); font-size: 0.68rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 1px; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 1px; background: var(--ink); transition: transform 0.3s, opacity 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .nav-mobile { display: none; position: fixed; top: 57px; left: 0; right: 0; z-index: 199; background: var(--warm-white); border-bottom: 1px solid var(--rule); padding: 1.5rem 2rem; flex-direction: column; gap: 1.2rem; }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; }
+  .nav-mobile a:hover, .nav-mobile a.active { color: var(--ink); }
+  section { padding: 7rem 4rem; }
+  .container { max-width: 960px; margin: 0 auto; }
+  .section-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--rule); }
+  .tag { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); border: 1px solid var(--rule); padding: 0.3rem 0.7rem; }
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+  .btn-primary { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm-white); background: var(--ink); border: 1px solid var(--ink); padding: 0.75rem 1.75rem; text-decoration: none; transition: background 0.2s, border-color 0.2s; display: inline-block; }
+  .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+  .btn-secondary { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+  .btn-secondary:hover { color: var(--ink); border-color: var(--ink-mid); }
+  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+  .footer-nav { display: flex; gap: 2rem; }
+  .footer-nav a { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
+  .footer-nav a:hover { color: rgba(255,255,255,0.5); }
+  .reveal { opacity: 1; transform: translateY(0); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .js-ready .reveal { opacity: 0; transform: translateY(24px); }
+  .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  #page-header { padding: 10rem 4rem 5rem; border-bottom: 1px solid var(--rule); }
+  .page-header-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; }
+  .page-title { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .back-link { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: color 0.2s; }
+  .back-link:hover { color: var(--ink); }
+  .header-desc { font-size: 1rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; border-left: 1px solid var(--rule); padding-left: 1.5rem; margin-bottom: 1rem; }
+  .license-note { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); }
+  .report-item { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; padding: 3.5rem 0; border-top: 1px solid var(--rule); }
+  .report-item:last-child { border-bottom: 1px solid var(--rule); }
+  .report-preview { display: block; overflow: hidden; border: 1px solid var(--rule); transition: border-color 0.2s; }
+  .report-preview:hover { border-color: var(--ink-faint); }
+  .report-preview img { width: 100%; display: block; transition: transform 0.4s ease; }
+  .report-preview:hover img { transform: scale(1.02); }
+  .report-number { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-light); }
+  .report-title { font-size: 1.6rem; font-weight: 400; color: var(--ink); line-height: 1.2; letter-spacing: -0.01em; margin: 0.8rem 0; }
+  .report-title em { font-style: italic; color: var(--accent); }
+  .report-desc { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; margin-bottom: 1rem; }
+  .report-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+  .report-link { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm-white); background: var(--ink); border: 1px solid var(--ink); padding: 0.75rem 1.5rem; text-decoration: none; transition: background 0.2s, border-color 0.2s; margin-top: 0.5rem; }
+  .report-link:hover { background: var(--accent); border-color: var(--accent); }
+  @media (max-width: 768px) { #page-header { padding: 8rem 2rem 4rem; } .page-header-inner { grid-template-columns: 1fr; gap: 2rem; } .report-item { grid-template-columns: 1fr; gap: 2rem; } }
+  @media (max-width: 768px) {
+    #nav-container nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    section { padding: 5rem 2rem; }
+    footer { padding: 1.2rem 2rem; flex-direction: column; gap: 0.8rem; text-align: center; }
+    .footer-nav { justify-content: center; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div id="nav-container"></div>
+<script src="/nav.js"></script>
+
+<div id="page-header">
+  <div class="page-header-inner">
+    <div>
+      <a href="/cv/" class="back-link">← Back to CV</a>
+      <h1 class="page-title">Power BI<br><em>Reports</em></h1>
+    </div>
+    <div>
+      <p class="header-desc">A selection of Power BI reports built to practise and explore decision-oriented data visualisation. Each one focuses on clarity, interactivity, and practical insight — the same approach used professionally at Ralph Lauren across EMEA.</p>
+      <p class="license-note">Reports available as PDF · Interactive publishing requires a Pro licence</p>
+    </div>
+  </div>
+</div>
+
+<section id="reports">
+  <div class="container">
+    <p class="section-label">Reports</p>
+    <div class="report-item">
+      <a href="/assets/powerbi/Sales_Dashboard.pdf" target="_blank" class="report-preview">
+        <img src="/assets/powerbi/Sales_Dashboard.jpg" alt="Sales Dashboard preview"/>
+      </a>
+      <div class="report-content">
+        <p class="report-number">Report 01</p>
+        <h2 class="report-title">Sales <em>Dashboard</em></h2>
+        <p class="report-desc">Overview of sales trends, regional performance, and contribution analysis using dynamic measures and date intelligence. Tracks performance across dimensions and time periods, built to support commercial decision-making at a glance.</p>
+        <div class="report-tags"><span class="tag">Sales Analysis</span><span class="tag">Regional Performance</span><span class="tag">Date Intelligence</span><span class="tag">Dynamic Measures</span></div>
+        <a href="/assets/powerbi/Sales_Dashboard.pdf" target="_blank" class="report-link">View PDF ↗</a>
+      </div>
+    </div>
+    <div class="report-item">
+      <a href="/assets/powerbi/Sales_Dashboard_2.pdf" target="_blank" class="report-preview">
+        <img src="/assets/powerbi/Sales_Dashboard_2.jpg" alt="Sales Dashboard 2 preview"/>
+      </a>
+      <div class="report-content">
+        <p class="report-number">Report 02</p>
+        <h2 class="report-title">Sales Dashboard <em>II</em></h2>
+        <p class="report-desc">Analysis of sales performance across distribution channels, US states, and monthly patterns. Highlights trends, contributions, and behavioural patterns through structured visuals — with a focus on channel mix and geographic granularity.</p>
+        <div class="report-tags"><span class="tag">Channel Mix</span><span class="tag">Geographic Analysis</span><span class="tag">Monthly Patterns</span><span class="tag">Contribution Analysis</span></div>
+        <a href="/assets/powerbi/Sales_Dashboard_2.pdf" target="_blank" class="report-link">View PDF ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <span class="footer-copy">© 2026 Silvio di Rubbo</span>
+  <nav class="footer-nav">
+    <a href="/">Home</a>
+    <a href="/cv/">CV</a>
+    <a href="/projects/">Projects</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+</footer>
+<script>
+  if ('IntersectionObserver' in window) {
+    document.body.classList.add('js-ready');
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  }
+</script>
+</body>
+</html>
