@@ -37,47 +37,22 @@
   }
 
   /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 4rem;
-    background: var(--warm-white);
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.3s;
-  }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; background: var(--warm-white); border-bottom: 1px solid transparent; transition: border-color 0.3s; }
   nav.scrolled { border-bottom-color: var(--rule); }
-
-  .nav-name {
-    font-family: var(--serif);
-    font-size: 0.95rem;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink);
-    text-decoration: none;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    font-weight: 300;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-mid);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
+  .nav-name { font-family: var(--serif); font-size: 0.95rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--mono); font-size: 0.68rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 1px; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 1px; background: var(--ink); transition: transform 0.3s, opacity 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .nav-mobile { display: none; position: fixed; top: 57px; left: 0; right: 0; z-index: 199; background: var(--warm-white); border-bottom: 1px solid var(--rule); padding: 1.5rem 2rem; flex-direction: column; gap: 1.2rem; }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; }
+  .nav-mobile a:hover, .nav-mobile a.active { color: var(--ink); }
 
   /* LAYOUT */
   section { padding: 7rem 4rem; }
@@ -363,18 +338,16 @@
   .footer-link:hover { color: rgba(255,255,255,0.5); }
 
   /* RESPONSIVE */
-  @media (max-width: 900px) {
+  @media (max-width: 768px) {
     nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
     #header { padding: 8rem 2rem 4rem; }
-    section { padding: 5rem 2rem; }
     .header-inner { grid-template-columns: 1fr; gap: 2rem; }
+    section { padding: 5rem 2rem; }
     .report-item { grid-template-columns: 1fr; gap: 2rem; }
     .other-grid { grid-template-columns: 1fr; }
     footer { padding: 1.2rem 2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
-  }
-
-  @media (max-width: 600px) {
-    .nav-links { display: none; }
   }
 </style>
 </head>
@@ -382,21 +355,29 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="https://silviodirubbo.github.io/" class="nav-name">Silvio di Rubbo</a>
+  <a href="index.html" class="nav-name">Silvio di Rubbo</a>
   <ul class="nav-links">
-    <li><a href="https://silviodirubbo.github.io/#about">About</a></li>
-    <li><a href="https://silviodirubbo.github.io/#experience">Experience</a></li>
-    <li><a href="https://silviodirubbo.github.io/#skills">Skills</a></li>
-    <li><a href="https://silviodirubbo.github.io/#projects">Projects</a></li>
-    <li><a href="https://silviodirubbo.github.io/#contact">Contact</a></li>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="cv.html" class="active">CV</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="contact.html">Contact</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-mobile" id="nav-mobile">
+  <a href="index.html">Home</a>
+  <a href="cv.html" class="active">CV</a>
+  <a href="projects.html">Projects</a>
+  <a href="contact.html">Contact</a>
+</div>
 
 <!-- PAGE HEADER -->
 <div id="header">
   <div class="header-inner">
     <div>
-      <a href="https://silviodirubbo.github.io/#projects" class="back-link">← Back to portfolio</a>
+      <a href="cv.html" class="back-link">← Back to CV</a>
       <h1 class="page-title">Power BI<br><em>Reports</em></h1>
     </div>
     <div class="header-right">
@@ -480,14 +461,19 @@
 <!-- FOOTER -->
 <footer>
   <span class="footer-copy">© 2026 Silvio di Rubbo</span>
-  <a href="https://silviodirubbo.github.io/" class="footer-link">← Back to portfolio</a>
+  <nav class="footer-nav" style="display:flex;gap:2rem;">
+    <a href="index.html" style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.2);text-decoration:none;">Home</a>
+    <a href="cv.html" style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.2);text-decoration:none;">← CV</a>
+    <a href="contact.html" style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.2);text-decoration:none;">Contact</a>
+  </nav>
 </footer>
 
 <script>
   const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  });
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+  const hamburger = document.getElementById('hamburger');
+  const navMobile = document.getElementById('nav-mobile');
+  hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); navMobile.classList.toggle('open'); });
 </script>
 
 </body>
