@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Power BI Reports — Silvio di Rubbo</title>
+<title>Power BI — Silvio di Rubbo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Ccircle cx='55' cy='55' r='42' stroke='%231A1814' stroke-width='4' fill='none'/%3E%3Ccircle cx='55' cy='55' r='14' fill='%232C4A3E'/%3E%3Cpath d='M30 36 C30 36 44 44 55 55 C66 66 80 72 82 72' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M55 55 L80 84' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -42,7 +43,10 @@
   .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
   .btn-secondary { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
   .btn-secondary:hover { color: var(--ink); border-color: var(--ink-mid); }
-  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+  .footer-mark { opacity: 0.3; display: flex; align-items: center; }
+  .footer-mark svg circle, .footer-mark svg path { stroke: #fff; }
+  .footer-mark svg circle:nth-child(2) { fill: rgba(255,255,255,0.4); stroke: none; }
   .footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
   .footer-nav { display: flex; gap: 2rem; }
   .footer-nav a { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
@@ -70,7 +74,7 @@
   .report-title em { font-style: italic; color: var(--accent); }
   .report-desc { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; margin-bottom: 1rem; }
   .report-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
-  .report-link { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm-white); background: var(--ink); border: 1px solid var(--ink); padding: 0.75rem 1.5rem; text-decoration: none; transition: background 0.2s, border-color 0.2s; margin-top: 0.5rem; }
+  .report-link { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm-white); background: var(--ink); border: 1px solid var(--ink); padding: 0.75rem 1.5rem; text-decoration: none; transition: background 0.2s; margin-top: 0.5rem; }
   .report-link:hover { background: var(--accent); border-color: var(--accent); }
   @media (max-width: 768px) { #page-header { padding: 8rem 2rem 4rem; } .page-header-inner { grid-template-columns: 1fr; gap: 2rem; } .report-item { grid-template-columns: 1fr; gap: 2rem; } }
   @media (max-width: 768px) {
@@ -94,35 +98,30 @@
       <h1 class="page-title">Power BI<br><em>Reports</em></h1>
     </div>
     <div>
-      <p class="header-desc">A selection of Power BI reports built to practise and explore decision-oriented data visualisation. Each one focuses on clarity, interactivity, and practical insight — the same approach used professionally at Ralph Lauren across EMEA.</p>
+      <p class="header-desc">A selection of Power BI reports built to practise and explore decision-oriented data visualisation. Each one focuses on clarity, interactivity, and practical insight.</p>
       <p class="license-note">Reports available as PDF · Interactive publishing requires a Pro licence</p>
     </div>
   </div>
 </div>
-
 <section id="reports">
   <div class="container">
     <p class="section-label">Reports</p>
     <div class="report-item">
-      <a href="/assets/powerbi/Sales_Dashboard.pdf" target="_blank" class="report-preview">
-        <img src="/assets/powerbi/Sales_Dashboard.jpg" alt="Sales Dashboard preview"/>
-      </a>
+      <a href="/assets/powerbi/Sales_Dashboard.pdf" target="_blank" class="report-preview"><img src="/assets/powerbi/Sales_Dashboard.jpg" alt="Sales Dashboard preview"/></a>
       <div class="report-content">
         <p class="report-number">Report 01</p>
         <h2 class="report-title">Sales <em>Dashboard</em></h2>
-        <p class="report-desc">Overview of sales trends, regional performance, and contribution analysis using dynamic measures and date intelligence. Tracks performance across dimensions and time periods, built to support commercial decision-making at a glance.</p>
+        <p class="report-desc">Overview of sales trends, regional performance, and contribution analysis using dynamic measures and date intelligence.</p>
         <div class="report-tags"><span class="tag">Sales Analysis</span><span class="tag">Regional Performance</span><span class="tag">Date Intelligence</span><span class="tag">Dynamic Measures</span></div>
         <a href="/assets/powerbi/Sales_Dashboard.pdf" target="_blank" class="report-link">View PDF ↗</a>
       </div>
     </div>
     <div class="report-item">
-      <a href="/assets/powerbi/Sales_Dashboard_2.pdf" target="_blank" class="report-preview">
-        <img src="/assets/powerbi/Sales_Dashboard_2.jpg" alt="Sales Dashboard 2 preview"/>
-      </a>
+      <a href="/assets/powerbi/Sales_Dashboard_2.pdf" target="_blank" class="report-preview"><img src="/assets/powerbi/Sales_Dashboard_2.jpg" alt="Sales Dashboard 2 preview"/></a>
       <div class="report-content">
         <p class="report-number">Report 02</p>
         <h2 class="report-title">Sales Dashboard <em>II</em></h2>
-        <p class="report-desc">Analysis of sales performance across distribution channels, US states, and monthly patterns. Highlights trends, contributions, and behavioural patterns through structured visuals — with a focus on channel mix and geographic granularity.</p>
+        <p class="report-desc">Analysis of sales performance across distribution channels, US states, and monthly patterns. Focus on channel mix and geographic granularity.</p>
         <div class="report-tags"><span class="tag">Channel Mix</span><span class="tag">Geographic Analysis</span><span class="tag">Monthly Patterns</span><span class="tag">Contribution Analysis</span></div>
         <a href="/assets/powerbi/Sales_Dashboard_2.pdf" target="_blank" class="report-link">View PDF ↗</a>
       </div>
@@ -130,6 +129,12 @@
   </div>
 </section>
 <footer>
+  <div class="footer-mark"><svg width="28" height="28" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Silvio di Rubbo mark">
+  <circle cx="55" cy="55" r="42" stroke="#1A1814" stroke-width="2"/>
+  <circle cx="55" cy="55" r="14" fill="#2C4A3E"/>
+  <path d="M 30,36 C 30,36 44,44 55,55 C 66,66 80,72 82,72" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 55,55 L 80,84" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg></div>
   <span class="footer-copy">© 2026 Silvio di Rubbo</span>
   <nav class="footer-nav">
     <a href="/">Home</a>

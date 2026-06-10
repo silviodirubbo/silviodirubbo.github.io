@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact — Silvio di Rubbo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Ccircle cx='55' cy='55' r='42' stroke='%231A1814' stroke-width='4' fill='none'/%3E%3Ccircle cx='55' cy='55' r='14' fill='%232C4A3E'/%3E%3Cpath d='M30 36 C30 36 44 44 55 55 C66 66 80 72 82 72' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M55 55 L80 84' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -42,7 +43,10 @@
   .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
   .btn-secondary { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
   .btn-secondary:hover { color: var(--ink); border-color: var(--ink-mid); }
-  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+  .footer-mark { opacity: 0.3; display: flex; align-items: center; }
+  .footer-mark svg circle, .footer-mark svg path { stroke: #fff; }
+  .footer-mark svg circle:nth-child(2) { fill: rgba(255,255,255,0.4); stroke: none; }
   .footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
   .footer-nav { display: flex; gap: 2rem; }
   .footer-nav a { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
@@ -70,7 +74,7 @@
   .form-intro h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 300; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 1.2rem; }
   .form-intro h2 em { font-style: italic; color: var(--accent); }
   .form-intro p { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; }
-  .contact-form { display: flex; flex-direction: column; gap: 0; }
+  .contact-form { display: flex; flex-direction: column; }
   .form-field { display: flex; flex-direction: column; gap: 0.4rem; border-top: 1px solid var(--rule); padding: 1.2rem 0; }
   .form-field:last-of-type { border-bottom: 1px solid var(--rule); }
   .form-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); }
@@ -99,8 +103,8 @@
 
 <div id="page-header">
   <div class="page-header-inner">
-    <h1 class="page-title">Let's talk<br><em>numbers.</em></h1>
-    <p class="page-header-desc">Open to FP&amp;A, Financial Controller, and Financial Analyst roles in Geneva and Grand-Genève. Available for a conversation at any stage.</p>
+    <h1 class="page-title">Say<br><em>hello.</em></h1>
+    <p class="page-header-desc">Open to professional opportunities in finance and data, editorial collaborations, conversations about economics and culture, and any project worth exploring together.</p>
   </div>
 </div>
 
@@ -146,6 +150,12 @@
   </div>
 </section>
 <footer>
+  <div class="footer-mark"><svg width="28" height="28" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Silvio di Rubbo mark">
+  <circle cx="55" cy="55" r="42" stroke="#1A1814" stroke-width="2"/>
+  <circle cx="55" cy="55" r="14" fill="#2C4A3E"/>
+  <path d="M 30,36 C 30,36 44,44 55,55 C 66,66 80,72 82,72" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 55,55 L 80,84" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg></div>
   <span class="footer-copy">© 2026 Silvio di Rubbo</span>
   <nav class="footer-nav">
     <a href="/">Home</a>
