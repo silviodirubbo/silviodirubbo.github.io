@@ -234,9 +234,6 @@ footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); p
 <script>
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
-  const hamburger = document.getElementById('hamburger');
-  const navMobile = document.getElementById('nav-mobile');
-  hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); navMobile.classList.toggle('open'); });
 
   // Formspree AJAX submission
   const form = document.getElementById('contact-form');
@@ -259,6 +256,9 @@ footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); p
     }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
     reveals.forEach(el => observer.observe(el));
   }
+  const hamburger = document.getElementById('hamburger');
+  const navMobile = document.getElementById('nav-mobile');
+  hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); navMobile.classList.toggle('open'); });
 </script>
 </body>
 </html>
