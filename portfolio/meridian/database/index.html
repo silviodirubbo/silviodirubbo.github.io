@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Foundation — Meridian Time Group — Silvio di Rubbo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Ccircle cx='55' cy='55' r='42' stroke='%231A1814' stroke-width='4' fill='none'/%3E%3Ccircle cx='55' cy='55' r='14' fill='%232C4A3E'/%3E%3Cpath d='M30 36 C30 36 44 44 55 55 C66 66 80 72 82 72' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M55 55 L80 84' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --off-white: #F7F5F0; --warm-white: #FDFCFA; --ink: #1A1814;
+    --ink-mid: #4A4640; --ink-light: #8A8480; --ink-faint: #C8C4BE;
+    --accent: #2C4A3E; --accent-warm: #8B6914; --rule: #E2DED8;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', 'Courier New', monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--warm-white); color: var(--ink); font-family: var(--serif); font-size: 18px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  #nav-container nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; background: var(--warm-white); border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+  #nav-container nav.scrolled { border-bottom-color: var(--rule); }
+  .nav-name { font-family: var(--serif); font-size: 0.95rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--mono); font-size: 0.68rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 1px; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 1px; background: var(--ink); transition: transform 0.3s, opacity 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .nav-mobile { display: none; position: fixed; top: 57px; left: 0; right: 0; z-index: 199; background: var(--warm-white); border-bottom: 1px solid var(--rule); padding: 1.5rem 2rem; flex-direction: column; gap: 1.2rem; }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; }
+  .nav-mobile a:hover, .nav-mobile a.active { color: var(--ink); }
+  section { padding: 6rem 4rem; }
+  .container { max-width: 1040px; margin: 0 auto; }
+  .section-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--rule); }
+  .tag { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); border: 1px solid var(--rule); padding: 0.3rem 0.7rem; }
+  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+  .footer-mark { opacity: 0.3; display: flex; align-items: center; }
+  .footer-mark svg circle, .footer-mark svg path { stroke: #fff; }
+  .footer-mark svg circle:nth-child(2) { fill: rgba(255,255,255,0.4); stroke: none; }
+  .footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+  .footer-nav { display: flex; gap: 2rem; }
+  .footer-nav a { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
+  .footer-nav a:hover { color: rgba(255,255,255,0.5); }
+  .reveal { opacity: 1; transform: translateY(0); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .js-ready .reveal { opacity: 0; transform: translateY(24px); }
+  .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  #page-header { padding: 9rem 4rem 4rem; border-bottom: 1px solid var(--rule); }
+  .page-header-inner { max-width: 1040px; margin: 0 auto; }
+  .back-link { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: color 0.2s; }
+  .back-link:hover { color: var(--ink); }
+  .page-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .page-title { font-size: clamp(2.4rem, 4.5vw, 3.8rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .status-badge { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 0.9rem; border: 1px solid var(--accent); color: var(--accent); white-space: nowrap; margin-top: 0.5rem; }
+  .header-desc { font-size: 1rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; max-width: 720px; }
+
+  /* Process strip */
+  .process-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .process-step { background: var(--off-white); padding: 2.2rem 2rem; position: relative; }
+  .process-num { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1rem; }
+  .process-title { font-size: 1.25rem; font-weight: 400; color: var(--ink); margin-bottom: 0.7rem; }
+  .process-desc { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; }
+  .process-code { display: inline-block; margin-top: 1rem; font-family: var(--mono); font-size: 0.68rem; color: var(--accent-warm); background: rgba(139,105,20,0.08); padding: 0.25rem 0.6rem; }
+  .process-arrow { display: none; }
+  @media (min-width: 769px) {
+    .process-step:not(:last-child)::after { content: '→'; position: absolute; right: -1.4rem; top: 50%; transform: translateY(-50%); color: var(--ink-faint); font-family: var(--mono); z-index: 1; }
+  }
+
+  /* Stats strip */
+  .stats-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; margin-top: 2px; }
+  .stat-card { background: var(--warm-white); border: 1px solid var(--rule); padding: 1.6rem 1.2rem; text-align: center; }
+  .stat-num { font-family: var(--mono); font-size: 1.5rem; color: var(--ink); margin-bottom: 0.3rem; }
+  .stat-label { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); }
+
+  /* Schema section */
+  #schema { background: var(--off-white); }
+  .schema-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 680px; margin-bottom: 2.5rem; }
+  .schema-wrap { display: grid; grid-template-columns: 1fr 340px; gap: 2.5rem; align-items: start; }
+  .schema-diagram { background: var(--warm-white); border: 1px solid var(--rule); }
+  .schema-diagram svg { width: 100%; height: auto; display: block; }
+  .schema-node { cursor: pointer; }
+  .schema-node rect { transition: fill 0.15s, stroke 0.15s, stroke-width 0.15s; }
+  .schema-node-label { font-family: var(--mono); font-size: 11px; fill: var(--ink-mid); pointer-events: none; }
+  .schema-node.fact .schema-node-label { fill: var(--accent); }
+  .schema-node:hover rect { stroke-width: 2; }
+  .schema-node.selected rect { fill: var(--ink) !important; }
+  .schema-node.selected .schema-node-label { fill: var(--warm-white) !important; }
+  .schema-node.linked rect { stroke-width: 2; }
+  .schema-node.dimmed { opacity: 0.3; }
+  .schema-edge { transition: stroke 0.15s, opacity 0.15s; }
+  .schema-edge.dimmed { opacity: 0.15; }
+  .schema-edge.active { stroke: var(--accent-warm) !important; stroke-width: 1.6; }
+  .schema-legend { display: flex; gap: 1.5rem; padding: 1rem 1.5rem; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-light); }
+  .schema-legend-item { display: flex; align-items: center; gap: 0.5rem; }
+  .schema-legend-swatch { width: 14px; height: 10px; border-radius: 2px; display: inline-block; }
+  .schema-legend-swatch.fact { border: 1.2px solid var(--accent); background: var(--warm-white); }
+  .schema-legend-swatch.dim { border: 1.2px solid var(--rule); background: var(--off-white); }
+
+  .schema-detail { background: var(--warm-white); border: 1px solid var(--rule); padding: 1.8rem; position: sticky; top: 100px; min-height: 320px; }
+  .schema-detail-empty { font-size: 0.9rem; font-weight: 300; color: var(--ink-light); font-style: italic; line-height: 1.7; }
+  .schema-detail-type { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 0.6rem; }
+  .schema-detail-title { font-family: var(--mono); font-size: 1rem; color: var(--ink); margin-bottom: 0.3rem; word-break: break-all; }
+  .schema-detail-grain { font-size: 0.82rem; color: var(--ink-light); font-style: italic; margin-bottom: 1rem; }
+  .schema-detail-desc { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; margin-bottom: 1.3rem; }
+  .schema-detail-rows { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-warm); margin-bottom: 1.3rem; }
+  .schema-detail-cols-label { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); border-bottom: 1px solid var(--rule); padding-bottom: 0.6rem; margin-bottom: 0.6rem; }
+  .schema-detail-cols { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; font-family: var(--mono); font-size: 0.76rem; color: var(--ink-mid); }
+  .schema-detail-cols li { display: flex; align-items: center; gap: 0.5rem; }
+  .col-flag { font-size: 0.6rem; letter-spacing: 0.04em; padding: 0.1rem 0.35rem; border-radius: 2px; }
+  .col-flag.pk { background: rgba(44,74,62,0.1); color: var(--accent); }
+  .col-flag.fk { background: rgba(139,105,20,0.1); color: var(--accent-warm); }
+
+  @media (max-width: 900px) {
+    .schema-wrap { grid-template-columns: 1fr; }
+    .schema-detail { position: static; }
+  }
+  @media (max-width: 768px) {
+    #page-header { padding: 8rem 2rem 3rem; }
+    section { padding: 4rem 2rem; }
+    .process-strip { grid-template-columns: 1fr; }
+    .process-step:not(:last-child)::after { display: none; }
+    .stats-strip { grid-template-columns: repeat(2, 1fr); }
+    #nav-container nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    footer { padding: 1.2rem 2rem; flex-direction: column; gap: 0.8rem; text-align: center; }
+    .footer-nav { justify-content: center; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div id="nav-container"></div>
+<script src="/nav.js"></script>
+
+<div id="page-header">
+  <div class="page-header-inner">
+    <a href="/portfolio/" class="back-link">← Back to Portfolio</a>
+    <div class="page-title-row">
+      <h1 class="page-title">Data<br><em>Foundation</em></h1>
+      <span class="status-badge">Data Foundation — Available</span>
+    </div>
+    <p class="header-desc">The star-schema dataset every Meridian Time Group capability is built on: three years of sell-in, sell-out, boutique, budget, cost, inventory, working-capital, headcount, and FX data across 32 markets and 101 SKUs.</p>
+  </div>
+</div>
+
+<section id="build">
+  <div class="container">
+    <p class="section-label reveal">How it's built</p>
+    <div class="process-strip reveal">
+      <div class="process-step">
+        <p class="process-num">Step 1 · Generate</p>
+        <h2 class="process-title">Synthesize</h2>
+        <p class="process-desc">A Python script generates three years (2023–2025) of transactional, budget, and cost data with realistic seasonality and market variation.</p>
+        <span class="process-code">generate_data.py</span>
+      </div>
+      <div class="process-step">
+        <p class="process-num">Step 2 · Package</p>
+        <h2 class="process-title">Portable reference</h2>
+        <p class="process-desc">Loaded into SQLite as a single, dependency-free file — a portable copy of the full star schema anyone can open without a server.</p>
+        <span class="process-code">meridian.db</span>
+      </div>
+      <div class="process-step">
+        <p class="process-num">Step 3 · Migrate</p>
+        <h2 class="process-title">Live connection target</h2>
+        <p class="process-desc">A T-SQL script rebuilds the schema and loads every row into SQL Server — the source the Excel, Power BI, and Tableau capabilities connect to via Power Query.</p>
+        <span class="process-code">meridian_sqlserver_migration.sql</span>
+      </div>
+    </div>
+
+    <div class="stats-strip reveal">
+      <div class="stat-card"><p class="stat-num">19</p><p class="stat-label">Tables</p></div>
+      <div class="stat-card"><p class="stat-num">10 / 9</p><p class="stat-label">Dims / Facts</p></div>
+      <div class="stat-card"><p class="stat-num">~252K</p><p class="stat-label">Rows</p></div>
+      <div class="stat-card"><p class="stat-num">2023–25</p><p class="stat-label">History</p></div>
+      <div class="stat-card"><p class="stat-num">32 / 101</p><p class="stat-label">Markets / SKUs</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="schema">
+  <div class="container">
+    <p class="section-label reveal">Star schema</p>
+    <p class="schema-intro reveal">Nine fact tables at the center, ten dimensions around them. Lines mark real foreign-key joins — not a stylised approximation. Click any table to inspect its grain, columns, and joins.</p>
+
+    <div class="schema-wrap reveal">
+      <div>
+        <div class="schema-diagram">
+          <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" id="schemaSvg">
+            <g id="edgeLayer">
+<line class="schema-edge" data-a="fact_sell_in" data-b="dim_date" x1="500.0" y1="250.0" x2="626.7" y2="110.1" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_sell_in" data-b="dim_wholesale_customer" x1="500.0" y1="250.0" x2="168.3" y2="741.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_sell_in" data-b="dim_line" x1="500.0" y1="250.0" x2="90.0" y2="500.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_sell_out" data-b="dim_date" x1="660.7" y1="308.5" x2="626.7" y2="110.1" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_sell_out" data-b="dim_wholesale_customer" x1="660.7" y1="308.5" x2="168.3" y2="741.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_sell_out" data-b="dim_line" x1="660.7" y1="308.5" x2="90.0" y2="500.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_boutique_sales" data-b="dim_date" x1="746.2" y1="456.6" x2="626.7" y2="110.1" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_boutique_sales" data-b="dim_store" x1="746.2" y1="456.6" x2="373.3" y2="889.9" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_boutique_sales" data-b="dim_line" x1="746.2" y1="456.6" x2="90.0" y2="500.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_budget" data-b="dim_geography" x1="716.5" y1="625.0" x2="831.7" y2="259.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_budget" data-b="dim_channel" x1="716.5" y1="625.0" x2="626.7" y2="889.9" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_line_price_cost" data-b="dim_line" x1="585.5" y1="734.9" x2="90.0" y2="500.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_inventory" data-b="dim_geography" x1="414.5" y1="734.9" x2="831.7" y2="259.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_inventory" data-b="dim_line" x1="414.5" y1="734.9" x2="90.0" y2="500.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_working_capital" data-b="dim_geography" x1="283.5" y1="625.0" x2="831.7" y2="259.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_headcount" data-b="dim_geography" x1="253.8" y1="456.6" x2="831.7" y2="259.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_headcount" data-b="dim_function" x1="253.8" y1="456.6" x2="168.3" y2="259.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_fx_rate" data-b="dim_date" x1="339.3" y1="308.5" x2="626.7" y2="110.1" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="fact_fx_rate" data-b="dim_currency" x1="339.3" y1="308.5" x2="831.7" y2="741.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="dim_geo_currency" data-b="dim_geography" x1="910.0" y1="500.0" x2="831.7" y2="259.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="dim_geo_currency" data-b="dim_currency" x1="910.0" y1="500.0" x2="831.7" y2="741.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="dim_market_terms" data-b="dim_geography" x1="373.3" y1="110.1" x2="831.7" y2="259.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="dim_store" data-b="dim_geography" x1="373.3" y1="889.9" x2="831.7" y2="259.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="dim_store" data-b="dim_channel" x1="373.3" y1="889.9" x2="626.7" y2="889.9" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="dim_wholesale_customer" data-b="dim_geography" x1="168.3" y1="741.0" x2="831.7" y2="259.0" stroke="var(--rule)" stroke-width="1"/>
+<line class="schema-edge" data-a="dim_wholesale_customer" data-b="dim_channel" x1="168.3" y1="741.0" x2="626.7" y2="889.9" stroke="var(--rule)" stroke-width="1"/>
+            </g>
+            <g id="nodeLayer">
+<g class="schema-node fact" data-table="fact_sell_in" tabindex="0" role="button" aria-label="fact_sell_in" transform="translate(425.0,232.0)">
+  <rect width="150" height="36" rx="3" fill="var(--warm-white)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="75.0" y="22.0" text-anchor="middle" class="schema-node-label fact-label">sell_in</text>
+</g>
+<g class="schema-node fact" data-table="fact_sell_out" tabindex="0" role="button" aria-label="fact_sell_out" transform="translate(585.7,290.5)">
+  <rect width="150" height="36" rx="3" fill="var(--warm-white)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="75.0" y="22.0" text-anchor="middle" class="schema-node-label fact-label">sell_out</text>
+</g>
+<g class="schema-node fact" data-table="fact_boutique_sales" tabindex="0" role="button" aria-label="fact_boutique_sales" transform="translate(671.2,438.6)">
+  <rect width="150" height="36" rx="3" fill="var(--warm-white)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="75.0" y="22.0" text-anchor="middle" class="schema-node-label fact-label">boutique_sales</text>
+</g>
+<g class="schema-node fact" data-table="fact_budget" tabindex="0" role="button" aria-label="fact_budget" transform="translate(641.5,607.0)">
+  <rect width="150" height="36" rx="3" fill="var(--warm-white)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="75.0" y="22.0" text-anchor="middle" class="schema-node-label fact-label">budget</text>
+</g>
+<g class="schema-node fact" data-table="fact_line_price_cost" tabindex="0" role="button" aria-label="fact_line_price_cost" transform="translate(510.5,716.9)">
+  <rect width="150" height="36" rx="3" fill="var(--warm-white)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="75.0" y="22.0" text-anchor="middle" class="schema-node-label fact-label">line_price_cost</text>
+</g>
+<g class="schema-node fact" data-table="fact_inventory" tabindex="0" role="button" aria-label="fact_inventory" transform="translate(339.5,716.9)">
+  <rect width="150" height="36" rx="3" fill="var(--warm-white)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="75.0" y="22.0" text-anchor="middle" class="schema-node-label fact-label">inventory</text>
+</g>
+<g class="schema-node fact" data-table="fact_working_capital" tabindex="0" role="button" aria-label="fact_working_capital" transform="translate(208.5,607.0)">
+  <rect width="150" height="36" rx="3" fill="var(--warm-white)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="75.0" y="22.0" text-anchor="middle" class="schema-node-label fact-label">working_capital</text>
+</g>
+<g class="schema-node fact" data-table="fact_headcount" tabindex="0" role="button" aria-label="fact_headcount" transform="translate(178.8,438.6)">
+  <rect width="150" height="36" rx="3" fill="var(--warm-white)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="75.0" y="22.0" text-anchor="middle" class="schema-node-label fact-label">headcount</text>
+</g>
+<g class="schema-node fact" data-table="fact_fx_rate" tabindex="0" role="button" aria-label="fact_fx_rate" transform="translate(264.3,290.5)">
+  <rect width="150" height="36" rx="3" fill="var(--warm-white)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="75.0" y="22.0" text-anchor="middle" class="schema-node-label fact-label">fx_rate</text>
+</g>
+<g class="schema-node dim" data-table="dim_date" tabindex="0" role="button" aria-label="dim_date" transform="translate(546.7,92.1)">
+  <rect width="160" height="36" rx="3" fill="var(--off-white)" stroke="var(--rule)" stroke-width="1.2"/>
+  <text x="80.0" y="22.0" text-anchor="middle" class="schema-node-label dim-label">date</text>
+</g>
+<g class="schema-node dim" data-table="dim_geography" tabindex="0" role="button" aria-label="dim_geography" transform="translate(751.7,241.0)">
+  <rect width="160" height="36" rx="3" fill="var(--off-white)" stroke="var(--rule)" stroke-width="1.2"/>
+  <text x="80.0" y="22.0" text-anchor="middle" class="schema-node-label dim-label">geography</text>
+</g>
+<g class="schema-node dim" data-table="dim_geo_currency" tabindex="0" role="button" aria-label="dim_geo_currency" transform="translate(830.0,482.0)">
+  <rect width="160" height="36" rx="3" fill="var(--off-white)" stroke="var(--rule)" stroke-width="1.2"/>
+  <text x="80.0" y="22.0" text-anchor="middle" class="schema-node-label dim-label">geo_currency</text>
+</g>
+<g class="schema-node dim" data-table="dim_currency" tabindex="0" role="button" aria-label="dim_currency" transform="translate(751.7,723.0)">
+  <rect width="160" height="36" rx="3" fill="var(--off-white)" stroke="var(--rule)" stroke-width="1.2"/>
+  <text x="80.0" y="22.0" text-anchor="middle" class="schema-node-label dim-label">currency</text>
+</g>
+<g class="schema-node dim" data-table="dim_channel" tabindex="0" role="button" aria-label="dim_channel" transform="translate(546.7,871.9)">
+  <rect width="160" height="36" rx="3" fill="var(--off-white)" stroke="var(--rule)" stroke-width="1.2"/>
+  <text x="80.0" y="22.0" text-anchor="middle" class="schema-node-label dim-label">channel</text>
+</g>
+<g class="schema-node dim" data-table="dim_store" tabindex="0" role="button" aria-label="dim_store" transform="translate(293.3,871.9)">
+  <rect width="160" height="36" rx="3" fill="var(--off-white)" stroke="var(--rule)" stroke-width="1.2"/>
+  <text x="80.0" y="22.0" text-anchor="middle" class="schema-node-label dim-label">store</text>
+</g>
+<g class="schema-node dim" data-table="dim_wholesale_customer" tabindex="0" role="button" aria-label="dim_wholesale_customer" transform="translate(88.3,723.0)">
+  <rect width="160" height="36" rx="3" fill="var(--off-white)" stroke="var(--rule)" stroke-width="1.2"/>
+  <text x="80.0" y="22.0" text-anchor="middle" class="schema-node-label dim-label">wholesale_customer</text>
+</g>
+<g class="schema-node dim" data-table="dim_line" tabindex="0" role="button" aria-label="dim_line" transform="translate(10.0,482.0)">
+  <rect width="160" height="36" rx="3" fill="var(--off-white)" stroke="var(--rule)" stroke-width="1.2"/>
+  <text x="80.0" y="22.0" text-anchor="middle" class="schema-node-label dim-label">line</text>
+</g>
+<g class="schema-node dim" data-table="dim_function" tabindex="0" role="button" aria-label="dim_function" transform="translate(88.3,241.0)">
+  <rect width="160" height="36" rx="3" fill="var(--off-white)" stroke="var(--rule)" stroke-width="1.2"/>
+  <text x="80.0" y="22.0" text-anchor="middle" class="schema-node-label dim-label">function</text>
+</g>
+<g class="schema-node dim" data-table="dim_market_terms" tabindex="0" role="button" aria-label="dim_market_terms" transform="translate(293.3,92.1)">
+  <rect width="160" height="36" rx="3" fill="var(--off-white)" stroke="var(--rule)" stroke-width="1.2"/>
+  <text x="80.0" y="22.0" text-anchor="middle" class="schema-node-label dim-label">market_terms</text>
+</g>
+            </g>
+          </svg>
+        </div>
+        <div class="schema-legend">
+          <span class="schema-legend-item"><span class="schema-legend-swatch fact"></span>Fact table</span>
+          <span class="schema-legend-item"><span class="schema-legend-swatch dim"></span>Dimension table</span>
+        </div>
+      </div>
+
+      <div class="schema-detail" id="schemaDetail">
+        <p class="schema-detail-empty">Click a table above to inspect its grain, columns, and joins. Tables prefixed <code>dim_</code> are dimensions; <code>fact_</code> are facts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-mark"><svg width="28" height="28" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Silvio di Rubbo mark">
+  <circle cx="55" cy="55" r="42" stroke="#1A1814" stroke-width="2"/>
+  <circle cx="55" cy="55" r="14" fill="#2C4A3E"/>
+  <path d="M 30,36 C 30,36 44,44 55,55 C 66,66 80,72 82,72" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 55,55 L 80,84" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg></div>
+  <span class="footer-copy">© 2026 Silvio di Rubbo</span>
+  <nav class="footer-nav">
+    <a href="/">Home</a>
+    <a href="/cv/">CV</a>
+    <a href="/portfolio/">Portfolio</a>
+    <a href="/projects/">Projects</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+</footer>
+
+<script>
+  if ('IntersectionObserver' in window) {
+    document.body.classList.add('js-ready');
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  }
+
+  const schemaData = {"dim_date":{"type":"dim","grain":"one row per calendar day","desc":"Calendar dimension spanning Jan 2023 to Dec 2025, with fiscal-year and fiscal-quarter overlays for period-based reporting.","rows":1096,"cols":[{"n":"date_id","p":true,"f":false},{"n":"full_date","p":false,"f":false},{"n":"day","p":false,"f":false},{"n":"day_name","p":false,"f":false},{"n":"week","p":false,"f":false},{"n":"month","p":false,"f":false},{"n":"month_name","p":false,"f":false},{"n":"quarter","p":false,"f":false},{"n":"year","p":false,"f":false},{"n":"fiscal_year","p":false,"f":false},{"n":"fiscal_quarter","p":false,"f":false},{"n":"is_weekend","p":false,"f":false}],"joins":[]},"dim_geography":{"type":"dim","grain":"one row per country entity","desc":"The 32 country-level entities Meridian operates in, grouped into four regions with a market-size tier used for prioritization.","rows":32,"cols":[{"n":"geo_id","p":true,"f":false},{"n":"region","p":false,"f":false},{"n":"country","p":false,"f":false},{"n":"entity_name","p":false,"f":false},{"n":"market_size","p":false,"f":false}],"joins":[]},"dim_geo_currency":{"type":"dim","grain":"one row per country","desc":"Bridges each geography to its local reporting currency — the join used to convert local-currency facts to CHF.","rows":32,"cols":[{"n":"geo_id","p":true,"f":true},{"n":"currency_code","p":false,"f":false}],"joins":["dim_geography","dim_currency"]},"dim_currency":{"type":"dim","grain":"one row per currency","desc":"Reference list of the currencies in use across markets, keyed by ISO code.","rows":10,"cols":[{"n":"currency_code","p":true,"f":false},{"n":"currency_name","p":false,"f":false}],"joins":[]},"dim_channel":{"type":"dim","grain":"one row per channel / mode pair","desc":"The four go-to-market combinations — Boutique or Wholesale, each Retail or Online — used to slice every sales fact.","rows":4,"cols":[{"n":"channel_id","p":true,"f":false},{"n":"channel_type","p":false,"f":false},{"n":"channel_mode","p":false,"f":false}],"joins":[]},"dim_store":{"type":"dim","grain":"one row per boutique store","desc":"The 56 directly-operated boutique locations, with opening date and capital expenditure for capex and payback analysis.","rows":56,"cols":[{"n":"store_id","p":true,"f":false},{"n":"store_name","p":false,"f":false},{"n":"geo_id","p":false,"f":true},{"n":"channel_id","p":false,"f":true},{"n":"opening_date","p":false,"f":false},{"n":"capex_chf","p":false,"f":false},{"n":"useful_life_years","p":false,"f":false}],"joins":["dim_geography","dim_channel"]},"dim_wholesale_customer":{"type":"dim","grain":"one row per wholesale account","desc":"The 224 wholesale accounts Meridian sells through, flagged where the partner reports sell-out data back.","rows":224,"cols":[{"n":"customer_id","p":true,"f":false},{"n":"customer_name","p":false,"f":false},{"n":"geo_id","p":false,"f":true},{"n":"channel_id","p":false,"f":true},{"n":"reports_sellout","p":false,"f":false}],"joins":["dim_geography","dim_channel"]},"dim_line":{"type":"dim","grain":"one row per SKU","desc":"The 101-SKU product line master across ten collections, with the material, finish, and size attributes that drive cost and price.","rows":101,"cols":[{"n":"sku_id","p":true,"f":false},{"n":"sku_name","p":false,"f":false},{"n":"collection","p":false,"f":false},{"n":"material","p":false,"f":false},{"n":"dial_color","p":false,"f":false},{"n":"diameter_mm","p":false,"f":false},{"n":"launch_year","p":false,"f":false}],"joins":[]},"dim_function":{"type":"dim","grain":"one row per cost function","desc":"The two headcount functions — Corporate and Store & Logistics — used to segment workforce reporting.","rows":2,"cols":[{"n":"function_id","p":true,"f":false},{"n":"function_name","p":false,"f":false}],"joins":[]},"dim_market_terms":{"type":"dim","grain":"one row per country","desc":"Market-specific commercial terms — wholesale margin and AR/AP payment days — used to model working capital by geography.","rows":32,"cols":[{"n":"geo_id","p":true,"f":true},{"n":"wholesale_margin_pct","p":false,"f":false},{"n":"ar_days","p":false,"f":false},{"n":"ap_days","p":false,"f":false}],"joins":["dim_geography"]},"fact_sell_in":{"type":"fact","grain":"one row per date × customer × SKU shipment","desc":"Wholesale shipments from Meridian to its accounts — the primary revenue fact for the wholesale channel.","rows":73878,"cols":[{"n":"date_id","p":false,"f":true},{"n":"customer_id","p":false,"f":true},{"n":"sku_id","p":false,"f":true},{"n":"units","p":false,"f":false},{"n":"gross_revenue_lc","p":false,"f":false},{"n":"discount_lc","p":false,"f":false},{"n":"net_revenue_lc","p":false,"f":false},{"n":"actual_unit_cost_chf","p":false,"f":false},{"n":"currency_code","p":false,"f":false},{"n":"net_revenue_chf","p":false,"f":false}],"joins":["dim_date","dim_wholesale_customer","dim_line"]},"fact_sell_out":{"type":"fact","grain":"one row per date × customer × SKU sell-through","desc":"Sell-out volume and revenue reported by wholesale partners — separates shipment timing from real end-consumer demand.","rows":34689,"cols":[{"n":"date_id","p":false,"f":true},{"n":"customer_id","p":false,"f":true},{"n":"sku_id","p":false,"f":true},{"n":"units","p":false,"f":false},{"n":"sellout_price_lc","p":false,"f":false},{"n":"sellout_revenue_lc","p":false,"f":false},{"n":"currency_code","p":false,"f":false},{"n":"sellout_revenue_chf","p":false,"f":false}],"joins":["dim_date","dim_wholesale_customer","dim_line"]},"fact_boutique_sales":{"type":"fact","grain":"one row per date × store × SKU sale","desc":"Directly-operated boutique sales — the DTC counterpart to sell-in, at the same daily/SKU grain.","rows":29450,"cols":[{"n":"date_id","p":false,"f":true},{"n":"store_id","p":false,"f":true},{"n":"sku_id","p":false,"f":true},{"n":"units","p":false,"f":false},{"n":"gross_revenue_lc","p":false,"f":false},{"n":"discount_lc","p":false,"f":false},{"n":"net_revenue_lc","p":false,"f":false},{"n":"actual_unit_cost_chf","p":false,"f":false},{"n":"currency_code","p":false,"f":false},{"n":"net_revenue_chf","p":false,"f":false}],"joins":["dim_date","dim_store","dim_line"]},"fact_budget":{"type":"fact","grain":"one row per year × month × channel × collection × geography","desc":"The monthly budget — units, price, cost, and revenue — set at collection level, the grain a budget model actually plans at.","rows":11177,"cols":[{"n":"year","p":false,"f":false},{"n":"month","p":false,"f":false},{"n":"channel_id","p":false,"f":true},{"n":"collection","p":false,"f":false},{"n":"geo_id","p":false,"f":true},{"n":"budgeted_units","p":false,"f":false},{"n":"budgeted_price_chf","p":false,"f":false},{"n":"budgeted_unit_cost_chf","p":false,"f":false},{"n":"budgeted_revenue_chf","p":false,"f":false},{"n":"new_store_uplift_flag","p":false,"f":false}],"joins":["dim_geography","dim_channel"]},"fact_line_price_cost":{"type":"fact","grain":"one row per SKU × year","desc":"The annual price/cost bridge per SKU — list price, standard cost, and its materials / labor / overhead split.","rows":303,"cols":[{"n":"sku_id","p":true,"f":true},{"n":"year","p":true,"f":false},{"n":"list_price_chf","p":false,"f":false},{"n":"standard_cost_chf","p":false,"f":false},{"n":"materials_pct","p":false,"f":false},{"n":"labor_pct","p":false,"f":false},{"n":"overhead_pct","p":false,"f":false}],"joins":["dim_line"]},"fact_inventory":{"type":"fact","grain":"one row per year × month × SKU × geography","desc":"Month-end inventory position — units on hand and value — by SKU and market.","rows":87480,"cols":[{"n":"year","p":false,"f":false},{"n":"month","p":false,"f":false},{"n":"sku_id","p":false,"f":true},{"n":"geo_id","p":false,"f":true},{"n":"units_on_hand","p":false,"f":false},{"n":"inventory_value_chf","p":false,"f":false}],"joins":["dim_geography","dim_line"]},"fact_working_capital":{"type":"fact","grain":"one row per year × quarter × geography","desc":"Quarterly AR, inventory, and AP balances by market — the source for working-capital and cash-conversion analysis.","rows":384,"cols":[{"n":"year","p":false,"f":false},{"n":"quarter","p":false,"f":false},{"n":"geo_id","p":false,"f":true},{"n":"ar_chf","p":false,"f":false},{"n":"inventory_chf","p":false,"f":false},{"n":"ap_chf","p":false,"f":false}],"joins":["dim_geography"]},"fact_headcount":{"type":"fact","grain":"one row per year × month × function × geography","desc":"Monthly headcount, hires, and attrition by function and market.","rows":2304,"cols":[{"n":"year","p":false,"f":false},{"n":"month","p":false,"f":false},{"n":"function_id","p":false,"f":true},{"n":"geo_id","p":false,"f":true},{"n":"headcount","p":false,"f":false},{"n":"hires","p":false,"f":false},{"n":"attrition","p":false,"f":false}],"joins":["dim_geography","dim_function"]},"fact_fx_rate":{"type":"fact","grain":"one row per date × currency","desc":"Daily FX rates to CHF, the group reporting currency, used to translate every local-currency fact.","rows":10960,"cols":[{"n":"date_id","p":true,"f":true},{"n":"currency_code","p":true,"f":false},{"n":"rate_to_chf","p":false,"f":false}],"joins":["dim_date","dim_currency"]}};
+
+  const nodes = document.querySelectorAll('.schema-node');
+  const edges = document.querySelectorAll('.schema-edge');
+  const detail = document.getElementById('schemaDetail');
+
+  function selectTable(name) {
+    const info = schemaData[name];
+    if (!info) return;
+
+    nodes.forEach(n => {
+      const t = n.getAttribute('data-table');
+      n.classList.remove('selected', 'linked', 'dimmed');
+      if (t === name) n.classList.add('selected');
+      else if (info.joins.includes(t)) n.classList.add('linked');
+      else n.classList.add('dimmed');
+    });
+    edges.forEach(e => {
+      const a = e.getAttribute('data-a'), b = e.getAttribute('data-b');
+      e.classList.remove('active', 'dimmed');
+      if ((a === name && info.joins.includes(b)) || (b === name && info.joins.includes(a))) e.classList.add('active');
+      else e.classList.add('dimmed');
+    });
+
+    const colsHtml = info.cols.map(c => {
+      let flag = '';
+      if (c.p) flag += '<span class="col-flag pk">PK</span>';
+      if (c.f) flag += '<span class="col-flag fk">FK</span>';
+      return `<li>${flag}${c.n}</li>`;
+    }).join('');
+
+    const joinsHtml = info.joins.length
+      ? `<p class="schema-detail-rows">Joins → ${info.joins.map(j => j.replace(/^dim_|^fact_/, '')).join(', ')}</p>`
+      : '';
+
+    detail.innerHTML = `
+      <p class="schema-detail-type">${info.type === 'fact' ? 'Fact table' : 'Dimension table'}</p>
+      <p class="schema-detail-title">${name}</p>
+      <p class="schema-detail-grain">${info.grain}</p>
+      <p class="schema-detail-desc">${info.desc}</p>
+      <p class="schema-detail-rows">${info.rows.toLocaleString()} rows</p>
+      ${joinsHtml}
+      <p class="schema-detail-cols-label">Columns</p>
+      <ul class="schema-detail-cols">${colsHtml}</ul>
+    `;
+  }
+
+  nodes.forEach(n => {
+    n.addEventListener('click', () => selectTable(n.getAttribute('data-table')));
+    n.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectTable(n.getAttribute('data-table')); } });
+  });
+</script>
+</body>
+</html>
