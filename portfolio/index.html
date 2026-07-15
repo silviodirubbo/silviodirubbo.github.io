@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Silvio di Rubbo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Ccircle cx='55' cy='55' r='42' stroke='%231A1814' stroke-width='4' fill='none'/%3E%3Ccircle cx='55' cy='55' r='14' fill='%232C4A3E'/%3E%3Cpath d='M30 36 C30 36 44 44 55 55 C66 66 80 72 82 72' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M55 55 L80 84' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --off-white: #F7F5F0; --warm-white: #FDFCFA; --ink: #1A1814;
+    --ink-mid: #4A4640; --ink-light: #8A8480; --ink-faint: #C8C4BE;
+    --accent: #2C4A3E; --accent-warm: #8B6914; --rule: #E2DED8;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', 'Courier New', monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--warm-white); color: var(--ink); font-family: var(--serif); font-size: 18px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  #nav-container nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; background: var(--warm-white); border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+  #nav-container nav.scrolled { border-bottom-color: var(--rule); }
+  .nav-name { font-family: var(--serif); font-size: 0.95rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--mono); font-size: 0.68rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 1px; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 1px; background: var(--ink); transition: transform 0.3s, opacity 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .nav-mobile { display: none; position: fixed; top: 57px; left: 0; right: 0; z-index: 199; background: var(--warm-white); border-bottom: 1px solid var(--rule); padding: 1.5rem 2rem; flex-direction: column; gap: 1.2rem; }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; }
+  .nav-mobile a:hover, .nav-mobile a.active { color: var(--ink); }
+  section { padding: 7rem 4rem; }
+  .container { max-width: 960px; margin: 0 auto; }
+  .section-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--rule); }
+  .tag { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); border: 1px solid var(--rule); padding: 0.3rem 0.7rem; }
+  .btn-primary { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm-white); background: var(--ink); border: 1px solid var(--ink); padding: 0.75rem 1.75rem; text-decoration: none; transition: background 0.2s, border-color 0.2s; display: inline-block; }
+  .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+  .btn-secondary { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+  .btn-secondary:hover { color: var(--ink); border-color: var(--ink-mid); }
+  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+  .footer-mark { opacity: 0.3; display: flex; align-items: center; }
+  .footer-mark svg circle, .footer-mark svg path { stroke: #fff; }
+  .footer-mark svg circle:nth-child(2) { fill: rgba(255,255,255,0.4); stroke: none; }
+  .footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+  .footer-nav { display: flex; gap: 2rem; }
+  .footer-nav a { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
+  .footer-nav a:hover { color: rgba(255,255,255,0.5); }
+  .reveal { opacity: 1; transform: translateY(0); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .js-ready .reveal { opacity: 0; transform: translateY(24px); }
+  .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  #page-header { padding: 10rem 4rem 5rem; border-bottom: 1px solid var(--rule); }
+  .page-header-inner { max-width: 960px; margin: 0 auto; }
+  .page-kicker { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1.2rem; }
+  .page-title { font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 2rem; }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .page-header-desc { font-size: 1.02rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; max-width: 720px; }
+  .page-header-desc p { margin-bottom: 1rem; }
+  .page-header-desc p:last-child { margin-bottom: 0; }
+
+  /* Legend */
+  .legend { display: flex; flex-wrap: wrap; gap: 2.5rem; margin-bottom: 4rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--rule); }
+  .legend-item { display: flex; align-items: center; gap: 0.6rem; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .legend-dot.available { background: var(--accent); }
+  .legend-dot.progress { background: var(--accent-warm); }
+  .legend-dot.planned { background: var(--ink-faint); }
+  .legend-text { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.06em; }
+  .legend-label { text-transform: uppercase; color: var(--ink); }
+  .legend-sub { color: var(--ink-light); }
+
+  /* Roadmap timeline */
+  .roadmap { display: flex; flex-direction: column; }
+  .roadmap-item { display: grid; grid-template-columns: 72px 1fr; gap: 2rem; position: relative; padding-bottom: 2.5rem; }
+  .roadmap-item::before { content: ''; position: absolute; left: 35px; top: 70px; bottom: 0; width: 1px; background: var(--rule); }
+  .roadmap-item:last-child::before { display: none; }
+  .roadmap-marker { width: 70px; height: 70px; border-radius: 50%; border: 1px solid var(--rule); background: var(--warm-white); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--ink-light); z-index: 1; }
+  .roadmap-marker.available { border-color: var(--accent); color: var(--accent); }
+  .roadmap-marker.progress { border-color: var(--accent-warm); color: var(--accent-warm); }
+  .roadmap-card { background: var(--off-white); padding: 2.2rem 2.5rem; }
+  .roadmap-card-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
+  .status-badge { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.7rem; border: 1px solid var(--rule); color: var(--ink-light); }
+  .status-badge.available { color: var(--accent); border-color: var(--accent); }
+  .status-badge.progress { color: var(--accent-warm); border-color: var(--accent-warm); }
+  .roadmap-title { font-size: 1.4rem; font-weight: 400; color: var(--ink); line-height: 1.25; letter-spacing: -0.01em; margin-bottom: 0.7rem; }
+  .roadmap-desc { font-size: 0.92rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; margin-bottom: 1.2rem; max-width: 640px; }
+  .roadmap-link { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); border-bottom: 1px solid var(--rule); padding-bottom: 2px; text-decoration: none; transition: color 0.2s, border-color 0.2s; }
+  .roadmap-link:hover { color: var(--ink); border-color: var(--ink-mid); }
+  .roadmap-note { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
+
+  .closing-note { margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid var(--rule); font-size: 0.92rem; font-weight: 300; color: var(--ink-light); font-style: italic; max-width: 640px; }
+
+  @media (max-width: 768px) {
+    #page-header { padding: 8rem 2rem 4rem; }
+    .legend { gap: 1.5rem; }
+    .roadmap-item { grid-template-columns: 1fr; gap: 1rem; }
+    .roadmap-item::before { display: none; }
+    .roadmap-marker { width: 48px; height: 48px; font-size: 0.62rem; }
+    .roadmap-card { padding: 1.8rem; }
+  }
+  @media (max-width: 768px) {
+    #nav-container nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    section { padding: 5rem 2rem; }
+    footer { padding: 1.2rem 2rem; flex-direction: column; gap: 0.8rem; text-align: center; }
+    .footer-nav { justify-content: center; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div id="nav-container"></div>
+<script src="/nav.js"></script>
+
+<div id="page-header">
+  <div class="page-header-inner">
+    <p class="page-kicker">Applied FP&amp;A / BI Project</p>
+    <h1 class="page-title">Meridian<br><em>Time Group</em></h1>
+    <div class="page-header-desc">
+      <p>Meridian Time Group is a fictional multi-collection consumer goods manufacturer, built to practise FP&amp;A and BI work end-to-end: ten product collections spanning Entry, Mid, and High price tiers, sold through wholesale and boutique channels with an EMEA and LATAM focus.</p>
+      <p>The scenario runs on a purpose-built dataset — three years of sell-in, sell-out, budget, cost, and working-capital data — so every model, dashboard, and report below is built against real transactional structure rather than static screenshots.</p>
+    </div>
+  </div>
+</div>
+
+<section id="roadmap">
+  <div class="container">
+    <p class="section-label reveal">Status</p>
+
+    <div class="legend reveal">
+      <div class="legend-item"><span class="legend-dot available"></span><span class="legend-text"><span class="legend-label">Available</span> <span class="legend-sub">— built and explorable now</span></span></div>
+      <div class="legend-item"><span class="legend-dot progress"></span><span class="legend-text"><span class="legend-label">In Progress</span> <span class="legend-sub">— being built</span></span></div>
+      <div class="legend-item"><span class="legend-dot planned"></span><span class="legend-text"><span class="legend-label">Planned</span> <span class="legend-sub">— scoped, not started</span></span></div>
+    </div>
+
+    <div class="roadmap reveal">
+
+      <div class="roadmap-item">
+        <div class="roadmap-marker available">DATA</div>
+        <div class="roadmap-card">
+          <div class="roadmap-card-top"><span class="tag">SQLite → SQL Server</span><span class="status-badge available">Data Foundation — Available</span></div>
+          <h2 class="roadmap-title">Data Foundation</h2>
+          <p class="roadmap-desc">A star-schema data model — 10 dimension and 9 fact tables — generated synthetically and packaged as a portable SQLite reference, with a T-SQL migration path to SQL Server for live Power Query connections.</p>
+          <a href="/portfolio/meridian/database/" class="roadmap-link">Explore the data foundation ↗</a>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-marker progress">01</div>
+        <div class="roadmap-card">
+          <div class="roadmap-card-top"><span class="tag">Excel</span><span class="status-badge progress">In Progress</span></div>
+          <h2 class="roadmap-title">Master Budget Model</h2>
+          <p class="roadmap-desc">Annual budget build by collection, channel, and market — unit, price, and cost assumptions rolled up to revenue and margin.</p>
+          <span class="roadmap-note">In development</span>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-marker">02</div>
+        <div class="roadmap-card">
+          <div class="roadmap-card-top"><span class="tag">Excel</span><span class="status-badge">Planned</span></div>
+          <h2 class="roadmap-title">Rolling Forecast Model</h2>
+          <p class="roadmap-desc">Budget vs. forecast vs. actual bridge, updated monthly against sell-in and sell-out results.</p>
+          <span class="roadmap-note">Planned</span>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-marker">03</div>
+        <div class="roadmap-card">
+          <div class="roadmap-card-top"><span class="tag">Excel</span><span class="status-badge">Planned</span></div>
+          <h2 class="roadmap-title">Variance Analysis Dashboard</h2>
+          <p class="roadmap-desc">Price, volume, and mix variance breakdown across collections, channels, and markets.</p>
+          <span class="roadmap-note">Planned</span>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-marker">04</div>
+        <div class="roadmap-card">
+          <div class="roadmap-card-top"><span class="tag">Excel</span><span class="status-badge">Planned</span></div>
+          <h2 class="roadmap-title">Working Capital &amp; CapEx Oversight</h2>
+          <p class="roadmap-desc">Receivables, inventory, and payables tracking by market, plus boutique capital expenditure and payback.</p>
+          <span class="roadmap-note">Planned</span>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-marker">05</div>
+        <div class="roadmap-card">
+          <div class="roadmap-card-top"><span class="tag">Excel</span><span class="status-badge">Planned</span></div>
+          <h2 class="roadmap-title">Standard Costing &amp; Inventory Matrix</h2>
+          <p class="roadmap-desc">Standard cost build-up — materials, labor, overhead — and inventory valuation by SKU and market.</p>
+          <span class="roadmap-note">Planned</span>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-marker">06</div>
+        <div class="roadmap-card">
+          <div class="roadmap-card-top"><span class="tag">Power BI</span><span class="status-badge">Planned</span></div>
+          <h2 class="roadmap-title">Periodic Sales Reporting</h2>
+          <p class="roadmap-desc">Recurring sell-in and sell-out reporting pack across regions, channels, and collections.</p>
+          <span class="roadmap-note">Planned</span>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-marker">07</div>
+        <div class="roadmap-card">
+          <div class="roadmap-card-top"><span class="tag">Tableau</span><span class="status-badge">Planned</span></div>
+          <h2 class="roadmap-title">Year-End Business Review</h2>
+          <p class="roadmap-desc">Full-year performance narrative for leadership — budget vs. actual by market and collection.</p>
+          <span class="roadmap-note">Planned</span>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="closing-note reveal">This page reflects where the project actually stands, not where it's headed — the roadmap above will update in place as each capability ships.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-mark"><svg width="28" height="28" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Silvio di Rubbo mark">
+  <circle cx="55" cy="55" r="42" stroke="#1A1814" stroke-width="2"/>
+  <circle cx="55" cy="55" r="14" fill="#2C4A3E"/>
+  <path d="M 30,36 C 30,36 44,44 55,55 C 66,66 80,72 82,72" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 55,55 L 80,84" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg></div>
+  <span class="footer-copy">© 2026 Silvio di Rubbo</span>
+  <nav class="footer-nav">
+    <a href="/">Home</a>
+    <a href="/cv/">CV</a>
+    <a href="/portfolio/">Portfolio</a>
+    <a href="/projects/">Projects</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+</footer>
+<script>
+  if ('IntersectionObserver' in window) {
+    document.body.classList.add('js-ready');
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  }
+</script>
+</body>
+</html>
