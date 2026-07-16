@@ -1,0 +1,62 @@
+/*
+ * Shared site styles — design tokens, nav, footer, section scaffolding,
+ * and the scroll-reveal system used across every top-level page.
+ * Page-specific rules stay inline in each page's own <style> block.
+ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --off-white: #F7F5F0; --warm-white: #FDFCFA; --ink: #1A1814;
+    --ink-mid: #4A4640; --ink-light: #756F6B; --ink-faint: #C8C4BE;
+    --accent: #2C4A3E; --accent-warm: #8B6914; --rule: #E2DED8;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', 'Courier New', monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--warm-white); color: var(--ink); font-family: var(--serif); font-size: 18px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  #nav-container nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; background: var(--warm-white); border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+  #nav-container nav.scrolled { border-bottom-color: var(--rule); }
+  .nav-name { font-family: var(--serif); font-size: 0.95rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--mono); font-size: 0.68rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 1px; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 1px; background: var(--ink); transition: transform 0.3s, opacity 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .nav-mobile { display: none; position: fixed; top: 57px; left: 0; right: 0; z-index: 199; background: var(--warm-white); border-bottom: 1px solid var(--rule); padding: 1.5rem 2rem; flex-direction: column; gap: 1.2rem; }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; }
+  .nav-mobile a:hover, .nav-mobile a.active { color: var(--ink); }
+  section { padding: 7rem 4rem; }
+  .container { max-width: 960px; margin: 0 auto; }
+  .section-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--rule); }
+  .tag { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); border: 1px solid var(--rule); padding: 0.3rem 0.7rem; }
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+  .btn-primary { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm-white); background: var(--ink); border: 1px solid var(--ink); padding: 0.75rem 1.75rem; text-decoration: none; transition: background 0.2s, border-color 0.2s; display: inline-block; }
+  .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+  .btn-secondary { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+  .btn-secondary:hover { color: var(--ink); border-color: var(--ink-mid); }
+  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+  .footer-mark { opacity: 0.3; display: flex; align-items: center; }
+  .footer-mark svg circle, .footer-mark svg path { stroke: #fff; }
+  .footer-mark svg circle:nth-child(2) { fill: rgba(255,255,255,0.4); stroke: none; }
+  .footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+  .footer-nav { display: flex; gap: 2rem; }
+  .footer-nav a { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
+  .footer-nav a:hover { color: rgba(255,255,255,0.5); }
+  .reveal { opacity: 1; transform: translateY(0); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .js-ready .reveal { opacity: 0; transform: translateY(24px); }
+  .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 768px) {
+    #nav-container nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    section { padding: 5rem 2rem; }
+    footer { padding: 1.2rem 2rem; flex-direction: column; gap: 0.8rem; text-align: center; }
+    .footer-nav { justify-content: center; flex-wrap: wrap; }
+  }
