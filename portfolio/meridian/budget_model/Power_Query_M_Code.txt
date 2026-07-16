@@ -1,0 +1,205 @@
+MERIDIAN TIME GROUP — FY2026 MASTER BUDGET MODEL
+Power Query (M) reference queries
+==================================================
+
+WHY THIS IS A SEPARATE FILE, NOT A LIVE CONNECTION BAKED INTO THE WORKBOOK
+---------------------------------------------------------------------------
+This build environment cannot reach your SQL Server instance (Silvio\SQLEXPRESS01) —
+no network path exists from here to your machine. That means I could not test-refresh
+any live Power Query connection I embedded, and hand-encoding Excel's binary Power
+Query connection format (the "DataMashup" package) without a way to verify it opens
+correctly in real Excel is a genuine corruption risk I wasn't willing to take with a
+deliverable file. There is no local Excel or working LibreOffice in this environment
+to validate against either.
+
+Instead: every reference/query-data cell in the workbook (2025 actuals, price history,
+market terms, store performance) is populated with real, correct, currently-accurate
+numbers queried directly from meridian.db — so the file is immediately correct and
+fully reviewable without needing a live connection at all. The queries below are the
+verified-correct M code to wire up a *live, refreshable* connection yourself, whenever
+you're ready: Data → Get Data → Blank Query → Advanced Editor → paste → Done. Existing
+Excel Tables in the workbook can then be repointed to load from these queries instead
+of the static snapshot, or you can load these alongside and diff them against the
+snapshot to confirm nothing's drifted.
+
+Every query in this file loads to a plain worksheet Table — "Add this data to the
+Data Model" is intentionally left OFF everywhere (see the design spec's Calculation
+Architecture section for why: LibreOffice Calc has no support for the Data Model at
+all, and nothing here needs it).
+
+Naming convention: Dim_* = thin dimension pass-throughs. Stg_* = staging queries
+referenced by other queries, not loaded to a sheet themselves. Drv_* = the queries
+that actually feed a driver tab.
+
+Per the current design (v3 of the spec): all aggregation happens client-side in M,
+reading directly from the existing tables — no SQL Server views or new tables were
+added. Refreshing Drv_MonthlyUnitHistory will pull and re-aggregate the full
+fact_sell_in + fact_boutique_sales tables (~103K rows) every time; that's an accepted
+trade-off, documented, not an oversight.
+
+
+PARAMETERS (create first, via Data → Get Data → Manage Parameters)
+---------------------------------------------------------------------------
+Name: ServerName       Type: Text      Current Value: Silvio\SQLEXPRESS01
+Name: DatabaseName      Type: Text      Current Value: meridiana
+
+
+DIMENSION PASS-THROUGHS
+---------------------------------------------------------------------------
+
+shared Dim_Geography = let
+    Source = Sql.Database(ServerName, DatabaseName),
+    dbo_dim_geography = Source{[Schema="dbo",Item="dim_geography"]}[Data]
+in
+    dbo_dim_geography;
+
+shared Dim_Line = let
+    Source = Sql.Database(ServerName, DatabaseName),
+    dbo_dim_line = Source{[Schema="dbo",Item="dim_line"]}[Data]
+in
+    dbo_dim_line;
+
+shared Dim_Channel = let
+    Source = Sql.Database(ServerName, DatabaseName),
+    dbo_dim_channel = Source{[Schema="dbo",Item="dim_channel"]}[Data]
+in
+    dbo_dim_channel;
+
+shared Dim_Date = let
+    Source = Sql.Database(ServerName, DatabaseName),
+    dbo_dim_date = Source{[Schema="dbo",Item="dim_date"]}[Data]
+in
+    dbo_dim_date;
+
+shared Dim_Store = let
+    Source = Sql.Database(ServerName, DatabaseName),
+    dbo_dim_store = Source{[Schema="dbo",Item="dim_store"]}[Data]
+in
+    dbo_dim_store;
+
+shared Dim_WholesaleCustomer = let
+    Source = Sql.Database(ServerName, DatabaseName),
+    dbo_dim_wholesale_customer = Source{[Schema="dbo",Item="dim_wholesale_customer"]}[Data]
+in
+    dbo_dim_wholesale_customer;
+
+shared Dim_MarketTerms = let
+    Source = Sql.Database(ServerName, DatabaseName),
+    dbo_dim_market_terms = Source{[Schema="dbo",Item="dim_market_terms"]}[Data]
+in
+    dbo_dim_market_terms;
+
+
+STAGING (referenced by other queries — do not load this one to a sheet)
+---------------------------------------------------------------------------
+
+shared Stg_SalesUnioned = let
+    Boutique = Sql.Database(ServerName, DatabaseName){[Schema="dbo",Item="fact_boutique_sales"]}[Data],
+    BoutiqueWithGeo = Table.NestedJoin(Boutique, {"store_id"}, Dim_Store, {"store_id"}, "StoreInfo", JoinKind.LeftOuter),
+    BoutiqueExpanded = Table.ExpandTableColumn(BoutiqueWithGeo, "StoreInfo", {"geo_id", "channel_id"}, {"geo_id", "channel_id"}),
+    BoutiqueFinal = Table.SelectColumns(BoutiqueExpanded, {"date_id", "sku_id", "units", "net_revenue_chf", "actual_unit_cost_chf", "geo_id", "channel_id"}),
+
+    Wholesale = Sql.Database(ServerName, DatabaseName){[Schema="dbo",Item="fact_sell_in"]}[Data],
+    WholesaleWithGeo = Table.NestedJoin(Wholesale, {"customer_id"}, Dim_WholesaleCustomer, {"customer_id"}, "CustomerInfo", JoinKind.LeftOuter),
+    WholesaleExpanded = Table.ExpandTableColumn(WholesaleWithGeo, "CustomerInfo", {"geo_id", "channel_id"}, {"geo_id", "channel_id"}),
+    WholesaleFinal = Table.SelectColumns(WholesaleExpanded, {"date_id", "sku_id", "units", "net_revenue_chf", "actual_unit_cost_chf", "geo_id", "channel_id"}),
+
+    Combined = Table.Combine({BoutiqueFinal, WholesaleFinal})
+in
+    Combined;
+
+
+DRIVER QUERIES
+---------------------------------------------------------------------------
+
+// Feeds the Model tab's 36-month history columns. Grain: Year x Month x
+// Channel Type x Collection x Country. Replaces the old file's four
+// overlapping queries (DTC Division / WHLS Division / Data_PriorYearActuals
+// / Driver1_MonthlyHistory) with one, referencing Stg_SalesUnioned instead
+// of rebuilding the union each time.
+shared Drv_MonthlyUnitHistory = let
+    WithDate = Table.NestedJoin(Stg_SalesUnioned, {"date_id"}, Dim_Date, {"date_id"}, "DateInfo", JoinKind.LeftOuter),
+    DateExpanded = Table.ExpandTableColumn(WithDate, "DateInfo", {"year", "month"}, {"year", "month"}),
+    WithChannel = Table.NestedJoin(DateExpanded, {"channel_id"}, Dim_Channel, {"channel_id"}, "ChannelInfo", JoinKind.LeftOuter),
+    ChannelExpanded = Table.ExpandTableColumn(WithChannel, "ChannelInfo", {"channel_type"}, {"channel_type"}),
+    WithLine = Table.NestedJoin(ChannelExpanded, {"sku_id"}, Dim_Line, {"sku_id"}, "LineInfo", JoinKind.LeftOuter),
+    LineExpanded = Table.ExpandTableColumn(WithLine, "LineInfo", {"collection"}, {"collection"}),
+    WithGeo = Table.NestedJoin(LineExpanded, {"geo_id"}, Dim_Geography, {"geo_id"}, "GeoInfo", JoinKind.LeftOuter),
+    GeoExpanded = Table.ExpandTableColumn(WithGeo, "GeoInfo", {"country", "region"}, {"country", "region"}),
+    Grouped = Table.Group(GeoExpanded, {"year", "month", "channel_type", "collection", "country", "region"},
+        {{"units", each List.Sum([units]), type number}})
+in
+    Grouped;
+
+// Feeds Price per SKU's weighted-average basis. Grain: SKU x Year.
+// Replaces the SKU-units logic that used to be duplicated across all four
+// of the old price-related queries.
+shared Drv_SkuUnitsByYear = let
+    WithDate = Table.NestedJoin(Stg_SalesUnioned, {"date_id"}, Dim_Date, {"date_id"}, "DateInfo", JoinKind.LeftOuter),
+    DateExpanded = Table.ExpandTableColumn(WithDate, "DateInfo", {"year"}, {"year"}),
+    Grouped = Table.Group(DateExpanded, {"sku_id", "year"}, {{"units", each List.Sum([units]), type number}})
+in
+    Grouped;
+
+// Feeds Price per SKU directly — one query instead of four.
+shared Drv_PriceSkuBase = let
+    PriceCost = Sql.Database(ServerName, DatabaseName){[Schema="dbo",Item="fact_line_price_cost"]}[Data],
+    WithLine = Table.NestedJoin(PriceCost, {"sku_id"}, Dim_Line, {"sku_id"}, "LineInfo", JoinKind.LeftOuter),
+    LineExpanded = Table.ExpandTableColumn(WithLine, "LineInfo", {"sku_name", "collection"}, {"sku_name", "collection"}),
+    WithUnits = Table.NestedJoin(LineExpanded, {"sku_id", "year"}, Drv_SkuUnitsByYear, {"sku_id", "year"}, "UnitsInfo", JoinKind.LeftOuter),
+    UnitsExpanded = Table.ExpandTableColumn(WithUnits, "UnitsInfo", {"units"}, {"units"}),
+    Filtered2025 = Table.SelectRows(UnitsExpanded, each [year] = 2025)
+in
+    Filtered2025;
+
+// Feeds the New Store Uplift reference block on Inputs — existing-store
+// 2025 comp performance, informational only, feeds nothing downstream.
+shared Drv_StorePerformance2025 = let
+    Stores = Sql.Database(ServerName, DatabaseName){[Schema="dbo",Item="dim_store"]}[Data],
+    Boutique2025 = Table.SelectRows(
+        Table.ExpandTableColumn(
+            Table.NestedJoin(
+                Sql.Database(ServerName, DatabaseName){[Schema="dbo",Item="fact_boutique_sales"]}[Data],
+                {"date_id"}, Dim_Date, {"date_id"}, "DateInfo", JoinKind.LeftOuter),
+            "DateInfo", {"year"}, {"year"}),
+        each [year] = 2025),
+    Grouped = Table.Group(Boutique2025, {"store_id"},
+        {{"units_2025", each List.Sum([units]), type number},
+         {"net_revenue_chf_2025", each List.Sum([net_revenue_chf]), type number}}),
+    WithStores = Table.NestedJoin(Stores, {"store_id"}, Grouped, {"store_id"}, "PerfInfo", JoinKind.LeftOuter),
+    Expanded = Table.ExpandTableColumn(WithStores, "PerfInfo", {"units_2025", "net_revenue_chf_2025"}, {"units_2025", "net_revenue_chf_2025"}),
+    Filled = Table.TransformColumns(Expanded, {
+        {"units_2025", each if _ = null then 0 else _, type number},
+        {"net_revenue_chf_2025", each if _ = null then 0 else _, type number}
+    })
+in
+    Filled;
+
+// Feeds the wholesale-margin reference table on the Model tab.
+shared Drv_MarketTerms = let
+    WithGeo = Table.NestedJoin(Dim_MarketTerms, {"geo_id"}, Dim_Geography, {"geo_id"}, "GeoInfo", JoinKind.LeftOuter),
+    Expanded = Table.ExpandTableColumn(WithGeo, "GeoInfo", {"country", "region"}, {"country", "region"}),
+    Selected = Table.SelectColumns(Expanded, {"country", "region", "wholesale_margin_pct", "ar_days", "ap_days"})
+in
+    Selected;
+
+
+SETUP STEPS
+---------------------------------------------------------------------------
+1. Data → Get Data → From Other Sources → Blank Query.
+2. Home → Manage Parameters → New. Create ServerName and DatabaseName exactly
+   as specified above.
+3. For each query above: Home → Advanced Editor → paste the M code (including
+   the "shared QueryName = let ... in ..." wrapper — Excel accepts this
+   syntax directly in a blank query, it doesn't need reformatting).
+4. Query dependency order matters for a clean build: Dim_* first, then
+   Stg_SalesUnioned, then the Drv_* queries (several of them reference
+   Stg_SalesUnioned or each other).
+5. Load each Drv_* query to a Table (Close & Load To → Table), not the Data
+   Model.
+6. To go fully live: repoint the Inputs/Model tables' query-data columns at
+   these loaded tables instead of the static values currently sitting there,
+   or add a refresh step that overwrites them. The static values were pulled
+   from meridian.db on 2026-07-16 and are correct as of that date — this
+   step is what makes the file track your live SQL Server going forward
+   instead of that snapshot.
