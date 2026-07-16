@@ -13,7 +13,7 @@
       nav.classList.toggle('scrolled', window.scrollY > 40);
     });
 
-    // Active link — match current path, including nested pages (e.g. /cv/powerbi/ highlights CV)
+    // Active link: match current path, including nested pages (e.g. /cv/powerbi/ highlights CV)
     var path = window.location.pathname.replace(/\/$/, '') || '';
     var links = document.querySelectorAll('#nav .nav-links a, #nav-mobile a');
     links.forEach(function (link) {

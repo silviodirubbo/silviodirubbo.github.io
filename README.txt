@@ -1,6 +1,6 @@
 # silviodirubbo.github.io
 
-Personal portfolio website of Silvio di Rubbo — Financial Analyst based in Geneva.
+Personal portfolio website of Silvio di Rubbo, Financial Analyst based in Geneva.
 
 Built with plain HTML, CSS, and JavaScript. No frameworks, no dependencies.
 
