@@ -78,6 +78,28 @@
   .stat-num { font-family: var(--mono); font-size: 1.5rem; color: var(--ink); margin-bottom: 0.3rem; }
   .stat-label { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); }
 
+  .build-note { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--rule); font-size: 0.9rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 720px; }
+  .build-note-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 0.6rem; }
+
+  /* Download panel (reusable across capability sections) */
+  .downloads-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 680px; margin-bottom: 2.5rem; }
+  .download-panel { display: flex; flex-direction: column; gap: 2px; }
+  .download-item { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; background: var(--off-white); border: 1px solid var(--rule); padding: 1.6rem 2rem; }
+  .download-info { display: flex; align-items: flex-start; gap: 1rem; min-width: 0; }
+  .download-badge { flex-shrink: 0; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.04em; color: var(--accent-warm); background: rgba(139,105,20,0.08); border: 1px solid rgba(139,105,20,0.25); padding: 0.3rem 0.55rem; margin-top: 0.15rem; }
+  .download-text { min-width: 0; }
+  .download-name { font-family: var(--mono); font-size: 0.88rem; color: var(--ink); display: block; margin-bottom: 0.4rem; word-break: break-word; }
+  .download-desc { font-size: 0.85rem; font-weight: 300; color: var(--ink-mid); line-height: 1.6; }
+  .download-action { display: flex; align-items: center; gap: 1.2rem; flex-shrink: 0; }
+  .download-size { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-light); white-space: nowrap; }
+  .download-btn { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm-white); background: var(--ink); border: 1px solid var(--ink); padding: 0.65rem 1.3rem; text-decoration: none; white-space: nowrap; transition: background 0.2s, border-color 0.2s; }
+  .download-btn:hover { background: var(--accent); border-color: var(--accent); }
+  .download-empty { font-size: 0.9rem; font-weight: 300; color: var(--ink-light); font-style: italic; }
+  @media (max-width: 560px) {
+    .download-item { flex-direction: column; align-items: flex-start; }
+    .download-action { width: 100%; justify-content: space-between; }
+  }
+
   /* Schema section */
   #schema { background: var(--off-white); }
   .schema-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 680px; margin-bottom: 2.5rem; }
@@ -179,6 +201,11 @@
       <div class="stat-card"><p class="stat-num">~252K</p><p class="stat-label">Rows</p></div>
       <div class="stat-card"><p class="stat-num">2023–25</p><p class="stat-label">History</p></div>
       <div class="stat-card"><p class="stat-num">32 / 101</p><p class="stat-label">Markets / SKUs</p></div>
+    </div>
+
+    <div class="build-note reveal">
+      <p class="build-note-label">Also explored in Excel</p>
+      <p>Before the SQL Server migration, the same SQLite file was queried directly from Excel via Power Query — a quick way to spot-check joins, row counts, and referential integrity table by table without leaving the spreadsheet.</p>
     </div>
   </div>
 </section>
@@ -313,6 +340,14 @@
   </div>
 </section>
 
+<section id="downloads">
+  <div class="container">
+    <p class="section-label reveal">Source files</p>
+    <p class="downloads-intro reveal">The two files behind everything above — download them directly.</p>
+    <div class="download-panel reveal" id="downloadPanel"></div>
+  </div>
+</section>
+
 <footer>
   <div class="footer-mark"><svg width="28" height="28" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Silvio di Rubbo mark">
   <circle cx="55" cy="55" r="42" stroke="#1A1814" stroke-width="2"/>
@@ -339,6 +374,35 @@
     }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
     reveals.forEach(el => observer.observe(el));
   }
+
+  function renderDownloadPanel(containerId, files) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    if (!files.length) {
+      container.innerHTML = '<p class="download-empty">No downloadable files yet for this section.</p>';
+      return;
+    }
+    container.innerHTML = files.map(f => `
+      <div class="download-item">
+        <div class="download-info">
+          <span class="download-badge">.${f.ext}</span>
+          <div class="download-text">
+            <span class="download-name">${f.name}</span>
+            <p class="download-desc">${f.desc}</p>
+          </div>
+        </div>
+        <div class="download-action">
+          <span class="download-size">${f.size}</span>
+          <a href="${f.path}" download class="download-btn">Download ↓</a>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderDownloadPanel('downloadPanel', [
+    { name: 'meridian.db', ext: 'db', size: '12.3 MB', path: '/portfolio/meridian/database/files/meridian.db', desc: 'The actual SQLite database used to build the schema shown above.' },
+    { name: 'generate_data.py', ext: 'py', size: '2.7 KB', path: '/portfolio/meridian/database/files/generate_data.py', desc: 'Script used to generate the synthetic dataset.' }
+  ]);
 
   const schemaData = {"dim_date":{"type":"dim","grain":"one row per calendar day","desc":"Calendar dimension spanning Jan 2023 to Dec 2025, with fiscal-year and fiscal-quarter overlays for period-based reporting.","rows":1096,"cols":[{"n":"date_id","p":true,"f":false},{"n":"full_date","p":false,"f":false},{"n":"day","p":false,"f":false},{"n":"day_name","p":false,"f":false},{"n":"week","p":false,"f":false},{"n":"month","p":false,"f":false},{"n":"month_name","p":false,"f":false},{"n":"quarter","p":false,"f":false},{"n":"year","p":false,"f":false},{"n":"fiscal_year","p":false,"f":false},{"n":"fiscal_quarter","p":false,"f":false},{"n":"is_weekend","p":false,"f":false}],"joins":[]},"dim_geography":{"type":"dim","grain":"one row per country entity","desc":"The 32 country-level entities Meridian operates in, grouped into four regions with a market-size tier used for prioritization.","rows":32,"cols":[{"n":"geo_id","p":true,"f":false},{"n":"region","p":false,"f":false},{"n":"country","p":false,"f":false},{"n":"entity_name","p":false,"f":false},{"n":"market_size","p":false,"f":false}],"joins":[]},"dim_geo_currency":{"type":"dim","grain":"one row per country","desc":"Bridges each geography to its local reporting currency — the join used to convert local-currency facts to CHF.","rows":32,"cols":[{"n":"geo_id","p":true,"f":true},{"n":"currency_code","p":false,"f":false}],"joins":["dim_geography","dim_currency"]},"dim_currency":{"type":"dim","grain":"one row per currency","desc":"Reference list of the currencies in use across markets, keyed by ISO code.","rows":10,"cols":[{"n":"currency_code","p":true,"f":false},{"n":"currency_name","p":false,"f":false}],"joins":[]},"dim_channel":{"type":"dim","grain":"one row per channel / mode pair","desc":"The four go-to-market combinations — Boutique or Wholesale, each Retail or Online — used to slice every sales fact.","rows":4,"cols":[{"n":"channel_id","p":true,"f":false},{"n":"channel_type","p":false,"f":false},{"n":"channel_mode","p":false,"f":false}],"joins":[]},"dim_store":{"type":"dim","grain":"one row per boutique store","desc":"The 56 directly-operated boutique locations, with opening date and capital expenditure for capex and payback analysis.","rows":56,"cols":[{"n":"store_id","p":true,"f":false},{"n":"store_name","p":false,"f":false},{"n":"geo_id","p":false,"f":true},{"n":"channel_id","p":false,"f":true},{"n":"opening_date","p":false,"f":false},{"n":"capex_chf","p":false,"f":false},{"n":"useful_life_years","p":false,"f":false}],"joins":["dim_geography","dim_channel"]},"dim_wholesale_customer":{"type":"dim","grain":"one row per wholesale account","desc":"The 224 wholesale accounts Meridian sells through, flagged where the partner reports sell-out data back.","rows":224,"cols":[{"n":"customer_id","p":true,"f":false},{"n":"customer_name","p":false,"f":false},{"n":"geo_id","p":false,"f":true},{"n":"channel_id","p":false,"f":true},{"n":"reports_sellout","p":false,"f":false}],"joins":["dim_geography","dim_channel"]},"dim_line":{"type":"dim","grain":"one row per SKU","desc":"The 101-SKU product line master across ten collections, with the material, finish, and size attributes that drive cost and price.","rows":101,"cols":[{"n":"sku_id","p":true,"f":false},{"n":"sku_name","p":false,"f":false},{"n":"collection","p":false,"f":false},{"n":"material","p":false,"f":false},{"n":"dial_color","p":false,"f":false},{"n":"diameter_mm","p":false,"f":false},{"n":"launch_year","p":false,"f":false}],"joins":[]},"dim_function":{"type":"dim","grain":"one row per cost function","desc":"The two headcount functions — Corporate and Store & Logistics — used to segment workforce reporting.","rows":2,"cols":[{"n":"function_id","p":true,"f":false},{"n":"function_name","p":false,"f":false}],"joins":[]},"dim_market_terms":{"type":"dim","grain":"one row per country","desc":"Market-specific commercial terms — wholesale margin and AR/AP payment days — used to model working capital by geography.","rows":32,"cols":[{"n":"geo_id","p":true,"f":true},{"n":"wholesale_margin_pct","p":false,"f":false},{"n":"ar_days","p":false,"f":false},{"n":"ap_days","p":false,"f":false}],"joins":["dim_geography"]},"fact_sell_in":{"type":"fact","grain":"one row per date × customer × SKU shipment","desc":"Wholesale shipments from Meridian to its accounts — the primary revenue fact for the wholesale channel.","rows":73878,"cols":[{"n":"date_id","p":false,"f":true},{"n":"customer_id","p":false,"f":true},{"n":"sku_id","p":false,"f":true},{"n":"units","p":false,"f":false},{"n":"gross_revenue_lc","p":false,"f":false},{"n":"discount_lc","p":false,"f":false},{"n":"net_revenue_lc","p":false,"f":false},{"n":"actual_unit_cost_chf","p":false,"f":false},{"n":"currency_code","p":false,"f":false},{"n":"net_revenue_chf","p":false,"f":false}],"joins":["dim_date","dim_wholesale_customer","dim_line"]},"fact_sell_out":{"type":"fact","grain":"one row per date × customer × SKU sell-through","desc":"Sell-out volume and revenue reported by wholesale partners — separates shipment timing from real end-consumer demand.","rows":34689,"cols":[{"n":"date_id","p":false,"f":true},{"n":"customer_id","p":false,"f":true},{"n":"sku_id","p":false,"f":true},{"n":"units","p":false,"f":false},{"n":"sellout_price_lc","p":false,"f":false},{"n":"sellout_revenue_lc","p":false,"f":false},{"n":"currency_code","p":false,"f":false},{"n":"sellout_revenue_chf","p":false,"f":false}],"joins":["dim_date","dim_wholesale_customer","dim_line"]},"fact_boutique_sales":{"type":"fact","grain":"one row per date × store × SKU sale","desc":"Directly-operated boutique sales — the DTC counterpart to sell-in, at the same daily/SKU grain.","rows":29450,"cols":[{"n":"date_id","p":false,"f":true},{"n":"store_id","p":false,"f":true},{"n":"sku_id","p":false,"f":true},{"n":"units","p":false,"f":false},{"n":"gross_revenue_lc","p":false,"f":false},{"n":"discount_lc","p":false,"f":false},{"n":"net_revenue_lc","p":false,"f":false},{"n":"actual_unit_cost_chf","p":false,"f":false},{"n":"currency_code","p":false,"f":false},{"n":"net_revenue_chf","p":false,"f":false}],"joins":["dim_date","dim_store","dim_line"]},"fact_budget":{"type":"fact","grain":"one row per year × month × channel × collection × geography","desc":"The monthly budget — units, price, cost, and revenue — set at collection level, the grain a budget model actually plans at.","rows":11177,"cols":[{"n":"year","p":false,"f":false},{"n":"month","p":false,"f":false},{"n":"channel_id","p":false,"f":true},{"n":"collection","p":false,"f":false},{"n":"geo_id","p":false,"f":true},{"n":"budgeted_units","p":false,"f":false},{"n":"budgeted_price_chf","p":false,"f":false},{"n":"budgeted_unit_cost_chf","p":false,"f":false},{"n":"budgeted_revenue_chf","p":false,"f":false},{"n":"new_store_uplift_flag","p":false,"f":false}],"joins":["dim_geography","dim_channel"]},"fact_line_price_cost":{"type":"fact","grain":"one row per SKU × year","desc":"The annual price/cost bridge per SKU — list price, standard cost, and its materials / labor / overhead split.","rows":303,"cols":[{"n":"sku_id","p":true,"f":true},{"n":"year","p":true,"f":false},{"n":"list_price_chf","p":false,"f":false},{"n":"standard_cost_chf","p":false,"f":false},{"n":"materials_pct","p":false,"f":false},{"n":"labor_pct","p":false,"f":false},{"n":"overhead_pct","p":false,"f":false}],"joins":["dim_line"]},"fact_inventory":{"type":"fact","grain":"one row per year × month × SKU × geography","desc":"Month-end inventory position — units on hand and value — by SKU and market.","rows":87480,"cols":[{"n":"year","p":false,"f":false},{"n":"month","p":false,"f":false},{"n":"sku_id","p":false,"f":true},{"n":"geo_id","p":false,"f":true},{"n":"units_on_hand","p":false,"f":false},{"n":"inventory_value_chf","p":false,"f":false}],"joins":["dim_geography","dim_line"]},"fact_working_capital":{"type":"fact","grain":"one row per year × quarter × geography","desc":"Quarterly AR, inventory, and AP balances by market — the source for working-capital and cash-conversion analysis.","rows":384,"cols":[{"n":"year","p":false,"f":false},{"n":"quarter","p":false,"f":false},{"n":"geo_id","p":false,"f":true},{"n":"ar_chf","p":false,"f":false},{"n":"inventory_chf","p":false,"f":false},{"n":"ap_chf","p":false,"f":false}],"joins":["dim_geography"]},"fact_headcount":{"type":"fact","grain":"one row per year × month × function × geography","desc":"Monthly headcount, hires, and attrition by function and market.","rows":2304,"cols":[{"n":"year","p":false,"f":false},{"n":"month","p":false,"f":false},{"n":"function_id","p":false,"f":true},{"n":"geo_id","p":false,"f":true},{"n":"headcount","p":false,"f":false},{"n":"hires","p":false,"f":false},{"n":"attrition","p":false,"f":false}],"joins":["dim_geography","dim_function"]},"fact_fx_rate":{"type":"fact","grain":"one row per date × currency","desc":"Daily FX rates to CHF, the group reporting currency, used to translate every local-currency fact.","rows":10960,"cols":[{"n":"date_id","p":true,"f":true},{"n":"currency_code","p":true,"f":false},{"n":"rate_to_chf","p":false,"f":false}],"joins":["dim_date","dim_currency"]}};
 
