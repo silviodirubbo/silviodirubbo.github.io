@@ -451,9 +451,21 @@
     `;
   }
 
+  function clearSelection() {
+    nodes.forEach(n => n.classList.remove('selected', 'linked', 'dimmed'));
+    edges.forEach(e => e.classList.remove('active', 'dimmed'));
+    detail.innerHTML = `
+      <p class="schema-detail-empty">Click a table above to inspect its grain, columns, and joins. Tables prefixed <code>dim_</code> are dimensions; <code>fact_</code> are facts.</p>
+    `;
+  }
+
   nodes.forEach(n => {
     n.addEventListener('click', () => selectTable(n.getAttribute('data-table')));
     n.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectTable(n.getAttribute('data-table')); } });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('[data-table]')) clearSelection();
   });
 </script>
 </body>
