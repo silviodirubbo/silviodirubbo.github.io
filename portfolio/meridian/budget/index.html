@@ -177,7 +177,7 @@
     </div>
     <div class="header-desc">
       <p>An FY2026 budget built from the ground up, by country, collection, and channel, starting from 2025 actuals and letting every unit, price, and cost assumption roll up into revenue, COGS, and margin.</p>
-      <p>The actuals side is pulled via Power Query from meridian.db / SQL Server: two source facts (boutique sales and wholesale shipments) merged with their dimensions, appended into one table, and grouped down to Month × Channel × Collection × Country, the grain the Model tab plans at.</p>
+      <p>The actuals side is pulled via Power Query from <a href="/portfolio/meridian/database/" style="color:inherit;">meridian.db / SQL Server</a>: two source facts (boutique sales and wholesale shipments) merged with their dimensions, appended into one table, and grouped down to Month × Channel × Collection × Country, the grain the Model tab plans at.</p>
     </div>
   </div>
 </div>
@@ -373,7 +373,7 @@
   <div class="container">
     <p class="tab-eyebrow reveal">Tab 5</p>
     <h2 class="tab-title reveal">Budget Export</h2>
-    <p class="tab-desc reveal">The last step, not another analysis view. This tab reshapes the Model's output to match the fact_budget table's schema exactly, splitting each Country/Collection row into its four channel_id values (Boutique/Wholesale × Retail/Online) using that Country/Collection's Channel Mix shares from Inputs. It's what actually gets loaded back into the database as the Official FY2026 Budget.</p>
+    <p class="tab-desc reveal">The last step, not another analysis view. This tab reshapes the Model's output to match the <a href="/portfolio/meridian/database/" style="color:inherit;">fact_budget</a> table's schema exactly, splitting each Country/Collection row into its four channel_id values (Boutique/Wholesale × Retail/Online) using that Country/Collection's Channel Mix shares from Inputs. It's what actually gets loaded back into the database as the Official FY2026 Budget.</p>
     <p class="tab-desc reveal">13,440 rows in total, one per Month × channel_id × Collection × Country. Too many to show, so here are 4 real consecutive rows for one Country/Collection, illustrating the channel_id split.</p>
 
     <div class="table-wrap reveal">
