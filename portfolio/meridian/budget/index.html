@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Budget Model · Meridian Time Group · Silvio di Rubbo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Ccircle cx='55' cy='55' r='42' stroke='%231A1814' stroke-width='4' fill='none'/%3E%3Ccircle cx='55' cy='55' r='14' fill='%232C4A3E'/%3E%3Cpath d='M30 36 C30 36 44 44 55 55 C66 66 80 72 82 72' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M55 55 L80 84' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --off-white: #F7F5F0; --warm-white: #FDFCFA; --ink: #1A1814;
+    --ink-mid: #4A4640; --ink-light: #8A8480; --ink-faint: #C8C4BE;
+    --accent: #2C4A3E; --accent-warm: #8B6914; --rule: #E2DED8;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', 'Courier New', monospace;
+    --v-blue: #1F4E96; --v-green: #1E7B34; --v-gray: #6B6B6B;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--warm-white); color: var(--ink); font-family: var(--serif); font-size: 18px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  #nav-container nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; background: var(--warm-white); border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+  #nav-container nav.scrolled { border-bottom-color: var(--rule); }
+  .nav-name { font-family: var(--serif); font-size: 0.95rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--mono); font-size: 0.68rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 1px; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 1px; background: var(--ink); transition: transform 0.3s, opacity 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .nav-mobile { display: none; position: fixed; top: 57px; left: 0; right: 0; z-index: 199; background: var(--warm-white); border-bottom: 1px solid var(--rule); padding: 1.5rem 2rem; flex-direction: column; gap: 1.2rem; }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; }
+  .nav-mobile a:hover, .nav-mobile a.active { color: var(--ink); }
+  section { padding: 6rem 4rem; }
+  .container { max-width: 1040px; margin: 0 auto; }
+  .section-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--rule); }
+  .tag { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); border: 1px solid var(--rule); padding: 0.3rem 0.7rem; }
+  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+  .footer-mark { opacity: 0.3; display: flex; align-items: center; }
+  .footer-mark svg circle, .footer-mark svg path { stroke: #fff; }
+  .footer-mark svg circle:nth-child(2) { fill: rgba(255,255,255,0.4); stroke: none; }
+  .footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+  .footer-nav { display: flex; gap: 2rem; }
+  .footer-nav a { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
+  .footer-nav a:hover { color: rgba(255,255,255,0.5); }
+  .reveal { opacity: 1; transform: translateY(0); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .js-ready .reveal { opacity: 0; transform: translateY(24px); }
+  .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  #page-header { padding: 9rem 4rem 4rem; border-bottom: 1px solid var(--rule); }
+  .page-header-inner { max-width: 1040px; margin: 0 auto; }
+  .back-link { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: color 0.2s; }
+  .back-link:hover { color: var(--ink); }
+  .page-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .page-title { font-size: clamp(2.4rem, 4.5vw, 3.8rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .status-badge { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 0.9rem; border: 1px solid var(--accent); color: var(--accent); white-space: nowrap; margin-top: 0.5rem; }
+  .header-desc { font-size: 1rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; max-width: 720px; }
+  .header-desc p { margin-bottom: 1rem; }
+  .header-desc p:last-child { margin-bottom: 0; }
+
+  /* Color convention legend */
+  #legend { background: var(--off-white); }
+  .conv-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 680px; margin-bottom: 2.5rem; }
+  .conv-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+  .conv-card { background: var(--warm-white); border: 1px solid var(--rule); padding: 1.6rem 1.6rem; }
+  .conv-swatch { font-family: var(--mono); font-size: 1.1rem; margin-bottom: 0.8rem; }
+  .conv-swatch.blue { color: var(--v-blue); }
+  .conv-swatch.black { color: var(--ink); }
+  .conv-swatch.green { color: var(--v-green); }
+  .conv-swatch.gray { color: var(--v-gray); font-style: italic; }
+  .conv-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.5rem; }
+  .conv-desc { font-size: 0.85rem; font-weight: 300; color: var(--ink-mid); line-height: 1.6; }
+
+  /* Tab sections */
+  .tab-eyebrow { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-warm); margin-bottom: 0.8rem; }
+  .tab-title { font-size: 1.9rem; font-weight: 400; margin-bottom: 1.2rem; letter-spacing: -0.01em; }
+  .tab-desc { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; max-width: 720px; margin-bottom: 1.2rem; }
+  .tab-desc:last-of-type { margin-bottom: 2.2rem; }
+  .tab-note { font-size: 0.85rem; font-weight: 300; color: var(--ink-light); font-style: italic; line-height: 1.7; max-width: 680px; margin-top: 1.5rem; }
+  .not-shown { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-top: 1rem; }
+
+  /* Data tables */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--rule); }
+  table.data-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.78rem; white-space: nowrap; }
+  table.data-table th, table.data-table td { padding: 0.65rem 1rem; text-align: right; border-bottom: 1px solid var(--rule); }
+  table.data-table th:first-child, table.data-table td:first-child,
+  table.data-table th:nth-child(2), table.data-table td:nth-child(2),
+  table.data-table th:nth-child(3), table.data-table td:nth-child(3) { text-align: left; }
+  table.data-table thead th { font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); font-weight: 400; background: var(--off-white); white-space: nowrap; }
+  table.data-table tbody tr:last-child td { border-bottom: none; }
+  table.data-table tbody tr.total-row td { font-weight: 400; color: var(--ink); background: var(--off-white); }
+  table.data-table td.v-blue, table.data-table td.c-blue { color: var(--v-blue); }
+  table.data-table td.v-green { color: var(--v-green); }
+  table.data-table td.v-gray { color: var(--v-gray); font-style: italic; }
+  table.data-table td.v-black { color: var(--ink); }
+  table.data-table tr.section-row td { font-family: var(--serif); font-size: 0.85rem; font-weight: 500; color: var(--ink); background: var(--off-white); text-align: left; padding-top: 0.9rem; padding-bottom: 0.5rem; }
+  table.data-table tr.pct-row td { color: var(--ink-light); font-style: italic; }
+
+  /* Income statement toggle */
+  .is-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.4rem; }
+  .is-toolbar-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); }
+  .is-toggle { display: inline-flex; border: 1px solid var(--rule); }
+  .is-toggle button { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.55rem 1.1rem; background: var(--warm-white); border: none; border-right: 1px solid var(--rule); color: var(--ink-mid); cursor: pointer; transition: background 0.15s, color 0.15s; }
+  .is-toggle button:last-child { border-right: none; }
+  .is-toggle button:hover { color: var(--ink); }
+  .is-toggle button.active { background: var(--ink); color: var(--warm-white); }
+  .is-toggle button.active:hover { color: var(--warm-white); }
+
+  /* Summary cards */
+  .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 1.5rem; }
+  .summary-card { background: var(--off-white); border: 1px solid var(--rule); padding: 1.8rem 1.6rem; }
+  .summary-card-title { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1.2rem; }
+  .summary-row { display: flex; justify-content: space-between; align-items: baseline; padding: 0.6rem 0; border-bottom: 1px solid var(--rule); gap: 0.8rem; }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-row-label { font-size: 0.88rem; font-weight: 400; color: var(--ink); }
+  .summary-row-figures { text-align: right; }
+  .summary-row-value { font-family: var(--mono); font-size: 0.85rem; color: var(--ink); display: block; }
+  .summary-row-sub { font-family: var(--mono); font-size: 0.62rem; color: var(--ink-light); display: block; margin-top: 0.2rem; }
+  .summary-row-sub.up { color: var(--accent); }
+  .summary-caption { font-size: 0.85rem; font-weight: 300; color: var(--ink-light); font-style: italic; line-height: 1.7; max-width: 680px; }
+
+  /* Two-window tip */
+  .tip-box { display: flex; gap: 1.4rem; align-items: flex-start; background: var(--off-white); border: 1px solid var(--rule); padding: 1.6rem 1.8rem; margin-top: 2rem; }
+  .tip-icon { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-warm); background: rgba(139,105,20,0.08); border: 1px solid rgba(139,105,20,0.25); padding: 0.3rem 0.55rem; flex-shrink: 0; margin-top: 0.2rem; }
+  .tip-text { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; }
+
+  /* Download panel (matches Data Foundation page) */
+  .downloads-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 680px; margin-bottom: 2.5rem; }
+  .download-panel { display: flex; flex-direction: column; gap: 2px; }
+  .download-item { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; background: var(--off-white); border: 1px solid var(--rule); padding: 1.6rem 2rem; }
+  .download-info { display: flex; align-items: flex-start; gap: 1rem; min-width: 0; }
+  .download-badge { flex-shrink: 0; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.04em; color: var(--accent-warm); background: rgba(139,105,20,0.08); border: 1px solid rgba(139,105,20,0.25); padding: 0.3rem 0.55rem; margin-top: 0.15rem; }
+  .download-text { min-width: 0; }
+  .download-name { font-family: var(--mono); font-size: 0.88rem; color: var(--ink); display: block; margin-bottom: 0.4rem; word-break: break-word; }
+  .download-desc { font-size: 0.85rem; font-weight: 300; color: var(--ink-mid); line-height: 1.6; }
+  .download-action { display: flex; align-items: center; gap: 1.2rem; flex-shrink: 0; }
+  .download-size { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-light); white-space: nowrap; }
+  .download-btn { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm-white); background: var(--ink); border: 1px solid var(--ink); padding: 0.65rem 1.3rem; text-decoration: none; white-space: nowrap; transition: background 0.2s, border-color 0.2s; }
+  .download-btn:hover { background: var(--accent); border-color: var(--accent); }
+
+  #inputs, #income-statement, #budget-export { }
+  #model, #summary { background: var(--off-white); }
+  #model .table-wrap, #summary .summary-grid { background: var(--warm-white); }
+
+  @media (max-width: 900px) {
+    .conv-grid { grid-template-columns: repeat(2, 1fr); }
+    .summary-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    #page-header { padding: 8rem 2rem 3rem; }
+    section { padding: 4rem 2rem; }
+    .conv-grid { grid-template-columns: 1fr; }
+    #nav-container nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    footer { padding: 1.2rem 2rem; flex-direction: column; gap: 0.8rem; text-align: center; }
+    .footer-nav { justify-content: center; flex-wrap: wrap; }
+    .is-toolbar { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div id="nav-container"></div>
+<script src="/nav.js"></script>
+
+<div id="page-header">
+  <div class="page-header-inner">
+    <a href="/portfolio/" class="back-link">← Back to Portfolio</a>
+    <div class="page-title-row">
+      <h1 class="page-title">Master Budget<br><em>Model</em></h1>
+      <span class="status-badge">Master Budget Model: Available</span>
+    </div>
+    <div class="header-desc">
+      <p>An FY2026 budget built from the ground up, by country, collection, and channel, starting from 2025 actuals and letting every unit, price, and cost assumption roll up into revenue, COGS, and margin.</p>
+      <p>The actuals side is pulled via Power Query from meridian.db / SQL Server: two source facts (boutique sales and wholesale shipments) merged with their dimensions, appended into one table, and grouped down to Month × Channel × Collection × Country, the grain the Model tab plans at.</p>
+    </div>
+  </div>
+</div>
+
+<section id="legend">
+  <div class="container">
+    <p class="section-label reveal">How to read it</p>
+    <p class="conv-intro reveal">Every editable tab in the workbook follows the same four-color convention, taken directly from the Inputs tab's own legend.</p>
+    <div class="conv-grid reveal">
+      <div class="conv-card">
+        <p class="conv-swatch blue">Blue</p>
+        <p class="conv-label">Input</p>
+        <p class="conv-desc">Manual planning input. Safe and expected to edit.</p>
+      </div>
+      <div class="conv-card">
+        <p class="conv-swatch black">Black</p>
+        <p class="conv-label">Formula</p>
+        <p class="conv-desc">Calculated cell. Don't type over these.</p>
+      </div>
+      <div class="conv-card">
+        <p class="conv-swatch green">Green</p>
+        <p class="conv-label">Cross-sheet link</p>
+        <p class="conv-desc">Formula that pulls from another tab.</p>
+      </div>
+      <div class="conv-card">
+        <p class="conv-swatch gray">Gray italic</p>
+        <p class="conv-label">2025 actual</p>
+        <p class="conv-desc">Reference only, not editable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="inputs">
+  <div class="container">
+    <p class="tab-eyebrow reveal">Tab 1</p>
+    <h2 class="tab-title reveal">Inputs</h2>
+    <p class="tab-desc reveal">Every editable FY2026 assumption lives here, in six blocks side by side: units per country, price and cost per SKU, collection mix by country, planned new store openings, and the Boutique/Wholesale and Retail/Online channel splits. Everything downstream on the Model tab reads from this one place.</p>
+    <p class="tab-desc reveal">The excerpt below is the Price per SKU block, one SKU per collection, showing 2023-2025 list price history (gray, reference only), 2025 standard cost and units (gray), and the 2026 budgeted price and cost (blue, editable).</p>
+
+    <div class="table-wrap reveal">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>SKU</th><th>Name</th><th>Collection</th>
+            <th>List Price 2023</th><th>List Price 2024</th><th>List Price 2025</th>
+            <th>Std Cost 2025</th><th>Units 2025</th>
+            <th>Budgeted Price 2026</th><th>Budgeted Cost 2026</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>SKU0001</td><td>Nautique Rose Gold 40mm Salmon</td><td>Nautique</td><td class="v-gray">19,917</td><td class="v-gray">20,773</td><td class="v-gray">21,667</td><td class="v-gray">5,668</td><td class="v-gray">488</td><td class="v-blue">22,300</td><td class="v-blue">5,800</td></tr>
+          <tr><td>SKU0013</td><td>Heritage Steel 44mm Black</td><td>Heritage</td><td class="v-gray">19,971</td><td class="v-gray">20,798</td><td class="v-gray">21,659</td><td class="v-gray">4,931</td><td class="v-gray">844</td><td class="v-blue">22,300</td><td class="v-blue">5,000</td></tr>
+          <tr><td>SKU0022</td><td>Celeste Titanium 40mm Salmon</td><td>Celeste</td><td class="v-gray">18,192</td><td class="v-gray">19,052</td><td class="v-gray">19,953</td><td class="v-gray">4,547</td><td class="v-gray">665</td><td class="v-blue">20,600</td><td class="v-blue">4,600</td></tr>
+          <tr><td>SKU0034</td><td>Aventus Steel 36mm Black</td><td>Aventus</td><td class="v-gray">6,334</td><td class="v-gray">6,651</td><td class="v-gray">6,985</td><td class="v-gray">1,977</td><td class="v-gray">540</td><td class="v-blue">7,200</td><td class="v-blue">2,000</td></tr>
+          <tr><td>SKU0042</td><td>Meridian Classic Two-Tone 44mm Black</td><td>Meridian Classic</td><td class="v-gray">6,742</td><td class="v-gray">7,070</td><td class="v-gray">7,414</td><td class="v-gray">2,096</td><td class="v-gray">742</td><td class="v-blue">7,600</td><td class="v-blue">2,100</td></tr>
+          <tr><td>SKU0050</td><td>Terra Steel 38mm Green</td><td>Terra</td><td class="v-gray">6,607</td><td class="v-gray">6,883</td><td class="v-gray">7,171</td><td class="v-gray">2,115</td><td class="v-gray">753</td><td class="v-blue">7,400</td><td class="v-blue">2,200</td></tr>
+          <tr><td>SKU0060</td><td>Lumina Titanium 44mm Salmon</td><td>Lumina</td><td class="v-gray">15,502</td><td class="v-gray">16,378</td><td class="v-gray">17,303</td><td class="v-gray">4,182</td><td class="v-gray">645</td><td class="v-blue">17,800</td><td class="v-blue">4,300</td></tr>
+          <tr><td>SKU0068</td><td>Sportivo Two-Tone 36mm White</td><td>Sportivo</td><td class="v-gray">9,025</td><td class="v-gray">9,426</td><td class="v-gray">9,846</td><td class="v-gray">2,846</td><td class="v-gray">826</td><td class="v-blue">10,100</td><td class="v-blue">2,900</td></tr>
+          <tr><td>SKU0079</td><td>Grand Complication Yellow Gold 42mm White</td><td>Grand Complication</td><td class="v-gray">30,000</td><td class="v-gray">31,770</td><td class="v-gray">33,644</td><td class="v-gray">7,228</td><td class="v-gray">755</td><td class="v-blue">34,700</td><td class="v-blue">7,400</td></tr>
+          <tr><td>SKU0090</td><td>Atelier Two-Tone 40mm Green</td><td>Atelier</td><td class="v-gray">21,014</td><td class="v-gray">22,021</td><td class="v-gray">23,076</td><td class="v-gray">5,278</td><td class="v-gray">642</td><td class="v-blue">23,800</td><td class="v-blue">5,400</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="not-shown">Also in this tab, not shown here: Units per Country (32 rows), Collection Mix (320 rows), Planned New Stores 2026 (5 rows), Channel Mix splits (320 rows), Regional Grouping and Wholesale Margin by Country (32 rows each). Full detail in the downloadable file.</p>
+  </div>
+</section>
+
+<section id="model">
+  <div class="container">
+    <p class="tab-eyebrow reveal">Tab 2</p>
+    <h2 class="tab-title reveal">Model</h2>
+    <p class="tab-desc reveal">This is where the budget actually gets built, at Type × Collection × Country × Month grain. Each row takes 36 months of 2023-2025 actuals, fits a statistical shape (Excel's FORECAST.ETS, floored at zero), blends it with manual overrides, prices and costs it per SKU, and rolls it into monthly and annual units, revenue, COGS, and margin. In the file this is 110 columns wide per row: 36 months of history, the statistical shape, monthly phasing shares, and 3 years of monthly budget detail. That's too wide to reproduce here, so the excerpt below shows 8 real rows chosen for variety, with only the identifying columns and the annual before/after.</p>
+
+    <div class="table-wrap reveal">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Type</th><th>Collection</th><th>Country</th>
+            <th>Units 2025</th><th>Revenue 2025</th><th>COGS 2025</th>
+            <th>Units 2026</th><th>Revenue 2026</th><th>COGS 2026</th><th>Margin 2026</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Boutique</td><td>Atelier</td><td>Argentina</td><td class="v-gray">26</td><td class="v-gray">747,454</td><td class="v-gray">174,523</td><td class="v-black">28.6</td><td class="v-black">832,165</td><td class="v-black">189,681</td><td class="v-black">77.2%</td></tr>
+          <tr><td>Boutique</td><td>Aventus</td><td>Australia</td><td class="v-gray">32</td><td class="v-gray">306,621</td><td class="v-gray">88,593</td><td class="v-black">35.3</td><td class="v-black">339,980</td><td class="v-black">96,160</td><td class="v-black">71.7%</td></tr>
+          <tr><td>Boutique</td><td>Sportivo</td><td>China</td><td class="v-gray">144</td><td class="v-gray">1,696,443</td><td class="v-gray">475,565</td><td class="v-black">193.6</td><td class="v-black">2,338,378</td><td class="v-black">651,791</td><td class="v-black">72.1%</td></tr>
+          <tr><td>Boutique</td><td>Meridian Classic</td><td>Vietnam</td><td class="v-gray">20</td><td class="v-gray">186,972</td><td class="v-gray">53,874</td><td class="v-black">36.9</td><td class="v-black">345,241</td><td class="v-black">97,862</td><td class="v-black">71.7%</td></tr>
+          <tr><td>Wholesale</td><td>Atelier</td><td>United Kingdom</td><td class="v-gray">396</td><td class="v-gray">7,077,215</td><td class="v-gray">2,474,701</td><td class="v-black">406.6</td><td class="v-black">7,847,695</td><td class="v-black">2,698,003</td><td class="v-black">65.6%</td></tr>
+          <tr><td>Wholesale</td><td>Terra</td><td>Germany</td><td class="v-gray">444</td><td class="v-gray">2,599,596</td><td class="v-gray">1,165,641</td><td class="v-black">460.2</td><td class="v-black">2,805,734</td><td class="v-black">1,242,449</td><td class="v-black">55.7%</td></tr>
+          <tr><td>Wholesale</td><td>Nautique</td><td>France</td><td class="v-gray">386</td><td class="v-gray">4,730,396</td><td class="v-gray">1,800,712</td><td class="v-black">402.6</td><td class="v-black">5,089,251</td><td class="v-black">1,911,748</td><td class="v-black">62.4%</td></tr>
+          <tr><td>Wholesale</td><td>Lumina</td><td>Malaysia</td><td class="v-gray">23</td><td class="v-gray">347,940</td><td class="v-gray">132,139</td><td class="v-black">24.3</td><td class="v-black">365,464</td><td class="v-black">136,198</td><td class="v-black">62.7%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tab-note reveal">The fractional 2026 unit counts (28.6, 193.6) aren't a display error. They're the real output of the statistical shape blended with monthly phasing, before the Income Statement and Budget Export tabs round and split them further downstream.</p>
+    <p class="not-shown">560 rows total on this tab. The other 552 rows, and the ~100 intermediate columns per row (monthly actuals, forecast shape, phasing shares, monthly budget detail), stay in the file.</p>
+  </div>
+</section>
+
+<section id="income-statement">
+  <div class="container">
+    <p class="tab-eyebrow reveal">Tab 3</p>
+    <h2 class="tab-title reveal">Income Statement</h2>
+    <p class="tab-desc reveal">The Model's output consolidated into a full P&amp;L, 2025 Actual vs. 2026 Budget, down to net income. The same underlying data supports three views on this tab: annual, quarterly, and monthly. Toggle below, this is the one interactive element on the page, everything else here is static.</p>
+
+    <div class="is-toolbar reveal">
+      <span class="is-toolbar-label">View</span>
+      <div class="is-toggle" role="group" aria-label="Income statement period view">
+        <button type="button" class="active" data-view="annual">Annual</button>
+        <button type="button" data-view="quarterly">Quarterly</button>
+        <button type="button" data-view="monthly">Monthly</button>
+      </div>
+    </div>
+
+    <div class="table-wrap reveal">
+      <table class="data-table" id="isTable">
+        <thead id="isHead"></thead>
+        <tbody id="isBody"></tbody>
+      </table>
+    </div>
+    <p class="not-shown">All figures are the workbook's own computed output as of the 2026-07-20 refresh, not recalculated on this page.</p>
+  </div>
+</section>
+
+<section id="summary">
+  <div class="container">
+    <p class="tab-eyebrow reveal">Tab 4</p>
+    <h2 class="tab-title reveal">Summary</h2>
+    <p class="tab-desc reveal">Budget sliced interactively by Mode, Collection, Type, Region, and Country, a topline or detailed view without touching the Model tab. In the workbook this runs on 5 native PivotTables and 5 slicers; the three cards below are rebuilt as static HTML from those same pivot numbers.</p>
+
+    <div class="summary-grid reveal">
+      <div class="summary-card">
+        <p class="summary-card-title">Topline</p>
+        <div class="summary-row">
+          <span class="summary-row-label">Wholesale</span>
+          <span class="summary-row-figures"><span class="summary-row-value">774,479,269</span><span class="summary-row-sub">63.7% margin</span></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-label">Boutique</span>
+          <span class="summary-row-figures"><span class="summary-row-value">269,832,891</span><span class="summary-row-sub">75.9% margin</span></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-label">Grand Total</span>
+          <span class="summary-row-figures"><span class="summary-row-value">1,044,312,160</span><span class="summary-row-sub up">+9.6% vs 2025</span></span>
+        </div>
+      </div>
+      <div class="summary-card">
+        <p class="summary-card-title">Retail / Online</p>
+        <div class="summary-row">
+          <span class="summary-row-label">Retail</span>
+          <span class="summary-row-figures"><span class="summary-row-value">764,679,975</span><span class="summary-row-sub">67.4% margin</span></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-label">Online</span>
+          <span class="summary-row-figures"><span class="summary-row-value">279,632,185</span><span class="summary-row-sub">65.6% margin</span></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-label">Grand Total</span>
+          <span class="summary-row-figures"><span class="summary-row-value">1,044,312,160</span><span class="summary-row-sub up">73.2% Retail mix</span></span>
+        </div>
+      </div>
+      <div class="summary-card">
+        <p class="summary-card-title">Regional split</p>
+        <div class="summary-row">
+          <span class="summary-row-label">EMEA</span>
+          <span class="summary-row-figures"><span class="summary-row-value">494,862,859</span><span class="summary-row-sub">47.4% mix</span></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-label">APAC</span>
+          <span class="summary-row-figures"><span class="summary-row-value">309,785,298</span><span class="summary-row-sub">29.7% mix</span></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-label">NA</span>
+          <span class="summary-row-figures"><span class="summary-row-value">168,425,588</span><span class="summary-row-sub">16.1% mix</span></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-label">LATAM</span>
+          <span class="summary-row-figures"><span class="summary-row-value">71,238,416</span><span class="summary-row-sub">6.8% mix</span></span>
+        </div>
+      </div>
+    </div>
+    <p class="summary-caption reveal">Figures are 2026 Budgeted Revenue. In the live file, five slicers (Type, Region, Mode, Country, Collection) re-cut every card above interactively; this page shows one fixed view of the same underlying pivot.</p>
+
+    <div class="tip-box reveal">
+      <span class="tip-icon">Tip</span>
+      <p class="tip-text">In Excel, use View → New Window to open the workbook twice. Keep Inputs and Model in one window and Income Statement and Summary in the other, so changing an assumption and watching its P&amp;L impact doesn't mean constant tab-switching.</p>
+    </div>
+  </div>
+</section>
+
+<section id="budget-export">
+  <div class="container">
+    <p class="tab-eyebrow reveal">Tab 5</p>
+    <h2 class="tab-title reveal">Budget Export</h2>
+    <p class="tab-desc reveal">The last step, not another analysis view. This tab reshapes the Model's output to match the fact_budget table's schema exactly, splitting each Country/Collection row into its four channel_id values (Boutique/Wholesale × Retail/Online) using that Country/Collection's Channel Mix shares from Inputs. It's what actually gets loaded back into the database as the Official FY2026 Budget.</p>
+    <p class="tab-desc reveal">13,440 rows in total, one per Month × channel_id × Collection × Country. Too many to show, so here are 4 real consecutive rows for one Country/Collection, illustrating the channel_id split.</p>
+
+    <div class="table-wrap reveal">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Year</th><th>Month</th><th>channel_id</th><th>Collection</th><th>geo_id</th>
+            <th>Budgeted Units</th><th>Price (CHF)</th><th>Cost (CHF)</th><th>Revenue (CHF)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>2026</td><td>01</td><td>1</td><td>Atelier</td><td>19</td><td>0</td><td>29,113.63</td><td>6,636.06</td><td>0</td></tr>
+          <tr><td>2026</td><td>01</td><td>2</td><td>Atelier</td><td>19</td><td>1.91</td><td>29,113.63</td><td>6,636.06</td><td>55,703.36</td></tr>
+          <tr><td>2026</td><td>02</td><td>1</td><td>Atelier</td><td>19</td><td>0</td><td>29,113.63</td><td>6,636.06</td><td>0</td></tr>
+          <tr><td>2026</td><td>02</td><td>2</td><td>Atelier</td><td>19</td><td>2.00</td><td>29,113.63</td><td>6,636.06</td><td>58,184.03</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="not-shown">channel_id 1-4 map to Boutique Retail, Boutique Online, Wholesale Retail, Wholesale Online. Fractional budgeted_units come from the same channel-mix split described above, not rounding error.</p>
+  </div>
+</section>
+
+<section id="downloads">
+  <div class="container">
+    <p class="section-label reveal">Source file</p>
+    <p class="downloads-intro reveal">The full workbook behind everything above, all six tabs, live formulas, PivotTables and slicers included. Download it directly.</p>
+    <div class="download-panel reveal" id="downloadPanel"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-mark"><svg width="28" height="28" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Silvio di Rubbo mark">
+  <circle cx="55" cy="55" r="42" stroke="#1A1814" stroke-width="2"/>
+  <circle cx="55" cy="55" r="14" fill="#2C4A3E"/>
+  <path d="M 30,36 C 30,36 44,44 55,55 C 66,66 80,72 82,72" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 55,55 L 80,84" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg></div>
+  <span class="footer-copy">© 2026 Silvio di Rubbo</span>
+  <nav class="footer-nav">
+    <a href="/">Home</a>
+    <a href="/cv/">CV</a>
+    <a href="/portfolio/">Portfolio</a>
+    <a href="/projects/">Projects</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+</footer>
+
+<script>
+  if ('IntersectionObserver' in window) {
+    document.body.classList.add('js-ready');
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  }
+
+  function renderDownloadPanel(containerId, files) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    if (!files.length) {
+      container.innerHTML = '<p class="download-empty">No downloadable files yet for this section.</p>';
+      return;
+    }
+    container.innerHTML = files.map(f => `
+      <div class="download-item">
+        <div class="download-info">
+          <span class="download-badge">.${f.ext}</span>
+          <div class="download-text">
+            <span class="download-name">${f.name}</span>
+            <p class="download-desc">${f.desc}</p>
+          </div>
+        </div>
+        <div class="download-action">
+          <span class="download-size">${f.size}</span>
+          <a href="${f.path}" download class="download-btn">Download ↓</a>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderDownloadPanel('downloadPanel', [
+    { name: 'Budget_Model.xlsx', ext: 'xlsx', size: '3.9 MB', path: '/portfolio/meridian/budget/Budget_Model.xlsx', desc: 'The actual FY2026 workbook: Overview, Inputs, Model, Income Statement, Summary, and Budget Export tabs, live formulas intact.' }
+  ]);
+
+  /* Income Statement: Annual / Quarterly / Monthly toggle, real computed values from the Income Statement tab */
+  const isRows = [
+    { label: 'Boutique Revenue', section: false, pct: false, cls: '',
+      annual: [227392087, 269832891, 0.187],
+      quarterly: [64062957, 66128971, 67467387, 72173576],
+      monthly: [21111266, 21277833, 21673857, 21642805, 22421323, 22064843, 22197469, 22218509, 23051409, 23154524, 24301659, 24717392] },
+    { label: 'Wholesale Revenue', section: false, pct: false, cls: '',
+      annual: [725395269, 774479269, 0.068],
+      quarterly: [183571309, 189103163, 189652250, 212152547],
+      monthly: [61271179, 60276319, 62023811, 61542597, 63624093, 63936474, 62250855, 63075452, 64325944, 67819428, 71977919, 72355199] },
+    { label: 'Total Net Revenue', section: false, pct: false, cls: 'total-row',
+      annual: [952787356, 1044312160, 0.096],
+      quarterly: [247634266, 255232134, 257119638, 284326123],
+      monthly: [82382445, 81554153, 83697668, 83185401, 86045416, 86001317, 84448323, 85293961, 87377353, 90973952, 96279579, 97072592] },
+    { label: 'Boutique COGS', section: false, pct: false, cls: '',
+      annual: [55404604, 65078881, 0.175],
+      quarterly: [15461635, 15948855, 16265582, 17402808],
+      monthly: [5098033, 5137873, 5225729, 5218313, 5408822, 5321720, 5349867, 5354404, 5561312, 5585245, 5859015, 5958548] },
+    { label: 'Wholesale COGS', section: false, pct: false, cls: '',
+      annual: [266895927, 280771503, 0.052],
+      quarterly: [66661223, 68638519, 68748643, 76723117],
+      monthly: [22220540, 21878046, 22562637, 22326642, 23091755, 23220122, 22548010, 22879122, 23321511, 24519707, 26019825, 26183585] },
+    { label: 'Total COGS', section: false, pct: false, cls: 'total-row',
+      annual: [322300531, 345850384, 0.073],
+      quarterly: [82122858, 84587374, 85014226, 94125926],
+      monthly: [27318573, 27015919, 27788366, 27544955, 28500577, 28541842, 27897876, 28233526, 28882823, 30104953, 31878840, 32142133] },
+    { label: 'Gross Profit', section: false, pct: false, cls: 'total-row',
+      annual: [630486825, 698461776, 0.108],
+      quarterly: [165511407, 170644760, 172105412, 190200197],
+      monthly: [55063871, 54538234, 55909302, 55640446, 57544838, 57459476, 56550447, 57060435, 58494530, 60869000, 64400739, 64930459] },
+    { label: 'Gross Margin %', section: false, pct: true, cls: 'pct-row',
+      annual: [0.662, 0.669, null],
+      quarterly: [0.668, 0.669, 0.669, 0.669],
+      monthly: [0.668, 0.669, 0.668, 0.669, 0.669, 0.668, 0.670, 0.669, 0.669, 0.669, 0.669, 0.669] },
+    { label: 'Amortisation & Depreciation', section: false, pct: false, cls: '',
+      annual: [-57167241, -52215608, -0.087],
+      quarterly: [-12381713, -12761607, -12855982, -14216306],
+      monthly: [-4119122, -4077708, -4184883, -4159270, -4302271, -4300066, -4222416, -4264698, -4368868, -4548698, -4813979, -4853630] },
+    { label: 'Marketing', section: false, pct: false, cls: '',
+      annual: [-85750862, -104431216, 0.218],
+      quarterly: [-24763427, -25523213, -25711964, -28432612],
+      monthly: [-8238244, -8155415, -8369767, -8318540, -8604542, -8600132, -8444832, -8529396, -8737735, -9097395, -9627958, -9707259] },
+    { label: 'General & Administrative', section: false, pct: false, cls: '',
+      annual: [-47639368, -52215608, 0.096],
+      quarterly: [-12381713, -12761607, -12855982, -14216306],
+      monthly: [-4119122, -4077708, -4184883, -4159270, -4302271, -4300066, -4222416, -4264698, -4368868, -4548698, -4813979, -4853630] },
+    { label: 'Salaries & Benefits', section: false, pct: false, cls: '',
+      annual: [-190557471, -208862432, 0.096],
+      quarterly: [-49526853, -51046427, -51423928, -56865225],
+      monthly: [-16476489, -16310831, -16739534, -16637080, -17209083, -17200263, -16889665, -17058792, -17475471, -18194790, -19255916, -19414518] },
+    { label: 'Operating Result', section: false, pct: false, cls: 'total-row',
+      annual: [249371883, 280736912, 0.126],
+      quarterly: [66457701, 68551906, 69257557, 76469748],
+      monthly: [22110894, 21916573, 22430235, 22366285, 23126672, 23058949, 22771118, 22942851, 23543589, 24479419, 25888908, 26101422] },
+    { label: 'Operating Margin %', section: false, pct: true, cls: 'pct-row',
+      annual: [0.262, 0.269, null],
+      quarterly: [0.268, 0.269, 0.269, 0.269],
+      monthly: [0.268, 0.269, 0.268, 0.269, 0.269, 0.268, 0.270, 0.269, 0.269, 0.269, 0.269, 0.269] },
+    { label: 'Net Interest Expense', section: false, pct: false, cls: '',
+      annual: [-24937188, -25266322, 0.013],
+      quarterly: [-5981193, -6169672, -6233180, -6882277],
+      monthly: [-1989980, -1972492, -2018721, -2012966, -2081400, -2075305, -2049401, -2064857, -2118923, -2203148, -2330002, -2349128] },
+    { label: 'Corporate Tax', section: false, pct: false, cls: '',
+      annual: [-68577268, -76500809, 0.116],
+      quarterly: [-18109723, -18680394, -18872684, -20838006],
+      monthly: [-6025218, -5972266, -6112239, -6094813, -6302018, -6283563, -6205130, -6251927, -6415628, -6670642, -7054727, -7112637] },
+    { label: 'Net Income', section: false, pct: false, cls: 'total-row',
+      annual: [155857427, 178969781, 0.148],
+      quarterly: [42366784, 43701840, 44151693, 48749464],
+      monthly: [14095695, 13971815, 14299275, 14258507, 14743253, 14700080, 14516587, 14626067, 15009038, 15605629, 16504179, 16639656] },
+    { label: 'Net Income Margin %', section: false, pct: true, cls: 'pct-row',
+      annual: [0.164, 0.171, null],
+      quarterly: [0.171, 0.171, 0.172, 0.171],
+      monthly: [0.171, 0.171, 0.171, 0.171, 0.171, 0.171, 0.172, 0.171, 0.172, 0.172, 0.171, 0.171] }
+  ];
+
+  const isHeaders = {
+    annual: ['Line', '2025 Actual', '2026 Budget', 'Var %'],
+    quarterly: ['Line', 'Q1', 'Q2', 'Q3', 'Q4'],
+    monthly: ['Line', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  };
+
+  function fmtNum(n) {
+    if (n === null || n === undefined) return '';
+    const rounded = Math.round(n);
+    return rounded.toLocaleString('en-US');
+  }
+  function fmtPct(n) {
+    if (n === null || n === undefined) return '';
+    return (n * 100).toFixed(1) + '%';
+  }
+
+  function renderIS(view) {
+    const head = document.getElementById('isHead');
+    const body = document.getElementById('isBody');
+    const headers = isHeaders[view];
+    head.innerHTML = '<tr>' + headers.map(h => `<th>${h}</th>`).join('') + '</tr>';
+
+    body.innerHTML = isRows.map(row => {
+      const cells = row[view].map((v, i) => {
+        if (row.pct) return `<td>${(view === 'annual' && v === null) ? '' : fmtPct(v)}</td>`;
+        const isVarCol = view === 'annual' && i === row[view].length - 1;
+        return `<td>${isVarCol ? fmtPct(v) : fmtNum(v)}</td>`;
+      }).join('');
+      return `<tr class="${row.cls}"><td>${row.label}</td>${cells}</tr>`;
+    }).join('');
+  }
+
+  renderIS('annual');
+  document.querySelectorAll('.is-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.is-toggle button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderIS(btn.getAttribute('data-view'));
+    });
+  });
+</script>
+</body>
+</html>
