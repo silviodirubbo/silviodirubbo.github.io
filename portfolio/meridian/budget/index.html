@@ -124,10 +124,17 @@
   .summary-row-sub.up { color: var(--accent); }
   .summary-caption { font-size: 0.85rem; font-weight: 300; color: var(--ink-light); font-style: italic; line-height: 1.7; max-width: 680px; }
 
-  /* Two-window tip */
+  /* Two-window tip / risk flag (shared box pattern) */
   .tip-box { display: flex; gap: 1.4rem; align-items: flex-start; background: var(--off-white); border: 1px solid var(--rule); padding: 1.6rem 1.8rem; margin-top: 2rem; }
   .tip-icon { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-warm); background: rgba(139,105,20,0.08); border: 1px solid rgba(139,105,20,0.25); padding: 0.3rem 0.55rem; flex-shrink: 0; margin-top: 0.2rem; }
   .tip-text { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; }
+  .control-note { font-size: 0.85rem; font-weight: 300; color: var(--ink-light); font-style: italic; line-height: 1.7; max-width: 680px; margin-top: 1rem; }
+
+  /* Controller's commentary */
+  #commentary { background: var(--off-white); }
+  .commentary-box { border-left: 3px solid var(--accent); background: var(--warm-white); padding: 2.2rem 2.4rem; max-width: 780px; }
+  .commentary-box p { font-size: 1rem; font-weight: 300; color: var(--ink-mid); line-height: 1.9; }
+  .commentary-box p + p { margin-top: 1.1rem; }
 
   /* Download panel (matches Data Foundation page) */
   .downloads-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 680px; margin-bottom: 2.5rem; }
@@ -182,6 +189,17 @@
   </div>
 </div>
 
+<section id="commentary">
+  <div class="container">
+    <p class="section-label reveal">Controller's commentary</p>
+    <div class="commentary-box reveal">
+      <p>Total FY2026 revenue is budgeted at 1,044,312,160, up 9.6% on 2025's 952,787,356. Almost all of that growth is coming from Boutique, which grows revenue 18.7% year over year, well ahead of Wholesale's 6.8%, and picks up mix share in the process, moving from 23.9% to 25.8% of total revenue.</p>
+      <p>That mix shift is doing real work on margin. Gross margin improves 71bps to 66.9%, more than either channel's own margin gain on its own (Wholesale +54bps, Boutique +25bps). The extra lift is mix: as more of the business sits in the structurally higher-margin Boutique channel, some of the margin historically given up to wholesale accounts comes back.</p>
+      <p>Boutique's growth isn't just a statistical trend carried forward. Five new stores are planned for 2026, in Thailand, Colombia, Vietnam, Brazil, and China, markets expected to carry healthier margins than the existing base once they're open. Two of those five, Thailand and Colombia, are also the two markets flagged further down as budgeted down overall for the year. Worth watching once the stores are trading and the wholesale trend in each market is confirmed one way or the other.</p>
+    </div>
+  </div>
+</section>
+
 <section id="legend">
   <div class="container">
     <p class="section-label reveal">How to read it</p>
@@ -216,6 +234,7 @@
     <p class="tab-eyebrow reveal">Tab 1</p>
     <h2 class="tab-title reveal">Inputs</h2>
     <p class="tab-desc reveal">Every editable FY2026 assumption lives here, in six blocks side by side: units per country, price and cost per SKU, collection mix by country, planned new store openings, and the Boutique/Wholesale and Retail/Online channel splits. Everything downstream on the Model tab reads from this one place.</p>
+    <p class="tab-desc reveal">The five planned 2026 store openings (Thailand, Colombia, Vietnam, Brazil, and China) aren't an isolated assumption. More store capacity feeds directly into more Boutique units and revenue downstream, one real driver behind Boutique's 18.7% revenue growth on the Income Statement below, well ahead of Wholesale's 6.8%.</p>
     <p class="tab-desc reveal">The excerpt below is the Price per SKU block, one SKU per collection, showing 2023-2025 list price history (gray, reference only), 2025 standard cost and units (gray), and the 2026 budgeted price and cost (blue, editable).</p>
 
     <div class="table-wrap reveal">
@@ -361,6 +380,12 @@
       </div>
     </div>
     <p class="summary-caption reveal">Figures are 2026 Budgeted Revenue. In the live file, five slicers (Type, Region, Mode, Country, Collection) re-cut every card above interactively; this page shows one fixed view of the same underlying pivot.</p>
+    <p class="control-note reveal">The Summary tab also carries a small control of its own: a formula flags "INPUTS CHANGED, REFRESH PIVOT TABLE" if the cached pivot ever drifts from the Model's live output, so a stale number never gets presented as current.</p>
+
+    <div class="tip-box reveal">
+      <span class="tip-icon">Flag</span>
+      <p class="tip-text">Two markets are budgeted down for FY2026: Thailand (units -9.6%, revenue -5.6%) and Colombia (units -6.3%, revenue -1.1%), the only two of the 32 markets in the full country detail budgeted below 2025. Both are also getting a new Boutique store in 2026. One plausible read, not something the underlying data confirms outright: Thailand's decline likely reflects a wholesale account transition, and Colombia's a deliberate shift in emphasis toward the new boutique location rather than continued growth in the existing wholesale book. Worth revisiting once both stores are open and the year's wholesale trend is confirmed.</p>
+    </div>
 
     <div class="tip-box reveal">
       <span class="tip-icon">Tip</span>
@@ -373,7 +398,7 @@
   <div class="container">
     <p class="tab-eyebrow reveal">Tab 5</p>
     <h2 class="tab-title reveal">Budget Export</h2>
-    <p class="tab-desc reveal">The last step, not another analysis view. This tab reshapes the Model's output to match the <a href="/portfolio/meridian/database/" style="color:inherit;">fact_budget</a> table's schema exactly, splitting each Country/Collection row into its four channel_id values (Boutique/Wholesale × Retail/Online) using that Country/Collection's Channel Mix shares from Inputs. It's what actually gets loaded back into the database as the Official FY2026 Budget.</p>
+    <p class="tab-desc reveal">The last step, not another analysis view. This is where the budget gets locked and communicated to the business as the Official FY2026 Budget, the version everyone plans and is measured against for the year. To get there, this tab reshapes the Model's output to match the <a href="/portfolio/meridian/database/" style="color:inherit;">fact_budget</a> table's schema exactly, splitting each Country/Collection row into its four channel_id values (Boutique/Wholesale × Retail/Online) using that Country/Collection's Channel Mix shares from Inputs. The database load is the mechanism, not the point.</p>
     <p class="tab-desc reveal">13,440 rows in total, one per Month × channel_id × Collection × Country. Too many to show, so here are 4 real consecutive rows for one Country/Collection, illustrating the channel_id split.</p>
 
     <div class="table-wrap reveal">

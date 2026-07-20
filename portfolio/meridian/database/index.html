@@ -61,7 +61,7 @@
   .header-desc { font-size: 1rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; max-width: 720px; }
 
   /* Process strip */
-  .process-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .process-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
   .process-step { background: var(--off-white); padding: 2.2rem 2rem; position: relative; }
   .process-num { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1rem; }
   .process-title { font-size: 1.25rem; font-weight: 400; color: var(--ink); margin-bottom: 0.7rem; }
@@ -80,6 +80,15 @@
 
   .build-note { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--rule); font-size: 0.9rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 720px; }
   .build-note-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 0.6rem; }
+
+  /* Verification section */
+  #verify { background: var(--off-white); }
+  .verify-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; max-width: 720px; margin-bottom: 2.5rem; }
+  .verify-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 2rem; }
+  .verify-card { background: var(--warm-white); border: 1px solid var(--rule); padding: 1.8rem 1.6rem; }
+  .verify-card-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
+  .verify-card-desc { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; }
+  .verify-note { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 720px; }
 
   /* Download panel (reusable across capability sections) */
   .downloads-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 680px; margin-bottom: 2.5rem; }
@@ -141,6 +150,9 @@
   @media (max-width: 900px) {
     .schema-wrap { grid-template-columns: 1fr; }
     .schema-detail { position: static; }
+    .process-strip { grid-template-columns: repeat(2, 1fr); }
+    .process-step:not(:last-child)::after { display: none; }
+    .verify-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 768px) {
     #page-header { padding: 8rem 2rem 3rem; }
@@ -167,13 +179,14 @@
       <h1 class="page-title">Data<br><em>Foundation</em></h1>
       <span class="status-badge">Data Foundation: Available</span>
     </div>
-    <p class="header-desc">The star-schema dataset every Meridian Time Group capability is built on: three years of sell-in, sell-out, boutique, budget, cost, inventory, working-capital, headcount, and FX data across 32 markets and 101 SKUs.</p>
+    <p class="header-desc">The star-schema dataset every Meridian Time Group capability is built on: three years of sell-in, sell-out, boutique, budget, cost, inventory, working-capital, headcount, and FX data across 32 markets and 101 SKUs. It's also checked before it's trusted, not just loaded: see below for how.</p>
   </div>
 </div>
 
 <section id="build">
   <div class="container">
     <p class="section-label reveal">How it's built</p>
+    <p class="verify-intro reveal">The four steps below are the pipeline. The technical build (Generate, Package, Migrate) only matters if what it produces is actually correct, which is what Step 4, and the section after it, is for.</p>
     <div class="process-strip reveal">
       <div class="process-step">
         <p class="process-num">Step 1 · Generate</p>
@@ -193,6 +206,12 @@
         <p class="process-desc">A T-SQL script rebuilds the schema and loads every row into SQL Server: the source the Excel, Power BI, and Tableau capabilities connect to via Power Query.</p>
         <span class="process-code">meridian_sqlserver_migration.sql</span>
       </div>
+      <div class="process-step">
+        <p class="process-num">Step 4 · Verify</p>
+        <h2 class="process-title">Prove it before you plan on it</h2>
+        <p class="process-desc">Before anything downstream treats this data as ground truth, the same SQLite file is queried directly from Excel via Power Query: row counts, referential integrity, and every fact-to-dimension join are checked table by table.</p>
+        <span class="process-code">Power Query spot-checks</span>
+      </div>
     </div>
 
     <div class="stats-strip reveal">
@@ -202,11 +221,30 @@
       <div class="stat-card"><p class="stat-num">2023–25</p><p class="stat-label">History</p></div>
       <div class="stat-card"><p class="stat-num">32 / 101</p><p class="stat-label">Markets / SKUs</p></div>
     </div>
+  </div>
+</section>
 
-    <div class="build-note reveal">
-      <p class="build-note-label">Also explored in Excel</p>
-      <p>Before the SQL Server migration, the same SQLite file was queried directly from Excel via Power Query, a quick way to spot-check joins, row counts, and referential integrity table by table without leaving the spreadsheet.</p>
+<section id="verify">
+  <div class="container">
+    <p class="section-label reveal">Before it's trusted</p>
+    <p class="verify-intro reveal">This is the part of the job that doesn't show up in a schema diagram. Before the Budget Model, or any other capability, treats this data as ground truth, it gets checked, the same discipline as reconciling a source system before closing the books on it.</p>
+
+    <div class="verify-grid reveal">
+      <div class="verify-card">
+        <p class="verify-card-label">Row counts</p>
+        <p class="verify-card-desc">Every one of the 19 tables reconciled against the ~252K rows the generator produced, so nothing downstream assumes the data is complete when it isn't.</p>
+      </div>
+      <div class="verify-card">
+        <p class="verify-card-label">Referential integrity</p>
+        <p class="verify-card-desc">Every fact table's foreign keys, customer_id, sku_id, geo_id, date_id, checked against their dimension tables directly in Power Query. No orphaned rows: every fact record resolves to a real dimension entry.</p>
+      </div>
+      <div class="verify-card">
+        <p class="verify-card-label">Join correctness</p>
+        <p class="verify-card-desc">The same merges the Budget Model's Overview tab describes as feeding FY2026 actuals (store or customer to geography, SKU to collection, date to month and year) were proven here first, before being trusted in planning.</p>
+      </div>
     </div>
+
+    <p class="verify-note reveal">None of this is a one-time check. It's the same spot-check discipline applied every time a new source is queried, before its numbers get anywhere near a budget or a forecast.</p>
   </div>
 </section>
 
