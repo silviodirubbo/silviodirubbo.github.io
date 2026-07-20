@@ -131,10 +131,14 @@
   .control-note { font-size: 0.85rem; font-weight: 300; color: var(--ink-light); font-style: italic; line-height: 1.7; max-width: 680px; margin-top: 1rem; }
 
   /* Controller's commentary */
-  #commentary { background: var(--off-white); }
-  .commentary-box { border-left: 3px solid var(--accent); background: var(--warm-white); padding: 2.2rem 2.4rem; max-width: 780px; }
-  .commentary-box p { font-size: 1rem; font-weight: 300; color: var(--ink-mid); line-height: 1.9; }
-  .commentary-box p + p { margin-top: 1.1rem; }
+  .commentary-toggle { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.6rem 1.2rem; background: var(--warm-white); border: 1px solid var(--rule); color: var(--ink-mid); cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; margin-top: 1.8rem; }
+  .commentary-toggle:hover { color: var(--ink); border-color: var(--ink-mid); }
+  .commentary-toggle.active { background: var(--ink); color: var(--warm-white); border-color: var(--ink); }
+  .commentary-panel[hidden] { display: none; }
+  .commentary-panel { margin-top: 1.8rem; max-width: 780px; }
+  .commentary-box { border-left: 3px solid var(--accent); background: var(--off-white); padding: 2rem 2.2rem; }
+  .commentary-box p { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; }
+  .commentary-box p + p { margin-top: 1rem; }
 
   /* Download panel (matches Data Foundation page) */
   .downloads-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 680px; margin-bottom: 2.5rem; }
@@ -186,19 +190,15 @@
       <p>An FY2026 budget built from the ground up, by country, collection, and channel, starting from 2025 actuals and letting every unit, price, and cost assumption roll up into revenue, COGS, and margin.</p>
       <p>The actuals side is pulled via Power Query from <a href="/portfolio/meridian/database/" style="color:inherit;">meridian.db / SQL Server</a>: two source facts (boutique sales and wholesale shipments) merged with their dimensions, appended into one table, and grouped down to Month × Channel × Collection × Country, the grain the Model tab plans at.</p>
     </div>
-  </div>
-</div>
-
-<section id="commentary">
-  <div class="container">
-    <p class="section-label reveal">Controller's commentary</p>
-    <div class="commentary-box reveal">
-      <p>Total FY2026 revenue is budgeted at 1,044,312,160, up 9.6% on 2025's 952,787,356. Almost all of that growth is coming from Boutique, which grows revenue 18.7% year over year, well ahead of Wholesale's 6.8%, and picks up mix share in the process, moving from 23.9% to 25.8% of total revenue.</p>
-      <p>That mix shift is doing real work on margin. Gross margin improves 71bps to 66.9%, more than either channel's own margin gain on its own (Wholesale +54bps, Boutique +25bps). The extra lift is mix: as more of the business sits in the structurally higher-margin Boutique channel, some of the margin historically given up to wholesale accounts comes back.</p>
-      <p>Boutique's growth isn't just a statistical trend carried forward. Five new stores are planned for 2026, in Thailand, Colombia, Vietnam, Brazil, and China, markets expected to carry healthier margins than the existing base once they're open. Two of those five, Thailand and Colombia, are also the two markets flagged further down as budgeted down overall for the year. Worth watching once the stores are trading and the wholesale trend in each market is confirmed one way or the other.</p>
+    <button type="button" class="commentary-toggle" id="commentaryToggle" aria-expanded="false" aria-controls="commentaryPanel">Read the Budget Commentary ↓</button>
+    <div class="commentary-panel" id="commentaryPanel" hidden>
+      <div class="commentary-box">
+        <p>FY2026 revenue is budgeted at CHF 1.04bn, up 9.6% on 2025's CHF 0.95bn, driven mainly by Boutique outgrowing Wholesale (18.7% vs 6.8%) and gaining mix share, from 23.9% to 25.8% of revenue. That shift lifts gross margin 71bps to 66.9%, more than either channel's own margin gain alone (Wholesale +54bps, Boutique +25bps), as more of the business sits in the higher-margin Boutique channel.</p>
+        <p>Growth is concrete too: five new Boutique stores are planned for 2026 (Thailand, Colombia, Vietnam, Brazil, China), two of which, Thailand and Colombia, are also flagged below as budgeted down overall this year, worth watching once open.</p>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
 <section id="legend">
   <div class="container">
@@ -599,6 +599,16 @@
       btn.classList.add('active');
       renderIS(btn.getAttribute('data-view'));
     });
+  });
+
+  const commentaryToggle = document.getElementById('commentaryToggle');
+  const commentaryPanel = document.getElementById('commentaryPanel');
+  commentaryToggle.addEventListener('click', () => {
+    const isOpen = !commentaryPanel.hidden;
+    commentaryPanel.hidden = isOpen;
+    commentaryToggle.classList.toggle('active', !isOpen);
+    commentaryToggle.setAttribute('aria-expanded', String(!isOpen));
+    commentaryToggle.textContent = isOpen ? 'Read the Budget Commentary ↓' : 'Hide the Budget Commentary ↑';
   });
 </script>
 </body>
