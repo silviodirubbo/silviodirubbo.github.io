@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excel Deliverables · Silvio di Rubbo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Ccircle cx='55' cy='55' r='42' stroke='%231A1814' stroke-width='4' fill='none'/%3E%3Ccircle cx='55' cy='55' r='14' fill='%232C4A3E'/%3E%3Cpath d='M30 36 C30 36 44 44 55 55 C66 66 80 72 82 72' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M55 55 L80 84' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/assets/css/site.css">
+<style>
+  #page-header { padding: 10rem 4rem 5rem; border-bottom: 1px solid var(--rule); }
+  .page-header-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; }
+  .page-title { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .back-link { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: color 0.2s; }
+  .back-link:hover { color: var(--ink); }
+  .header-desc { font-size: 1rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; border-left: 1px solid var(--rule); padding-left: 1.5rem; }
+  .deliverable-item { padding: 3rem 0; border-top: 1px solid var(--rule); }
+  .deliverable-item:last-child { border-bottom: 1px solid var(--rule); }
+  .deliverable-number { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-light); }
+  .deliverable-title { font-size: 1.6rem; font-weight: 400; color: var(--ink); line-height: 1.2; letter-spacing: -0.01em; margin: 0.8rem 0; }
+  .deliverable-title em { font-style: italic; color: var(--accent); }
+  .deliverable-desc { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; margin-bottom: 1rem; max-width: 720px; }
+  .deliverable-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+  .deliverable-link { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm-white); background: var(--ink); border: 1px solid var(--ink); padding: 0.75rem 1.5rem; text-decoration: none; transition: background 0.2s; margin-top: 0.5rem; }
+  .deliverable-link:hover { background: var(--accent); border-color: var(--accent); }
+  @media (max-width: 768px) { #page-header { padding: 8rem 2rem 4rem; } .page-header-inner { grid-template-columns: 1fr; gap: 2rem; } }
+</style>
+</head>
+<body>
+<div id="nav-container"></div>
+<noscript><nav style="display:flex;flex-wrap:wrap;gap:1.5rem;padding:1.2rem 4rem;border-bottom:1px solid #E2DED8;font-family:'DM Mono','Courier New',monospace;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;"><a href="/" style="color:#4A4640;text-decoration:none;">Home</a><a href="/cv/" style="color:#4A4640;text-decoration:none;">CV</a><a href="/portfolio/" style="color:#4A4640;text-decoration:none;">Portfolio</a><a href="/projects/" style="color:#4A4640;text-decoration:none;">Projects</a><a href="/contact/" style="color:#4A4640;text-decoration:none;">Contact</a></nav></noscript>
+<script src="/nav.js"></script>
+
+<div id="page-header">
+  <div class="page-header-inner">
+    <div>
+      <a href="/portfolio/" class="back-link">← Back to Portfolio</a>
+      <h1 class="page-title">Excel<br><em>Deliverables</em></h1>
+    </div>
+    <div>
+      <p class="header-desc">Financial planning and controlling work built directly in Excel: a full FY2026 budget model that turns unit, price, and cost assumptions into a complete income statement, with live formulas, a Power Query connection to the underlying dataset, and PivotTable-driven summary views throughout.</p>
+    </div>
+  </div>
+</div>
+<section id="deliverables">
+  <div class="container">
+    <p class="section-label reveal">Deliverables</p>
+    <div class="deliverable-item reveal">
+      <p class="deliverable-number">Deliverable 01</p>
+      <h2 class="deliverable-title">Master Budget <em>Model</em></h2>
+      <p class="deliverable-desc">An FY2026 budget built from the ground up by country, collection, and channel: five tabs of live formulas, from unit and cost inputs and a Power Query-fed actuals connection, through the full statistical Model build, to the Income Statement, PivotTable Summary, and database-ready Budget Export.</p>
+      <div class="deliverable-tags"><span class="tag">Budgeting</span><span class="tag">Power Query</span><span class="tag">PivotTables</span></div>
+      <a href="/portfolio/meridian/budget/" class="deliverable-link">Explore the Budget Model ↗</a>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-mark"><svg width="28" height="28" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Silvio di Rubbo mark">
+  <circle cx="55" cy="55" r="42" stroke="#1A1814" stroke-width="2"/>
+  <circle cx="55" cy="55" r="14" fill="#2C4A3E"/>
+  <path d="M 30,36 C 30,36 44,44 55,55 C 66,66 80,72 82,72" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 55,55 L 80,84" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg></div>
+  <span class="footer-copy">© 2026 Silvio di Rubbo</span>
+  <nav class="footer-nav">
+    <a href="/">Home</a>
+    <a href="/cv/">CV</a>
+    <a href="/portfolio/">Portfolio</a>
+    <a href="/projects/">Projects</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+</footer>
+<script>
+  if ('IntersectionObserver' in window) {
+    document.body.classList.add('js-ready');
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  }
+</script>
+</body>
+</html>
