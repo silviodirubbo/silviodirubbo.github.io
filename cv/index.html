@@ -42,7 +42,7 @@
   .cert-sub { font-size: 0.85rem; font-weight: 300; color: rgba(255,255,255,0.65); font-style: italic; }
   .cert-badge { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); background: #fff; padding: 0.5rem 1rem; white-space: nowrap; }
   #datatools { background: var(--off-white); }
-  .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
   .tool-card { background: var(--warm-white); padding: 2.5rem; text-decoration: none; display: block; transition: background 0.2s; position: relative; }
   .tool-card:hover { background: #EDE9E2; }
   .tool-card-arrow { position: absolute; top: 2rem; right: 2rem; font-size: 1.1rem; color: var(--ink-faint); transition: transform 0.2s, color 0.2s; }
@@ -150,10 +150,11 @@
 <section id="datatools">
   <div class="container">
     <h2 class="section-label reveal">Data Visualisation</h2>
-    <p class="reveal" style="font-size:0.92rem;font-weight:300;color:var(--ink-mid);line-height:1.75;max-width:640px;margin-bottom:2rem;">Quick, standalone report samples. For a full FP&amp;A/BI case study built end-to-end around one company, see the <a href="/portfolio/" style="color:var(--ink-mid);">Portfolio</a>.</p>
+    <p class="reveal" style="font-size:0.92rem;font-weight:300;color:var(--ink-mid);line-height:1.75;max-width:640px;margin-bottom:2rem;">Focused tool demonstrations in Excel, Power BI, and Tableau. For a full end-to-end FP&amp;A/BI case study, see the <a href="/portfolio/" style="color:var(--ink-mid);">Portfolio</a>.</p>
     <div class="tools-grid reveal">
       <a href="/cv/powerbi/" class="tool-card"><span class="tool-card-arrow">↗</span><p class="tool-card-label">Reporting · Power BI</p><h3 class="tool-card-title">Power BI <em>Reports</em></h3><p class="tool-card-desc">A selection of Power BI reports built around clarity, interactivity, and practical decision support, the same approach used professionally at Ralph Lauren across EMEA.</p><span class="tool-card-link">View reports</span></a>
       <a href="https://public.tableau.com/app/profile/silvio.di.rubbo/vizzes" target="_blank" class="tool-card"><span class="tool-card-arrow">↗</span><p class="tool-card-label">Visualisation · Tableau Public</p><h3 class="tool-card-title">Tableau <em>Dashboards</em></h3><p class="tool-card-desc">Public dashboards exploring data storytelling, translating datasets into something visual, structured, and decision-oriented.</p><span class="tool-card-link">View on Tableau Public</span></a>
+      <a href="/portfolio/excel/" class="tool-card"><span class="tool-card-arrow">↗</span><p class="tool-card-label">Planning &amp; Analysis · Excel</p><h3 class="tool-card-title">Excel <em>Models</em></h3><p class="tool-card-desc">Financial planning and controlling models in Excel: budgets and forecasts built on live formulas and Power Query connections.</p><span class="tool-card-link">View deliverables</span></a>
     </div>
   </div>
 </section>
