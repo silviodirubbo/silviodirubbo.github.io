@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rolling Forecast Model · Meridian Time Group · Silvio di Rubbo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Ccircle cx='55' cy='55' r='42' stroke='%231A1814' stroke-width='4' fill='none'/%3E%3Ccircle cx='55' cy='55' r='14' fill='%232C4A3E'/%3E%3Cpath d='M30 36 C30 36 44 44 55 55 C66 66 80 72 82 72' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M55 55 L80 84' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --off-white: #F7F5F0; --warm-white: #FDFCFA; --ink: #1A1814;
+    --ink-mid: #4A4640; --ink-light: #8A8480; --ink-faint: #C8C4BE;
+    --accent: #2C4A3E; --accent-warm: #8B6914; --rule: #E2DED8;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', 'Courier New', monospace;
+    --v-blue: #1F4E96; --v-green: #1E7B34; --v-gray: #6B6B6B;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--warm-white); color: var(--ink); font-family: var(--serif); font-size: 18px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  #nav-container nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; background: var(--warm-white); border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+  #nav-container nav.scrolled { border-bottom-color: var(--rule); }
+  .nav-name { font-family: var(--serif); font-size: 0.95rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--mono); font-size: 0.68rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 1px; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 1px; background: var(--ink); transition: transform 0.3s, opacity 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .nav-mobile { display: none; position: fixed; top: 57px; left: 0; right: 0; z-index: 199; background: var(--warm-white); border-bottom: 1px solid var(--rule); padding: 1.5rem 2rem; flex-direction: column; gap: 1.2rem; }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; }
+  .nav-mobile a:hover, .nav-mobile a.active { color: var(--ink); }
+  section { padding: 6rem 4rem; }
+  .container { max-width: 1040px; margin: 0 auto; }
+  .section-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--rule); }
+  .tag { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); border: 1px solid var(--rule); padding: 0.3rem 0.7rem; }
+  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+  .footer-mark { opacity: 0.3; display: flex; align-items: center; }
+  .footer-mark svg circle, .footer-mark svg path { stroke: #fff; }
+  .footer-mark svg circle:nth-child(2) { fill: rgba(255,255,255,0.4); stroke: none; }
+  .footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+  .footer-nav { display: flex; gap: 2rem; }
+  .footer-nav a { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
+  .footer-nav a:hover { color: rgba(255,255,255,0.5); }
+  .reveal { opacity: 1; transform: translateY(0); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .js-ready .reveal { opacity: 0; transform: translateY(24px); }
+  .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  #page-header { padding: 9rem 4rem 4rem; border-bottom: 1px solid var(--rule); }
+  .page-header-inner { max-width: 1040px; margin: 0 auto; }
+  .back-link { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: color 0.2s; }
+  .back-link:hover { color: var(--ink); }
+  .page-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .page-title { font-size: clamp(2.4rem, 4.5vw, 3.8rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .status-badge { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 0.9rem; border: 1px solid var(--accent); color: var(--accent); white-space: nowrap; margin-top: 0.5rem; }
+  .header-desc { font-size: 1rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; max-width: 720px; }
+  .header-desc p { margin-bottom: 1rem; }
+  .header-desc p:last-child { margin-bottom: 0; }
+
+  /* Color convention legend */
+  #legend { background: var(--off-white); }
+  .conv-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 720px; margin-bottom: 2.5rem; }
+  .conv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .conv-card { background: var(--warm-white); border: 1px solid var(--rule); padding: 1.6rem 1.6rem; }
+  .conv-swatch { font-family: var(--mono); font-size: 1.1rem; margin-bottom: 0.8rem; }
+  .conv-swatch.blue { color: var(--v-blue); }
+  .conv-swatch.black { color: var(--ink); }
+  .conv-swatch.green { color: var(--v-green); }
+  .conv-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.5rem; }
+  .conv-desc { font-size: 0.85rem; font-weight: 300; color: var(--ink-mid); line-height: 1.6; }
+
+  /* Tab sections */
+  .tab-eyebrow { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-warm); margin-bottom: 0.8rem; }
+  .tab-title { font-size: 1.9rem; font-weight: 400; margin-bottom: 1.2rem; letter-spacing: -0.01em; }
+  .tab-desc { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; max-width: 720px; margin-bottom: 1.2rem; }
+  .tab-desc:last-of-type { margin-bottom: 2.2rem; }
+  .tab-note { font-size: 0.85rem; font-weight: 300; color: var(--ink-light); font-style: italic; line-height: 1.7; max-width: 680px; margin-top: 1.5rem; }
+  .not-shown { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-top: 1rem; }
+
+  /* Data tables */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--rule); }
+  table.data-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.78rem; white-space: nowrap; }
+  table.data-table th, table.data-table td { padding: 0.65rem 1rem; text-align: right; border-bottom: 1px solid var(--rule); }
+  table.data-table th:first-child, table.data-table td:first-child,
+  table.data-table th:nth-child(2), table.data-table td:nth-child(2),
+  table.data-table th:nth-child(3), table.data-table td:nth-child(3) { text-align: left; }
+  table.data-table thead th { font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); font-weight: 400; background: var(--off-white); white-space: nowrap; }
+  table.data-table tbody tr:last-child td { border-bottom: none; }
+  table.data-table tbody tr.total-row td { font-weight: 400; color: var(--ink); background: var(--off-white); }
+  table.data-table td.v-blue { color: var(--v-blue); }
+  table.data-table td.v-green { color: var(--v-green); }
+  table.data-table td.v-gray { color: var(--v-gray); font-style: italic; }
+  table.data-table td.v-black { color: var(--ink); }
+  table.data-table td.v-neg { color: #A33A2E; }
+  table.data-table td.v-pos { color: var(--v-green); }
+  table.data-table tr.section-row td { font-family: var(--serif); font-size: 0.85rem; font-weight: 500; color: var(--ink); background: var(--off-white); text-align: left; padding-top: 0.9rem; padding-bottom: 0.5rem; }
+  table.data-table tr.pct-row td { color: var(--ink-light); font-style: italic; }
+
+  /* Summary cards */
+  .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 1.5rem; }
+  .summary-grid.two-col { grid-template-columns: repeat(2, 1fr); }
+  .summary-card { background: var(--off-white); border: 1px solid var(--rule); padding: 1.8rem 1.6rem; }
+  .summary-card-title { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1.2rem; }
+  .summary-row { display: flex; justify-content: space-between; align-items: baseline; padding: 0.6rem 0; border-bottom: 1px solid var(--rule); gap: 0.8rem; }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-row-label { font-size: 0.88rem; font-weight: 400; color: var(--ink); }
+  .summary-row-figures { text-align: right; }
+  .summary-row-value { font-family: var(--mono); font-size: 0.85rem; color: var(--ink); display: block; }
+  .summary-row-sub { font-family: var(--mono); font-size: 0.62rem; color: var(--ink-light); display: block; margin-top: 0.2rem; }
+  .summary-row-sub.down { color: #A33A2E; }
+  .summary-row-sub.up { color: var(--accent); }
+  .summary-caption { font-size: 0.85rem; font-weight: 300; color: var(--ink-light); font-style: italic; line-height: 1.7; max-width: 680px; }
+
+  /* Controller's commentary */
+  .commentary-toggle { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.6rem 1.2rem; background: var(--warm-white); border: 1px solid var(--rule); color: var(--ink-mid); cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; margin-top: 1.8rem; }
+  .commentary-toggle:hover { color: var(--ink); border-color: var(--ink-mid); }
+  .commentary-toggle.active { background: var(--ink); color: var(--warm-white); border-color: var(--ink); }
+  .commentary-panel[hidden] { display: none; }
+  .commentary-panel { margin-top: 1.8rem; max-width: 780px; }
+  .commentary-box { border-left: 3px solid var(--accent); background: var(--off-white); padding: 2rem 2.2rem; }
+  .commentary-box p { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; }
+  .commentary-box p + p { margin-top: 1rem; }
+
+  /* Contrast panel */
+  .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 1.5rem; }
+  .contrast-card { background: var(--off-white); border: 1px solid var(--rule); padding: 1.8rem 2rem; }
+  .contrast-card h3 { font-size: 1.1rem; font-weight: 500; margin-bottom: 1rem; }
+  .contrast-card.forecast h3 { color: var(--accent); }
+  .contrast-card p { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; }
+  .contrast-note { font-size: 0.85rem; font-weight: 300; color: var(--ink-light); font-style: italic; line-height: 1.7; max-width: 720px; margin-top: 0.5rem; }
+
+  /* Download panel */
+  .downloads-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 680px; margin-bottom: 2.5rem; }
+  .download-panel { display: flex; flex-direction: column; gap: 2px; }
+  .download-item { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; background: var(--off-white); border: 1px solid var(--rule); padding: 1.6rem 2rem; }
+  .download-info { display: flex; align-items: flex-start; gap: 1rem; min-width: 0; }
+  .download-badge { flex-shrink: 0; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.04em; color: var(--accent-warm); background: rgba(139,105,20,0.08); border: 1px solid rgba(139,105,20,0.25); padding: 0.3rem 0.55rem; margin-top: 0.15rem; }
+  .download-text { min-width: 0; }
+  .download-name { font-family: var(--mono); font-size: 0.88rem; color: var(--ink); display: block; margin-bottom: 0.4rem; word-break: break-word; }
+  .download-desc { font-size: 0.85rem; font-weight: 300; color: var(--ink-mid); line-height: 1.6; }
+  .download-action { display: flex; align-items: center; gap: 1.2rem; flex-shrink: 0; }
+  .download-size { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-light); white-space: nowrap; }
+  .download-btn { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm-white); background: var(--ink); border: 1px solid var(--ink); padding: 0.65rem 1.3rem; text-decoration: none; white-space: nowrap; transition: background 0.2s, border-color 0.2s; }
+  .download-btn:hover { background: var(--accent); border-color: var(--accent); }
+
+  #engine, #income-statement { }
+  #summary-tab, #contrast { background: var(--off-white); }
+  #summary-tab .table-wrap, #key-figures .summary-grid { background: var(--warm-white); }
+
+  @media (max-width: 900px) {
+    .conv-grid { grid-template-columns: repeat(2, 1fr); }
+    .summary-grid, .summary-grid.two-col { grid-template-columns: 1fr; }
+    .contrast-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    #page-header { padding: 8rem 2rem 3rem; }
+    section { padding: 4rem 2rem; }
+    .conv-grid { grid-template-columns: 1fr; }
+    #nav-container nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    footer { padding: 1.2rem 2rem; flex-direction: column; gap: 0.8rem; text-align: center; }
+    .footer-nav { justify-content: center; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div id="nav-container"></div>
+<script src="/nav.js"></script>
+
+<div id="page-header">
+  <div class="page-header-inner">
+    <a href="/portfolio/meridian/" class="back-link">← Back to Portfolio</a>
+    <div class="page-title-row">
+      <h1 class="page-title">Rolling Forecast<br><em>Model</em></h1>
+      <span class="status-badge">Rolling Forecast Model: Available</span>
+    </div>
+    <div class="header-desc">
+      <p>The second deliverable in the Meridian Time Group controlling cycle, after the Master Budget Model. It answers a different question. The Budget Model says what the business decided to plan for FY2026. This model says what the actual numbers, six months into the year, suggest will happen if nothing changes between now and December.</p>
+      <p>The Budget Model is built once a year from stakeholder inputs: unit, price, and cost assumptions set by judgment before the year starts. This model is built the opposite way. It is computed automatically from a single growth-rate engine applied to actuals against that same budget, at full Channel x Collection x Country x Month grain, with no qualitative input in the calculation itself. Neither model is better than the other. The Budget sets the target. This Forecast tracks reality against it.</p>
+    </div>
+    <button type="button" class="commentary-toggle" id="commentaryToggle" aria-expanded="false" aria-controls="commentaryPanel">Read the Controller's Note ↓</button>
+    <div class="commentary-panel" id="commentaryPanel" hidden>
+      <div class="commentary-box">
+        <p>Six months of actuals against the FY2026 budget point to full-year revenue of roughly CHF 966m against a CHF 1.04bn budget, a 7.5% shortfall that also costs about 70 basis points of gross margin (66.9% budgeted, 66.2% forecast). The softness is broad-based, not a single weak market: every region is running below budget (EMEA -7.7%, APAC -7.5%, NA -5.4%, LATAM -11.0%), and both channels are down (Wholesale -8.1%, Boutique -5.7%).</p>
+        <p>The one concentrated outlier worth a closer look is Brazil, tracking about 22% below its roughly CHF 40m budget on current trend, a materially sharper pullback than anywhere else in the portfolio. None of this is visible in the Budget Model itself. It only surfaces once six months of real sell-in and sell-out data are run through the growth-rate engine below.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="contrast">
+  <div class="container">
+    <p class="section-label reveal">Two lenses, one business</p>
+    <div class="contrast-grid reveal">
+      <div class="contrast-card budget">
+        <h3>Budget Model</h3>
+        <p>What did the business decide to plan for. Built once a year from stakeholder inputs: unit, price, and cost assumptions, judgment calls about new stores, channel mix, and pricing. Manual by nature, and meant to be.</p>
+      </div>
+      <div class="contrast-card forecast">
+        <h3>Forecast Model</h3>
+        <p>What do the actual numbers say will happen if nothing changes. Computed automatically from year-to-date actuals against the same budget, at full Channel x Collection x Country x Month grain. Mechanical by nature, and meant to be.</p>
+      </div>
+    </div>
+    <p class="contrast-note reveal">Both run on the same underlying business and the same FY2026 planning cycle. The Budget sets the target once a year. The Forecast checks that target against reality every time actuals are refreshed, with no judgment call built into the calculation itself.</p>
+  </div>
+</section>
+
+<section id="legend">
+  <div class="container">
+    <p class="section-label reveal">How to read it</p>
+    <p class="conv-intro reveal">This workbook uses a narrower color convention than the Budget Model, because there is far less to color. Blue marks a manual input, and on this workbook that is six cells only: the fixed expense coefficients on the Income Statement. Every other cell, across Model_Calculations, Model_Summary, Forecast_Key Figures, and Forecast_In-Depth View, is either black or green. There is no blue anywhere in the forecast engine itself.</p>
+    <div class="conv-grid reveal">
+      <div class="conv-card">
+        <p class="conv-swatch blue">Blue</p>
+        <p class="conv-label">Manual input</p>
+        <p class="conv-desc">The six expense coefficients on the Income Statement. Nowhere else in the workbook.</p>
+      </div>
+      <div class="conv-card">
+        <p class="conv-swatch black">Black</p>
+        <p class="conv-label">Calculated cell</p>
+        <p class="conv-desc">Formula driven entirely by the data on its own tab.</p>
+      </div>
+      <div class="conv-card">
+        <p class="conv-swatch green">Green</p>
+        <p class="conv-label">Cross-sheet link</p>
+        <p class="conv-desc">Formula that pulls from another tab, most often Model_Calculations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="engine">
+  <div class="container">
+    <p class="tab-eyebrow reveal">Tab 1</p>
+    <h2 class="tab-title reveal">Model_Calculations</h2>
+    <p class="tab-desc reveal">The forecast engine, and the only tab in the workbook where a number is actually derived rather than looked up. One row per Channel x Collection x Country x Month, 13,440 rows in total: 2 channel types by 2 channel modes by 10 collections by up to 32 countries by 12 months.</p>
+    <p class="tab-desc reveal">For every row, a growth rate is computed independently for Units, COGS, and Revenue: year-to-date Actuals divided by year-to-date Budget, minus 1. Where Budget is 0 for that cut, growth defaults to 0 rather than erroring out or sitting blank. Forecast then equals the Actual, for the six months already closed, or Budget multiplied by (1 plus Growth), for the six months still open.</p>
+    <p class="tab-desc reveal">This is a control mechanism, not a modeling exercise. No assumption is set here and no target is chosen. Each row just carries forward what the year has actually done so far.</p>
+
+    <div class="table-wrap reveal">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Channel</th><th>Collection</th><th>Country</th><th>Month</th>
+            <th>2026 Budget</th><th>YTD Growth</th><th>2026 Forecast</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Boutique / Online</td><td>Atelier</td><td>Australia</td><td>Mar</td><td>99,268</td><td class="v-gray">closed, actual</td><td>33,953</td></tr>
+          <tr><td>Boutique / Online</td><td>Atelier</td><td>Australia</td><td>Jul</td><td>108,224</td><td class="v-neg">-38.6%</td><td>66,477</td></tr>
+          <tr><td>Wholesale / Online</td><td>Atelier</td><td>Australia</td><td>Jul</td><td>126,431</td><td class="v-pos">+19.0%</td><td>150,429</td></tr>
+          <tr><td>Wholesale / Online</td><td>Celeste</td><td>Italy</td><td>Jul</td><td>36,142</td><td class="v-pos">+18.6%</td><td>42,874</td></tr>
+          <tr><td>Wholesale / Online</td><td>Aventus</td><td>Thailand</td><td>Jul</td><td>0</td><td class="v-gray">budget is 0, growth = 0</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tab-note reveal">Same collection, same country, two different channel cuts, two different growth rates: Atelier is running well behind budget through the Boutique channel in Australia and well ahead of it through Wholesale in the same market, in the same month. That is the point of calculating growth at full grain instead of at a channel or collection average: it does not average the two away.</p>
+    <p class="not-shown">13,440 rows total. Growth is computed once per Channel x Collection x Country combination from the twelve months of budget and actuals, then applied to whichever months are still open; closed months simply carry the actual.</p>
+  </div>
+</section>
+
+<section id="summary-tab">
+  <div class="container">
+    <p class="tab-eyebrow reveal">Tab 2</p>
+    <h2 class="tab-title reveal">Model_Summary</h2>
+    <p class="tab-desc reveal">Two sides, and nothing calculated on either half of it. The left side is Power Query output straight from the database, Actuals and Budget as pivoted from the Meridian database, refreshable on its own whenever new actuals land. The right side is the forecast, pulled from Model_Calculations by SUMIFS. If Model_Calculations changes, this tab changes with it. It holds no logic of its own.</p>
+
+    <div class="table-wrap reveal">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Month</th><th>2025 Actuals</th><th>2026 Actuals</th><th>2026 Budget</th><th>2026 Forecast</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Jan</td><td class="v-gray">63,896,491</td><td>70,958,559</td><td>82,382,445</td><td>70,958,559</td></tr>
+          <tr><td>Feb</td><td class="v-gray">61,428,994</td><td>67,748,869</td><td>81,554,153</td><td>67,748,869</td></tr>
+          <tr><td>Mar</td><td class="v-gray">76,771,853</td><td>84,591,120</td><td>83,697,668</td><td>84,591,120</td></tr>
+          <tr><td>Apr</td><td class="v-gray">71,107,882</td><td>77,673,877</td><td>83,185,402</td><td>77,673,877</td></tr>
+          <tr><td>May</td><td class="v-gray">75,443,430</td><td>82,028,726</td><td>86,045,416</td><td>82,028,726</td></tr>
+          <tr><td>Jun</td><td class="v-gray">72,981,103</td><td>79,707,905</td><td>86,001,317</td><td>79,707,905</td></tr>
+          <tr><td>Jul</td><td class="v-gray">72,015,413</td><td class="v-gray">not yet closed</td><td>84,448,323</td><td>77,974,403</td></tr>
+          <tr><td>Aug</td><td class="v-gray">69,657,165</td><td class="v-gray">not yet closed</td><td>85,293,961</td><td>78,835,367</td></tr>
+          <tr><td>Dec</td><td class="v-gray">123,757,277</td><td class="v-gray">not yet closed</td><td>97,072,592</td><td>90,380,849</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="not-shown">Total Net Revenue shown; the same left-side/right-side structure runs for Units and COGS, and for every Channel, Collection, Region, and Country cut, not just the monthly topline shown here. Sep, Oct, and Nov omitted for space.</p>
+  </div>
+</section>
+
+<section id="key-figures">
+  <div class="container">
+    <p class="tab-eyebrow reveal">Tab 3</p>
+    <h2 class="tab-title reveal">Forecast_Key Figures</h2>
+    <p class="tab-desc reveal">The curated read: Budget vs. Forecast Revenue, cut by channel, mode, region, and country, with variance, margin impact, and mix shown side by side. Every figure here is a lookup with a category filter; nothing is recalculated on this tab. This is the five-minute check, not the deep dive.</p>
+
+    <div class="summary-grid reveal">
+      <div class="summary-card">
+        <p class="summary-card-title">Topline Revenue</p>
+        <div class="summary-row">
+          <span class="summary-row-label">Boutique</span>
+          <span class="summary-row-figures"><span class="summary-row-value">254,402,196</span><span class="summary-row-sub down">-5.7% vs budget</span></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-label">Wholesale</span>
+          <span class="summary-row-figures"><span class="summary-row-value">711,563,590</span><span class="summary-row-sub down">-8.1% vs budget</span></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-label">Grand Total</span>
+          <span class="summary-row-figures"><span class="summary-row-value">965,965,786</span><span class="summary-row-sub down">-7.5% vs budget</span></span>
+        </div>
+      </div>
+      <div class="summary-card">
+        <p class="summary-card-title">Retail / Online</p>
+        <div class="summary-row">
+          <span class="summary-row-label">Online</span>
+          <span class="summary-row-figures"><span class="summary-row-value">263,030,679</span><span class="summary-row-sub down">-5.9% vs budget</span></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-label">Retail</span>
+          <span class="summary-row-figures"><span class="summary-row-value">702,935,107</span><span class="summary-row-sub down">-8.1% vs budget</span></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-label">Grand Total</span>
+          <span class="summary-row-figures"><span class="summary-row-value">965,965,786</span><span class="summary-row-sub down">-7.5% vs budget</span></span>
+        </div>
+      </div>
+      <div class="summary-card">
+        <p class="summary-card-title">Regional split</p>
+        <div class="summary-row">
+          <span class="summary-row-label">EMEA</span>
+          <span class="summary-row-figures"><span class="summary-row-value">456,592,644</span><span class="summary-row-sub down">-7.7% vs budget</span></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-label">APAC</span>
+          <span class="summary-row-figures"><span class="summary-row-value">286,616,270</span><span class="summary-row-sub down">-7.5% vs budget</span></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-label">NA</span>
+          <span class="summary-row-figures"><span class="summary-row-value">159,368,326</span><span class="summary-row-sub down">-5.4% vs budget</span></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-label">LATAM</span>
+          <span class="summary-row-figures"><span class="summary-row-value">63,388,546</span><span class="summary-row-sub down">-11.0% vs budget</span></span>
+        </div>
+      </div>
+    </div>
+    <p class="summary-caption reveal">Figures are 2026 Forecast Revenue against 2026 Budget Revenue, current as of the Jun refresh. Every region and both channels are running below budget in the same -5% to -11% band. Nothing here is concentrated in one part of the business.</p>
+  </div>
+</section>
+
+<section id="in-depth">
+  <div class="container">
+    <p class="tab-eyebrow reveal">Tab 4</p>
+    <h2 class="tab-title reveal">Forecast_In-Depth View</h2>
+    <p class="tab-desc reveal">Same categories as Forecast_Key Figures, channel, collection, region, country, but every metric at once: LY, Actuals, Budget, and Forecast, across Units, COGS, and Revenue, each with its own variance against LY, Actuals, and Budget. This is where a controller checks whether a headline number is being driven by volume, cost, or price, and where a single outlier cut shows up against the broader pattern.</p>
+
+    <div class="table-wrap reveal">
+      <table class="data-table">
+        <thead>
+          <tr><th>Collection</th><th>Units vs Budget</th><th>Revenue vs Budget</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Heritage</td><td class="v-neg">-2.4%</td><td class="v-neg">-2.5%</td></tr>
+          <tr><td>Grand Complication</td><td class="v-neg">-6.5%</td><td class="v-neg">-4.5%</td></tr>
+          <tr><td>Aventus</td><td class="v-neg">-7.4%</td><td class="v-neg">-7.4%</td></tr>
+          <tr><td>Atelier</td><td class="v-neg">-9.0%</td><td class="v-neg">-8.3%</td></tr>
+          <tr><td>Terra</td><td class="v-neg">-8.2%</td><td class="v-neg">-8.4%</td></tr>
+          <tr><td>Sportivo</td><td class="v-neg">-9.5%</td><td class="v-neg">-8.7%</td></tr>
+          <tr><td>Meridian Classic</td><td class="v-neg">-9.5%</td><td class="v-neg">-8.6%</td></tr>
+          <tr><td>Celeste</td><td class="v-neg">-9.7%</td><td class="v-neg">-8.8%</td></tr>
+          <tr><td>Lumina</td><td class="v-neg">-11.6%</td><td class="v-neg">-10.1%</td></tr>
+          <tr><td>Nautique</td><td class="v-neg">-11.9%</td><td class="v-neg">-11.8%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tab-note reveal">All ten collections are forecast below budget, which is another way of confirming the softness is broad-based rather than a one-collection story. Heritage is the most resilient by some margin; Nautique and Lumina are the weakest.</p>
+    <p class="not-shown">Collection view shown; the same LY / Actuals / Budget / Forecast structure runs by channel, mode, region, and all 32 countries, including the Brazil cut called out in the Controller's Note above.</p>
+  </div>
+</section>
+
+<section id="income-statement">
+  <div class="container">
+    <p class="tab-eyebrow reveal">Tab 5</p>
+    <h2 class="tab-title reveal">Income Statement</h2>
+    <p class="tab-desc reveal">Revenue and COGS carried down to Net Income. Revenue and COGS are fully computed, straight from the growth rates in Model_Calculations. Below Gross Profit, Operating Expenses, Interest, and Corporate Tax run on the six fixed coefficients of Revenue described in the legend above, because this model does not track headcount, lease terms, or financing detail as separate inputs. There is nothing to computationally derive an expense ratio from, so those six lines are held constant rather than invented. That is a stated scope boundary of this build, not an inconsistency in the logic above it.</p>
+
+    <div class="table-wrap reveal">
+      <table class="data-table">
+        <thead>
+          <tr><th>Line</th><th>2026 Budget</th><th>2026 Forecast</th><th>Var %</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Boutique Revenue</td><td>279,632,185</td><td>254,402,196</td><td class="v-neg">-9.0%</td></tr>
+          <tr><td>Wholesale Revenue</td><td>764,679,976</td><td>711,563,590</td><td class="v-neg">-6.9%</td></tr>
+          <tr class="total-row"><td>Total Net Revenue</td><td>1,044,312,161</td><td>965,965,786</td><td class="v-neg">-7.5%</td></tr>
+          <tr><td>Boutique COGS</td><td>96,280,930</td><td>62,558,959</td><td class="v-pos">-35.0%</td></tr>
+          <tr><td>Wholesale COGS</td><td>249,571,061</td><td>264,066,180</td><td class="v-neg">+5.8%</td></tr>
+          <tr class="total-row"><td>Total COGS</td><td>345,851,990</td><td>326,625,139</td><td class="v-pos">-5.6%</td></tr>
+          <tr class="total-row"><td>Gross Profit</td><td>698,460,171</td><td>639,340,647</td><td class="v-neg">-8.5%</td></tr>
+          <tr class="pct-row"><td>Gross Margin %</td><td>66.9%</td><td>66.2%</td><td>-0.7pp</td></tr>
+          <tr><td>Amortisation &amp; Depreciation</td><td>-52,215,608</td><td>-48,298,289</td><td class="v-pos">-7.5%</td></tr>
+          <tr><td>Marketing</td><td>-104,431,216</td><td>-96,596,579</td><td class="v-pos">-7.5%</td></tr>
+          <tr><td>General &amp; Administrative</td><td>-52,215,608</td><td>-38,638,631</td><td class="v-pos">-26.0%</td></tr>
+          <tr><td>Salaries &amp; Benefits</td><td>-208,862,432</td><td>-173,873,841</td><td class="v-pos">-16.8%</td></tr>
+          <tr class="total-row"><td>Operating Result</td><td>280,735,306</td><td>281,933,306</td><td class="v-pos">+0.4%</td></tr>
+          <tr class="pct-row"><td>Operating Margin %</td><td>26.9%</td><td>29.2%</td><td>+2.3pp</td></tr>
+          <tr><td>Net Interest Expense</td><td>-25,266,178</td><td>-28,193,331</td><td class="v-neg">+11.6%</td></tr>
+          <tr><td>Corporate Tax</td><td>-76,500,371</td><td>-70,483,327</td><td class="v-pos">-7.9%</td></tr>
+          <tr class="total-row"><td>Net Income</td><td>178,968,758</td><td>183,256,649</td><td class="v-pos">+2.4%</td></tr>
+          <tr class="pct-row"><td>Net Income Margin %</td><td>17.1%</td><td>19.0%</td><td>+1.8pp</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tab-note reveal">Gross Profit is down 8.5% against budget, but Net Income is fractionally up, because the fixed expense coefficients scale down with the lower forecast revenue faster than the softer topline itself. That is a mechanical result of how the six coefficients are built, not a signal that cost discipline has improved: this model does not have a way to tell the difference between the two.</p>
+    <p class="not-shown">Annual view shown. The workbook also carries the same comparison split by quarter and by month.</p>
+  </div>
+</section>
+
+<section id="downloads">
+  <div class="container">
+    <p class="section-label reveal">Source file</p>
+    <p class="downloads-intro reveal">The full workbook behind everything above, all six tabs, live formulas included. Download it directly.</p>
+    <div class="download-panel reveal" id="downloadPanel"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-mark"><svg width="28" height="28" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Silvio di Rubbo mark">
+  <circle cx="55" cy="55" r="42" stroke="#1A1814" stroke-width="2"/>
+  <circle cx="55" cy="55" r="14" fill="#2C4A3E"/>
+  <path d="M 30,36 C 30,36 44,44 55,55 C 66,66 80,72 82,72" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 55,55 L 80,84" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg></div>
+  <span class="footer-copy">© 2026 Silvio di Rubbo</span>
+  <nav class="footer-nav">
+    <a href="/">Home</a>
+    <a href="/cv/">CV</a>
+    <a href="/portfolio/">Portfolio</a>
+    <a href="/projects/">Projects</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+</footer>
+
+<script>
+  if ('IntersectionObserver' in window) {
+    document.body.classList.add('js-ready');
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  }
+
+  function renderDownloadPanel(containerId, files) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    if (!files.length) {
+      container.innerHTML = '<p class="download-empty">No downloadable files yet for this section.</p>';
+      return;
+    }
+    container.innerHTML = files.map(f => `
+      <div class="download-item">
+        <div class="download-info">
+          <span class="download-badge">.${f.ext}</span>
+          <div class="download-text">
+            <span class="download-name">${f.name}</span>
+            <p class="download-desc">${f.desc}</p>
+          </div>
+        </div>
+        <div class="download-action">
+          <span class="download-size">${f.size}</span>
+          <a href="${f.path}" download class="download-btn">Download ↓</a>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderDownloadPanel('downloadPanel', [
+    { name: 'Forecast Model.xlsx', ext: 'xlsx', size: '3.4 MB', path: '/portfolio/meridian/forecast_model/Forecast%20Model.xlsx', desc: 'The actual FY2026 workbook: Overview, Model_Calculations, Model_Summary, Forecast_Key Figures, Forecast_In-Depth View, and Income Statement tabs, live formulas intact.' }
+  ]);
+
+  const commentaryToggle = document.getElementById('commentaryToggle');
+  const commentaryPanel = document.getElementById('commentaryPanel');
+  commentaryToggle.addEventListener('click', () => {
+    const isOpen = !commentaryPanel.hidden;
+    commentaryPanel.hidden = isOpen;
+    commentaryToggle.classList.toggle('active', !isOpen);
+    commentaryToggle.setAttribute('aria-expanded', String(!isOpen));
+    commentaryToggle.textContent = isOpen ? "Read the Controller's Note ↓" : "Hide the Controller's Note ↑";
+  });
+</script>
+</body>
+</html>
