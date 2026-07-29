@@ -84,6 +84,15 @@
   .tab-note { font-size: 0.85rem; font-weight: 300; color: var(--ink-light); font-style: italic; line-height: 1.7; max-width: 680px; margin-top: 1.5rem; }
   .not-shown { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-top: 1rem; }
 
+  /* Workbook tab bar (Excel-style sheet tabs) */
+  .tab-hint { font-size: 0.85rem; font-weight: 300; color: var(--ink-light); font-style: italic; line-height: 1.7; max-width: 680px; margin-bottom: 2rem; }
+  .tab-bar { display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--rule); margin-bottom: 2.5rem; }
+  .tab-bar button { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mid); background: none; border: none; border-bottom: 2px solid transparent; padding: 0.9rem 1.3rem; margin-bottom: -1px; cursor: pointer; transition: color 0.2s, border-color 0.2s; }
+  .tab-bar button:hover { color: var(--ink); }
+  .tab-bar button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+  .tab-bar button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .tab-panel[hidden] { display: none; }
+
   /* Data tables */
   .table-wrap { overflow-x: auto; border: 1px solid var(--rule); }
   table.data-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.78rem; white-space: nowrap; }
@@ -154,9 +163,8 @@
   .download-btn { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm-white); background: var(--ink); border: 1px solid var(--ink); padding: 0.65rem 1.3rem; text-decoration: none; white-space: nowrap; transition: background 0.2s, border-color 0.2s; }
   .download-btn:hover { background: var(--accent); border-color: var(--accent); }
 
-  #inputs, #income-statement, #budget-export { }
-  #model, #summary { background: var(--off-white); }
-  #model .table-wrap, #summary .summary-grid { background: var(--warm-white); }
+  #workbook { background: var(--off-white); }
+  #workbook .table-wrap, #workbook .summary-grid { background: var(--warm-white); }
 
   @media (max-width: 900px) {
     .conv-grid { grid-template-columns: repeat(2, 1fr); }
@@ -172,6 +180,8 @@
     footer { padding: 1.2rem 2rem; flex-direction: column; gap: 0.8rem; text-align: center; }
     .footer-nav { justify-content: center; flex-wrap: wrap; }
     .is-toolbar { flex-direction: column; align-items: flex-start; }
+    .tab-bar { margin-bottom: 2rem; }
+    .tab-bar button { padding: 0.7rem 0.9rem; font-size: 0.62rem; }
   }
 </style>
 </head>
@@ -229,190 +239,193 @@
   </div>
 </section>
 
-<section id="inputs">
+<section id="workbook">
   <div class="container">
-    <p class="tab-eyebrow reveal">Tab 1</p>
-    <h2 class="tab-title reveal">Inputs</h2>
-    <p class="tab-desc reveal">Every editable FY2026 assumption lives here, in six blocks side by side: units per country, price and cost per SKU, collection mix by country, planned new store openings, and the Boutique/Wholesale and Retail/Online channel splits. Everything downstream on the Model tab reads from this one place.</p>
-    <p class="tab-desc reveal">The five planned 2026 store openings (Thailand, Colombia, Vietnam, Brazil, and China) aren't an isolated assumption. More store capacity feeds directly into more Boutique units and revenue downstream, one real driver behind Boutique's 18.7% revenue growth on the Income Statement below, well ahead of Wholesale's 6.8%.</p>
-    <p class="tab-desc reveal">The excerpt below is the Price per SKU block, one SKU per collection, showing 2023-2025 list price history (gray, reference only), 2025 standard cost and units (gray), and the 2026 budgeted price and cost (blue, editable).</p>
-
-    <div class="table-wrap reveal">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>SKU</th><th>Name</th><th>Collection</th>
-            <th>List Price 2023</th><th>List Price 2024</th><th>List Price 2025</th>
-            <th>Std Cost 2025</th><th>Units 2025</th>
-            <th>Budgeted Price 2026</th><th>Budgeted Cost 2026</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>SKU0001</td><td>Nautique Rose Gold 40mm Salmon</td><td>Nautique</td><td class="v-gray">19,917</td><td class="v-gray">20,773</td><td class="v-gray">21,667</td><td class="v-gray">5,668</td><td class="v-gray">488</td><td class="v-blue">22,300</td><td class="v-blue">5,800</td></tr>
-          <tr><td>SKU0013</td><td>Heritage Steel 44mm Black</td><td>Heritage</td><td class="v-gray">19,971</td><td class="v-gray">20,798</td><td class="v-gray">21,659</td><td class="v-gray">4,931</td><td class="v-gray">844</td><td class="v-blue">22,300</td><td class="v-blue">5,000</td></tr>
-          <tr><td>SKU0022</td><td>Celeste Titanium 40mm Salmon</td><td>Celeste</td><td class="v-gray">18,192</td><td class="v-gray">19,052</td><td class="v-gray">19,953</td><td class="v-gray">4,547</td><td class="v-gray">665</td><td class="v-blue">20,600</td><td class="v-blue">4,600</td></tr>
-          <tr><td>SKU0034</td><td>Aventus Steel 36mm Black</td><td>Aventus</td><td class="v-gray">6,334</td><td class="v-gray">6,651</td><td class="v-gray">6,985</td><td class="v-gray">1,977</td><td class="v-gray">540</td><td class="v-blue">7,200</td><td class="v-blue">2,000</td></tr>
-          <tr><td>SKU0042</td><td>Meridian Classic Two-Tone 44mm Black</td><td>Meridian Classic</td><td class="v-gray">6,742</td><td class="v-gray">7,070</td><td class="v-gray">7,414</td><td class="v-gray">2,096</td><td class="v-gray">742</td><td class="v-blue">7,600</td><td class="v-blue">2,100</td></tr>
-          <tr><td>SKU0050</td><td>Terra Steel 38mm Green</td><td>Terra</td><td class="v-gray">6,607</td><td class="v-gray">6,883</td><td class="v-gray">7,171</td><td class="v-gray">2,115</td><td class="v-gray">753</td><td class="v-blue">7,400</td><td class="v-blue">2,200</td></tr>
-          <tr><td>SKU0060</td><td>Lumina Titanium 44mm Salmon</td><td>Lumina</td><td class="v-gray">15,502</td><td class="v-gray">16,378</td><td class="v-gray">17,303</td><td class="v-gray">4,182</td><td class="v-gray">645</td><td class="v-blue">17,800</td><td class="v-blue">4,300</td></tr>
-          <tr><td>SKU0068</td><td>Sportivo Two-Tone 36mm White</td><td>Sportivo</td><td class="v-gray">9,025</td><td class="v-gray">9,426</td><td class="v-gray">9,846</td><td class="v-gray">2,846</td><td class="v-gray">826</td><td class="v-blue">10,100</td><td class="v-blue">2,900</td></tr>
-          <tr><td>SKU0079</td><td>Grand Complication Yellow Gold 42mm White</td><td>Grand Complication</td><td class="v-gray">30,000</td><td class="v-gray">31,770</td><td class="v-gray">33,644</td><td class="v-gray">7,228</td><td class="v-gray">755</td><td class="v-blue">34,700</td><td class="v-blue">7,400</td></tr>
-          <tr><td>SKU0090</td><td>Atelier Two-Tone 40mm Green</td><td>Atelier</td><td class="v-gray">21,014</td><td class="v-gray">22,021</td><td class="v-gray">23,076</td><td class="v-gray">5,278</td><td class="v-gray">642</td><td class="v-blue">23,800</td><td class="v-blue">5,400</td></tr>
-        </tbody>
-      </table>
+    <p class="tab-hint reveal">Click a tab below to see what it contains.</p>
+    <div class="tab-bar reveal" role="tablist" aria-label="Budget Model workbook tabs">
+      <button type="button" role="tab" id="tabbtn-inputs" aria-controls="tabpanel-inputs" aria-selected="false" tabindex="0">Inputs</button>
+      <button type="button" role="tab" id="tabbtn-model" aria-controls="tabpanel-model" aria-selected="false" tabindex="-1">Model</button>
+      <button type="button" role="tab" id="tabbtn-income-statement" aria-controls="tabpanel-income-statement" aria-selected="false" tabindex="-1">Income Statement</button>
+      <button type="button" role="tab" id="tabbtn-summary" aria-controls="tabpanel-summary" aria-selected="false" tabindex="-1">Summary</button>
+      <button type="button" role="tab" id="tabbtn-budget-export" aria-controls="tabpanel-budget-export" aria-selected="false" tabindex="-1">Budget Export</button>
     </div>
-    <p class="not-shown">Also in this tab, not shown here: Units per Country (32 rows), Collection Mix (320 rows), Planned New Stores 2026 (5 rows), Channel Mix splits (320 rows), Regional Grouping and Wholesale Margin by Country (32 rows each). Full detail in the downloadable file.</p>
-  </div>
-</section>
 
-<section id="model">
-  <div class="container">
-    <p class="tab-eyebrow reveal">Tab 2</p>
-    <h2 class="tab-title reveal">Model</h2>
-    <p class="tab-desc reveal">This is where the budget actually gets built, at Type × Collection × Country × Month grain. Each row takes 36 months of 2023-2025 actuals, fits a statistical shape (Excel's FORECAST.ETS, floored at zero), blends it with manual overrides, prices and costs it per SKU, and rolls it into monthly and annual units, revenue, COGS, and margin. In the file this is 110 columns wide per row: 36 months of history, the statistical shape, monthly phasing shares, and 3 years of monthly budget detail. That's too wide to reproduce here, so the excerpt below shows 8 real rows chosen for variety, with only the identifying columns and the annual before/after.</p>
+    <div class="tab-panel" id="tabpanel-inputs" role="tabpanel" aria-labelledby="tabbtn-inputs" hidden>
+      <p class="tab-eyebrow">Tab 1</p>
+      <h2 class="tab-title">Inputs</h2>
+      <p class="tab-desc">Every editable FY2026 assumption lives here, in six blocks side by side: units per country, price and cost per SKU, collection mix by country, planned new store openings, and the Boutique/Wholesale and Retail/Online channel splits. Everything downstream on the Model tab reads from this one place.</p>
+      <p class="tab-desc">The five planned 2026 store openings (Thailand, Colombia, Vietnam, Brazil, and China) aren't an isolated assumption. More store capacity feeds directly into more Boutique units and revenue downstream, one real driver behind Boutique's 18.7% revenue growth on the Income Statement below, well ahead of Wholesale's 6.8%.</p>
+      <p class="tab-desc">The excerpt below is the Price per SKU block, one SKU per collection, showing 2023-2025 list price history (gray, reference only), 2025 standard cost and units (gray), and the 2026 budgeted price and cost (blue, editable).</p>
 
-    <div class="table-wrap reveal">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Type</th><th>Collection</th><th>Country</th>
-            <th>Units 2025</th><th>Revenue 2025</th><th>COGS 2025</th>
-            <th>Units 2026</th><th>Revenue 2026</th><th>COGS 2026</th><th>Margin 2026</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Boutique</td><td>Atelier</td><td>Argentina</td><td class="v-gray">26</td><td class="v-gray">747,454</td><td class="v-gray">174,523</td><td class="v-black">28.6</td><td class="v-black">832,165</td><td class="v-black">189,681</td><td class="v-black">77.2%</td></tr>
-          <tr><td>Boutique</td><td>Aventus</td><td>Australia</td><td class="v-gray">32</td><td class="v-gray">306,621</td><td class="v-gray">88,593</td><td class="v-black">35.3</td><td class="v-black">339,980</td><td class="v-black">96,160</td><td class="v-black">71.7%</td></tr>
-          <tr><td>Boutique</td><td>Sportivo</td><td>China</td><td class="v-gray">144</td><td class="v-gray">1,696,443</td><td class="v-gray">475,565</td><td class="v-black">193.6</td><td class="v-black">2,338,378</td><td class="v-black">651,791</td><td class="v-black">72.1%</td></tr>
-          <tr><td>Boutique</td><td>Meridian Classic</td><td>Vietnam</td><td class="v-gray">20</td><td class="v-gray">186,972</td><td class="v-gray">53,874</td><td class="v-black">36.9</td><td class="v-black">345,241</td><td class="v-black">97,862</td><td class="v-black">71.7%</td></tr>
-          <tr><td>Wholesale</td><td>Atelier</td><td>United Kingdom</td><td class="v-gray">396</td><td class="v-gray">7,077,215</td><td class="v-gray">2,474,701</td><td class="v-black">406.6</td><td class="v-black">7,847,695</td><td class="v-black">2,698,003</td><td class="v-black">65.6%</td></tr>
-          <tr><td>Wholesale</td><td>Terra</td><td>Germany</td><td class="v-gray">444</td><td class="v-gray">2,599,596</td><td class="v-gray">1,165,641</td><td class="v-black">460.2</td><td class="v-black">2,805,734</td><td class="v-black">1,242,449</td><td class="v-black">55.7%</td></tr>
-          <tr><td>Wholesale</td><td>Nautique</td><td>France</td><td class="v-gray">386</td><td class="v-gray">4,730,396</td><td class="v-gray">1,800,712</td><td class="v-black">402.6</td><td class="v-black">5,089,251</td><td class="v-black">1,911,748</td><td class="v-black">62.4%</td></tr>
-          <tr><td>Wholesale</td><td>Lumina</td><td>Malaysia</td><td class="v-gray">23</td><td class="v-gray">347,940</td><td class="v-gray">132,139</td><td class="v-black">24.3</td><td class="v-black">365,464</td><td class="v-black">136,198</td><td class="v-black">62.7%</td></tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>SKU</th><th>Name</th><th>Collection</th>
+              <th>List Price 2023</th><th>List Price 2024</th><th>List Price 2025</th>
+              <th>Std Cost 2025</th><th>Units 2025</th>
+              <th>Budgeted Price 2026</th><th>Budgeted Cost 2026</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>SKU0001</td><td>Nautique Rose Gold 40mm Salmon</td><td>Nautique</td><td class="v-gray">19,917</td><td class="v-gray">20,773</td><td class="v-gray">21,667</td><td class="v-gray">5,668</td><td class="v-gray">488</td><td class="v-blue">22,300</td><td class="v-blue">5,800</td></tr>
+            <tr><td>SKU0013</td><td>Heritage Steel 44mm Black</td><td>Heritage</td><td class="v-gray">19,971</td><td class="v-gray">20,798</td><td class="v-gray">21,659</td><td class="v-gray">4,931</td><td class="v-gray">844</td><td class="v-blue">22,300</td><td class="v-blue">5,000</td></tr>
+            <tr><td>SKU0022</td><td>Celeste Titanium 40mm Salmon</td><td>Celeste</td><td class="v-gray">18,192</td><td class="v-gray">19,052</td><td class="v-gray">19,953</td><td class="v-gray">4,547</td><td class="v-gray">665</td><td class="v-blue">20,600</td><td class="v-blue">4,600</td></tr>
+            <tr><td>SKU0034</td><td>Aventus Steel 36mm Black</td><td>Aventus</td><td class="v-gray">6,334</td><td class="v-gray">6,651</td><td class="v-gray">6,985</td><td class="v-gray">1,977</td><td class="v-gray">540</td><td class="v-blue">7,200</td><td class="v-blue">2,000</td></tr>
+            <tr><td>SKU0042</td><td>Meridian Classic Two-Tone 44mm Black</td><td>Meridian Classic</td><td class="v-gray">6,742</td><td class="v-gray">7,070</td><td class="v-gray">7,414</td><td class="v-gray">2,096</td><td class="v-gray">742</td><td class="v-blue">7,600</td><td class="v-blue">2,100</td></tr>
+            <tr><td>SKU0050</td><td>Terra Steel 38mm Green</td><td>Terra</td><td class="v-gray">6,607</td><td class="v-gray">6,883</td><td class="v-gray">7,171</td><td class="v-gray">2,115</td><td class="v-gray">753</td><td class="v-blue">7,400</td><td class="v-blue">2,200</td></tr>
+            <tr><td>SKU0060</td><td>Lumina Titanium 44mm Salmon</td><td>Lumina</td><td class="v-gray">15,502</td><td class="v-gray">16,378</td><td class="v-gray">17,303</td><td class="v-gray">4,182</td><td class="v-gray">645</td><td class="v-blue">17,800</td><td class="v-blue">4,300</td></tr>
+            <tr><td>SKU0068</td><td>Sportivo Two-Tone 36mm White</td><td>Sportivo</td><td class="v-gray">9,025</td><td class="v-gray">9,426</td><td class="v-gray">9,846</td><td class="v-gray">2,846</td><td class="v-gray">826</td><td class="v-blue">10,100</td><td class="v-blue">2,900</td></tr>
+            <tr><td>SKU0079</td><td>Grand Complication Yellow Gold 42mm White</td><td>Grand Complication</td><td class="v-gray">30,000</td><td class="v-gray">31,770</td><td class="v-gray">33,644</td><td class="v-gray">7,228</td><td class="v-gray">755</td><td class="v-blue">34,700</td><td class="v-blue">7,400</td></tr>
+            <tr><td>SKU0090</td><td>Atelier Two-Tone 40mm Green</td><td>Atelier</td><td class="v-gray">21,014</td><td class="v-gray">22,021</td><td class="v-gray">23,076</td><td class="v-gray">5,278</td><td class="v-gray">642</td><td class="v-blue">23,800</td><td class="v-blue">5,400</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="not-shown">Also in this tab, not shown here: Units per Country (32 rows), Collection Mix (320 rows), Planned New Stores 2026 (5 rows), Channel Mix splits (320 rows), Regional Grouping and Wholesale Margin by Country (32 rows each). Full detail in the downloadable file.</p>
     </div>
-    <p class="tab-note reveal">The fractional 2026 unit counts (28.6, 193.6) aren't a display error. They're the real output of the statistical shape blended with monthly phasing, before the Income Statement and Budget Export tabs round and split them further downstream.</p>
-    <p class="not-shown">560 rows total on this tab. The other 552 rows, and the ~100 intermediate columns per row (monthly actuals, forecast shape, phasing shares, monthly budget detail), stay in the file.</p>
-  </div>
-</section>
 
-<section id="income-statement">
-  <div class="container">
-    <p class="tab-eyebrow reveal">Tab 3</p>
-    <h2 class="tab-title reveal">Income Statement</h2>
-    <p class="tab-desc reveal">The Model's output consolidated into a full P&amp;L, 2025 Actual vs. 2026 Budget, down to net income. The same underlying data supports three views on this tab: annual, quarterly, and monthly. Toggle below, this is the one interactive element on the page, everything else here is static.</p>
+    <div class="tab-panel" id="tabpanel-model" role="tabpanel" aria-labelledby="tabbtn-model" hidden>
+      <p class="tab-eyebrow">Tab 2</p>
+      <h2 class="tab-title">Model</h2>
+      <p class="tab-desc">This is where the budget actually gets built, at Type × Collection × Country × Month grain. Each row takes 36 months of 2023-2025 actuals, fits a statistical shape (Excel's FORECAST.ETS, floored at zero), blends it with manual overrides, prices and costs it per SKU, and rolls it into monthly and annual units, revenue, COGS, and margin. In the file this is 110 columns wide per row: 36 months of history, the statistical shape, monthly phasing shares, and 3 years of monthly budget detail. That's too wide to reproduce here, so the excerpt below shows 8 real rows chosen for variety, with only the identifying columns and the annual before/after.</p>
 
-    <div class="is-toolbar reveal">
-      <span class="is-toolbar-label">View</span>
-      <div class="is-toggle" role="group" aria-label="Income statement period view">
-        <button type="button" class="active" data-view="annual">Annual</button>
-        <button type="button" data-view="quarterly">Quarterly</button>
-        <button type="button" data-view="monthly">Monthly</button>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Type</th><th>Collection</th><th>Country</th>
+              <th>Units 2025</th><th>Revenue 2025</th><th>COGS 2025</th>
+              <th>Units 2026</th><th>Revenue 2026</th><th>COGS 2026</th><th>Margin 2026</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Boutique</td><td>Atelier</td><td>Argentina</td><td class="v-gray">26</td><td class="v-gray">747,454</td><td class="v-gray">174,523</td><td class="v-black">28.6</td><td class="v-black">832,165</td><td class="v-black">189,681</td><td class="v-black">77.2%</td></tr>
+            <tr><td>Boutique</td><td>Aventus</td><td>Australia</td><td class="v-gray">32</td><td class="v-gray">306,621</td><td class="v-gray">88,593</td><td class="v-black">35.3</td><td class="v-black">339,980</td><td class="v-black">96,160</td><td class="v-black">71.7%</td></tr>
+            <tr><td>Boutique</td><td>Sportivo</td><td>China</td><td class="v-gray">144</td><td class="v-gray">1,696,443</td><td class="v-gray">475,565</td><td class="v-black">193.6</td><td class="v-black">2,338,378</td><td class="v-black">651,791</td><td class="v-black">72.1%</td></tr>
+            <tr><td>Boutique</td><td>Meridian Classic</td><td>Vietnam</td><td class="v-gray">20</td><td class="v-gray">186,972</td><td class="v-gray">53,874</td><td class="v-black">36.9</td><td class="v-black">345,241</td><td class="v-black">97,862</td><td class="v-black">71.7%</td></tr>
+            <tr><td>Wholesale</td><td>Atelier</td><td>United Kingdom</td><td class="v-gray">396</td><td class="v-gray">7,077,215</td><td class="v-gray">2,474,701</td><td class="v-black">406.6</td><td class="v-black">7,847,695</td><td class="v-black">2,698,003</td><td class="v-black">65.6%</td></tr>
+            <tr><td>Wholesale</td><td>Terra</td><td>Germany</td><td class="v-gray">444</td><td class="v-gray">2,599,596</td><td class="v-gray">1,165,641</td><td class="v-black">460.2</td><td class="v-black">2,805,734</td><td class="v-black">1,242,449</td><td class="v-black">55.7%</td></tr>
+            <tr><td>Wholesale</td><td>Nautique</td><td>France</td><td class="v-gray">386</td><td class="v-gray">4,730,396</td><td class="v-gray">1,800,712</td><td class="v-black">402.6</td><td class="v-black">5,089,251</td><td class="v-black">1,911,748</td><td class="v-black">62.4%</td></tr>
+            <tr><td>Wholesale</td><td>Lumina</td><td>Malaysia</td><td class="v-gray">23</td><td class="v-gray">347,940</td><td class="v-gray">132,139</td><td class="v-black">24.3</td><td class="v-black">365,464</td><td class="v-black">136,198</td><td class="v-black">62.7%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tab-note">The fractional 2026 unit counts (28.6, 193.6) aren't a display error. They're the real output of the statistical shape blended with monthly phasing, before the Income Statement and Budget Export tabs round and split them further downstream.</p>
+      <p class="not-shown">560 rows total on this tab. The other 552 rows, and the ~100 intermediate columns per row (monthly actuals, forecast shape, phasing shares, monthly budget detail), stay in the file.</p>
+    </div>
+
+    <div class="tab-panel" id="tabpanel-income-statement" role="tabpanel" aria-labelledby="tabbtn-income-statement" hidden>
+      <p class="tab-eyebrow">Tab 3</p>
+      <h2 class="tab-title">Income Statement</h2>
+      <p class="tab-desc">The Model's output consolidated into a full P&amp;L, 2025 Actual vs. 2026 Budget, down to net income. The same underlying data supports three views on this tab: annual, quarterly, and monthly. Toggle below, this is the one interactive element on the page, everything else here is static.</p>
+
+      <div class="is-toolbar">
+        <span class="is-toolbar-label">View</span>
+        <div class="is-toggle" role="group" aria-label="Income statement period view">
+          <button type="button" class="active" data-view="annual">Annual</button>
+          <button type="button" data-view="quarterly">Quarterly</button>
+          <button type="button" data-view="monthly">Monthly</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data-table" id="isTable">
+          <thead id="isHead"></thead>
+          <tbody id="isBody"></tbody>
+        </table>
+      </div>
+      <p class="not-shown">All figures are the workbook's own computed output as of the 2026-07-20 refresh, not recalculated on this page.</p>
+    </div>
+
+    <div class="tab-panel" id="tabpanel-summary" role="tabpanel" aria-labelledby="tabbtn-summary" hidden>
+      <p class="tab-eyebrow">Tab 4</p>
+      <h2 class="tab-title">Summary</h2>
+      <p class="tab-desc">Budget sliced interactively by Mode, Collection, Type, Region, and Country, a topline or detailed view without touching the Model tab. In the workbook this runs on 5 native PivotTables and 5 slicers; the three cards below are rebuilt as static HTML from those same pivot numbers.</p>
+
+      <div class="summary-grid">
+        <div class="summary-card">
+          <p class="summary-card-title">Topline</p>
+          <div class="summary-row">
+            <span class="summary-row-label">Wholesale</span>
+            <span class="summary-row-figures"><span class="summary-row-value">774,479,269</span><span class="summary-row-sub">63.7% margin</span></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">Boutique</span>
+            <span class="summary-row-figures"><span class="summary-row-value">269,832,891</span><span class="summary-row-sub">75.9% margin</span></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">Grand Total</span>
+            <span class="summary-row-figures"><span class="summary-row-value">1,044,312,160</span><span class="summary-row-sub up">+9.6% vs 2025</span></span>
+          </div>
+        </div>
+        <div class="summary-card">
+          <p class="summary-card-title">Retail / Online</p>
+          <div class="summary-row">
+            <span class="summary-row-label">Retail</span>
+            <span class="summary-row-figures"><span class="summary-row-value">764,679,975</span><span class="summary-row-sub">67.4% margin</span></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">Online</span>
+            <span class="summary-row-figures"><span class="summary-row-value">279,632,185</span><span class="summary-row-sub">65.6% margin</span></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">Grand Total</span>
+            <span class="summary-row-figures"><span class="summary-row-value">1,044,312,160</span><span class="summary-row-sub up">73.2% Retail mix</span></span>
+          </div>
+        </div>
+        <div class="summary-card">
+          <p class="summary-card-title">Regional split</p>
+          <div class="summary-row">
+            <span class="summary-row-label">EMEA</span>
+            <span class="summary-row-figures"><span class="summary-row-value">494,862,859</span><span class="summary-row-sub">47.4% mix</span></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">APAC</span>
+            <span class="summary-row-figures"><span class="summary-row-value">309,785,298</span><span class="summary-row-sub">29.7% mix</span></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">NA</span>
+            <span class="summary-row-figures"><span class="summary-row-value">168,425,588</span><span class="summary-row-sub">16.1% mix</span></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">LATAM</span>
+            <span class="summary-row-figures"><span class="summary-row-value">71,238,416</span><span class="summary-row-sub">6.8% mix</span></span>
+          </div>
+        </div>
+      </div>
+      <p class="summary-caption">Figures are 2026 Budgeted Revenue. In the live file, five slicers (Type, Region, Mode, Country, Collection) re-cut every card above interactively; this page shows one fixed view of the same underlying pivot.</p>
+      <p class="control-note">The Summary tab also carries a small control of its own: a formula flags "INPUTS CHANGED, REFRESH PIVOT TABLE" if the cached pivot ever drifts from the Model's live output, so a stale number never gets presented as current.</p>
+
+      <div class="tip-box">
+        <span class="tip-icon">Tip</span>
+        <p class="tip-text">In Excel, use View → New Window to open the workbook twice. Keep Inputs and Model in one window and Income Statement and Summary in the other, so changing an assumption and watching its P&amp;L impact doesn't mean constant tab-switching.</p>
       </div>
     </div>
 
-    <div class="table-wrap reveal">
-      <table class="data-table" id="isTable">
-        <thead id="isHead"></thead>
-        <tbody id="isBody"></tbody>
-      </table>
-    </div>
-    <p class="not-shown">All figures are the workbook's own computed output as of the 2026-07-20 refresh, not recalculated on this page.</p>
-  </div>
-</section>
+    <div class="tab-panel" id="tabpanel-budget-export" role="tabpanel" aria-labelledby="tabbtn-budget-export" hidden>
+      <p class="tab-eyebrow">Tab 5</p>
+      <h2 class="tab-title">Budget Export</h2>
+      <p class="tab-desc">The last step, not another analysis view. This is where the budget gets locked and communicated to the business as the Official FY2026 Budget, the version everyone plans and is measured against for the year. To get there, this tab reshapes the Model's output to match the <a href="/portfolio/meridian/database/" style="color:inherit;">fact_budget</a> table's schema exactly, splitting each Country/Collection row into its four channel_id values (Boutique/Wholesale × Retail/Online) using that Country/Collection's Channel Mix shares from Inputs. The database load is the mechanism, not the point.</p>
+      <p class="tab-desc">13,440 rows in total, one per Month × channel_id × Collection × Country. Too many to show, so here are 4 real consecutive rows for one Country/Collection, illustrating the channel_id split.</p>
 
-<section id="summary">
-  <div class="container">
-    <p class="tab-eyebrow reveal">Tab 4</p>
-    <h2 class="tab-title reveal">Summary</h2>
-    <p class="tab-desc reveal">Budget sliced interactively by Mode, Collection, Type, Region, and Country, a topline or detailed view without touching the Model tab. In the workbook this runs on 5 native PivotTables and 5 slicers; the three cards below are rebuilt as static HTML from those same pivot numbers.</p>
-
-    <div class="summary-grid reveal">
-      <div class="summary-card">
-        <p class="summary-card-title">Topline</p>
-        <div class="summary-row">
-          <span class="summary-row-label">Wholesale</span>
-          <span class="summary-row-figures"><span class="summary-row-value">774,479,269</span><span class="summary-row-sub">63.7% margin</span></span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-row-label">Boutique</span>
-          <span class="summary-row-figures"><span class="summary-row-value">269,832,891</span><span class="summary-row-sub">75.9% margin</span></span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-row-label">Grand Total</span>
-          <span class="summary-row-figures"><span class="summary-row-value">1,044,312,160</span><span class="summary-row-sub up">+9.6% vs 2025</span></span>
-        </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Year</th><th>Month</th><th>channel_id</th><th>Collection</th><th>geo_id</th>
+              <th>Budgeted Units</th><th>Price (CHF)</th><th>Cost (CHF)</th><th>Revenue (CHF)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>2026</td><td>01</td><td>1</td><td>Atelier</td><td>19</td><td>0</td><td>29,113.63</td><td>6,636.06</td><td>0</td></tr>
+            <tr><td>2026</td><td>01</td><td>2</td><td>Atelier</td><td>19</td><td>1.91</td><td>29,113.63</td><td>6,636.06</td><td>55,703.36</td></tr>
+            <tr><td>2026</td><td>02</td><td>1</td><td>Atelier</td><td>19</td><td>0</td><td>29,113.63</td><td>6,636.06</td><td>0</td></tr>
+            <tr><td>2026</td><td>02</td><td>2</td><td>Atelier</td><td>19</td><td>2.00</td><td>29,113.63</td><td>6,636.06</td><td>58,184.03</td></tr>
+          </tbody>
+        </table>
       </div>
-      <div class="summary-card">
-        <p class="summary-card-title">Retail / Online</p>
-        <div class="summary-row">
-          <span class="summary-row-label">Retail</span>
-          <span class="summary-row-figures"><span class="summary-row-value">764,679,975</span><span class="summary-row-sub">67.4% margin</span></span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-row-label">Online</span>
-          <span class="summary-row-figures"><span class="summary-row-value">279,632,185</span><span class="summary-row-sub">65.6% margin</span></span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-row-label">Grand Total</span>
-          <span class="summary-row-figures"><span class="summary-row-value">1,044,312,160</span><span class="summary-row-sub up">73.2% Retail mix</span></span>
-        </div>
-      </div>
-      <div class="summary-card">
-        <p class="summary-card-title">Regional split</p>
-        <div class="summary-row">
-          <span class="summary-row-label">EMEA</span>
-          <span class="summary-row-figures"><span class="summary-row-value">494,862,859</span><span class="summary-row-sub">47.4% mix</span></span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-row-label">APAC</span>
-          <span class="summary-row-figures"><span class="summary-row-value">309,785,298</span><span class="summary-row-sub">29.7% mix</span></span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-row-label">NA</span>
-          <span class="summary-row-figures"><span class="summary-row-value">168,425,588</span><span class="summary-row-sub">16.1% mix</span></span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-row-label">LATAM</span>
-          <span class="summary-row-figures"><span class="summary-row-value">71,238,416</span><span class="summary-row-sub">6.8% mix</span></span>
-        </div>
-      </div>
+      <p class="not-shown">channel_id 1-4 map to Boutique Retail, Boutique Online, Wholesale Retail, Wholesale Online. Fractional budgeted_units come from the same channel-mix split described above, not rounding error.</p>
     </div>
-    <p class="summary-caption reveal">Figures are 2026 Budgeted Revenue. In the live file, five slicers (Type, Region, Mode, Country, Collection) re-cut every card above interactively; this page shows one fixed view of the same underlying pivot.</p>
-    <p class="control-note reveal">The Summary tab also carries a small control of its own: a formula flags "INPUTS CHANGED, REFRESH PIVOT TABLE" if the cached pivot ever drifts from the Model's live output, so a stale number never gets presented as current.</p>
-
-    <div class="tip-box reveal">
-      <span class="tip-icon">Tip</span>
-      <p class="tip-text">In Excel, use View → New Window to open the workbook twice. Keep Inputs and Model in one window and Income Statement and Summary in the other, so changing an assumption and watching its P&amp;L impact doesn't mean constant tab-switching.</p>
-    </div>
-  </div>
-</section>
-
-<section id="budget-export">
-  <div class="container">
-    <p class="tab-eyebrow reveal">Tab 5</p>
-    <h2 class="tab-title reveal">Budget Export</h2>
-    <p class="tab-desc reveal">The last step, not another analysis view. This is where the budget gets locked and communicated to the business as the Official FY2026 Budget, the version everyone plans and is measured against for the year. To get there, this tab reshapes the Model's output to match the <a href="/portfolio/meridian/database/" style="color:inherit;">fact_budget</a> table's schema exactly, splitting each Country/Collection row into its four channel_id values (Boutique/Wholesale × Retail/Online) using that Country/Collection's Channel Mix shares from Inputs. The database load is the mechanism, not the point.</p>
-    <p class="tab-desc reveal">13,440 rows in total, one per Month × channel_id × Collection × Country. Too many to show, so here are 4 real consecutive rows for one Country/Collection, illustrating the channel_id split.</p>
-
-    <div class="table-wrap reveal">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Year</th><th>Month</th><th>channel_id</th><th>Collection</th><th>geo_id</th>
-            <th>Budgeted Units</th><th>Price (CHF)</th><th>Cost (CHF)</th><th>Revenue (CHF)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>2026</td><td>01</td><td>1</td><td>Atelier</td><td>19</td><td>0</td><td>29,113.63</td><td>6,636.06</td><td>0</td></tr>
-          <tr><td>2026</td><td>01</td><td>2</td><td>Atelier</td><td>19</td><td>1.91</td><td>29,113.63</td><td>6,636.06</td><td>55,703.36</td></tr>
-          <tr><td>2026</td><td>02</td><td>1</td><td>Atelier</td><td>19</td><td>0</td><td>29,113.63</td><td>6,636.06</td><td>0</td></tr>
-          <tr><td>2026</td><td>02</td><td>2</td><td>Atelier</td><td>19</td><td>2.00</td><td>29,113.63</td><td>6,636.06</td><td>58,184.03</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="not-shown">channel_id 1-4 map to Boutique Retail, Boutique Online, Wholesale Retail, Wholesale Online. Fractional budgeted_units come from the same channel-mix split described above, not rounding error.</p>
   </div>
 </section>
 
@@ -450,6 +463,38 @@
     }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
     reveals.forEach(el => observer.observe(el));
   }
+
+  (function () {
+    const tabBar = document.querySelector('.tab-bar');
+    if (!tabBar) return;
+    const tabs = Array.from(tabBar.querySelectorAll('[role="tab"]'));
+    const panels = tabs.map(t => document.getElementById(t.getAttribute('aria-controls')));
+
+    function selectTab(index, moveFocus) {
+      tabs.forEach((tab, i) => {
+        const active = i === index;
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+        panels[i].hidden = !active;
+      });
+      if (moveFocus) tabs[index].focus();
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => selectTab(i, false));
+      tab.addEventListener('keydown', (e) => {
+        let next = null;
+        if (e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = tabs.length - 1;
+        if (next !== null) {
+          e.preventDefault();
+          selectTab(next, true);
+        }
+      });
+    });
+  })();
 
   function renderDownloadPanel(containerId, files) {
     const container = document.getElementById(containerId);

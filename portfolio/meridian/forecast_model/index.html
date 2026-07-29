@@ -83,6 +83,15 @@
   .tab-note { font-size: 0.85rem; font-weight: 300; color: var(--ink-light); font-style: italic; line-height: 1.7; max-width: 680px; margin-top: 1.5rem; }
   .not-shown { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-top: 1rem; }
 
+  /* Workbook tab bar (Excel-style sheet tabs) */
+  .tab-hint { font-size: 0.85rem; font-weight: 300; color: var(--ink-light); font-style: italic; line-height: 1.7; max-width: 680px; margin-bottom: 2rem; }
+  .tab-bar { display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--rule); margin-bottom: 2.5rem; }
+  .tab-bar button { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mid); background: none; border: none; border-bottom: 2px solid transparent; padding: 0.9rem 1.3rem; margin-bottom: -1px; cursor: pointer; transition: color 0.2s, border-color 0.2s; }
+  .tab-bar button:hover { color: var(--ink); }
+  .tab-bar button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+  .tab-bar button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .tab-panel[hidden] { display: none; }
+
   /* Data tables */
   .table-wrap { overflow-x: auto; border: 1px solid var(--rule); }
   table.data-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.78rem; white-space: nowrap; }
@@ -149,9 +158,9 @@
   .download-btn { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm-white); background: var(--ink); border: 1px solid var(--ink); padding: 0.65rem 1.3rem; text-decoration: none; white-space: nowrap; transition: background 0.2s, border-color 0.2s; }
   .download-btn:hover { background: var(--accent); border-color: var(--accent); }
 
-  #engine, #income-statement { }
-  #summary-tab, #contrast { background: var(--off-white); }
-  #summary-tab .table-wrap, #key-figures .summary-grid { background: var(--warm-white); }
+  #contrast { background: var(--off-white); }
+  #workbook { background: var(--off-white); }
+  #workbook .table-wrap, #workbook .summary-grid { background: var(--warm-white); }
 
   @media (max-width: 900px) {
     .conv-grid { grid-template-columns: repeat(2, 1fr); }
@@ -167,6 +176,8 @@
     .hamburger { display: flex; }
     footer { padding: 1.2rem 2rem; flex-direction: column; gap: 0.8rem; text-align: center; }
     .footer-nav { justify-content: center; flex-wrap: wrap; }
+    .tab-bar { margin-bottom: 2rem; }
+    .tab-bar button { padding: 0.7rem 0.9rem; font-size: 0.62rem; }
   }
 </style>
 </head>
@@ -235,192 +246,195 @@
   </div>
 </section>
 
-<section id="engine">
+<section id="workbook">
   <div class="container">
-    <p class="tab-eyebrow reveal">Tab 1</p>
-    <h2 class="tab-title reveal">Model_Calculations</h2>
-    <p class="tab-desc reveal">The forecast engine, and the only tab in the workbook where a number is actually derived rather than looked up. One row per Channel x Collection x Country x Month, 13,440 rows in total: 2 channel types by 2 channel modes by 10 collections by up to 32 countries by 12 months.</p>
-    <p class="tab-desc reveal">For every row, a growth rate is computed independently for Units, COGS, and Revenue: year-to-date Actuals divided by year-to-date Budget, minus 1. Where Budget is 0 for that cut, growth defaults to 0 rather than erroring out or sitting blank. Forecast then equals the Actual, for the six months already closed, or Budget multiplied by (1 plus Growth), for the six months still open.</p>
-    <p class="tab-desc reveal">This is a control mechanism, not a modeling exercise. No assumption is set here and no target is chosen. Each row just carries forward what the year has actually done so far.</p>
-
-    <div class="table-wrap reveal">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Channel</th><th>Collection</th><th>Country</th><th>Month</th>
-            <th>2026 Budget</th><th>YTD Growth</th><th>2026 Forecast</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Boutique / Online</td><td>Atelier</td><td>Australia</td><td>Mar</td><td>99,268</td><td class="v-gray">closed, actual</td><td>33,953</td></tr>
-          <tr><td>Boutique / Online</td><td>Atelier</td><td>Australia</td><td>Jul</td><td>108,224</td><td class="v-neg">-38.6%</td><td>66,477</td></tr>
-          <tr><td>Wholesale / Online</td><td>Atelier</td><td>Australia</td><td>Jul</td><td>126,431</td><td class="v-pos">+19.0%</td><td>150,429</td></tr>
-          <tr><td>Wholesale / Online</td><td>Celeste</td><td>Italy</td><td>Jul</td><td>36,142</td><td class="v-pos">+18.6%</td><td>42,874</td></tr>
-          <tr><td>Wholesale / Online</td><td>Aventus</td><td>Thailand</td><td>Jul</td><td>0</td><td class="v-gray">budget is 0, growth = 0</td><td>0</td></tr>
-        </tbody>
-      </table>
+    <p class="tab-hint reveal">Click a tab below to see what it contains.</p>
+    <div class="tab-bar reveal" role="tablist" aria-label="Forecast Model workbook tabs">
+      <button type="button" role="tab" id="tabbtn-engine" aria-controls="tabpanel-engine" aria-selected="false" tabindex="0">Model_Calculations</button>
+      <button type="button" role="tab" id="tabbtn-summary-tab" aria-controls="tabpanel-summary-tab" aria-selected="false" tabindex="-1">Model_Summary</button>
+      <button type="button" role="tab" id="tabbtn-key-figures" aria-controls="tabpanel-key-figures" aria-selected="false" tabindex="-1">Forecast_Key Figures</button>
+      <button type="button" role="tab" id="tabbtn-in-depth" aria-controls="tabpanel-in-depth" aria-selected="false" tabindex="-1">Forecast_In-Depth View</button>
+      <button type="button" role="tab" id="tabbtn-income-statement" aria-controls="tabpanel-income-statement" aria-selected="false" tabindex="-1">Income Statement</button>
     </div>
-    <p class="tab-note reveal">Same collection, same country, two different channel cuts, two different growth rates: Atelier is running behind budget through the Boutique channel in Australia and ahead of it through Wholesale in the same market, in the same month.</p>
-    <p class="not-shown">13,440 rows total. Growth is computed once per Channel x Collection x Country combination from the twelve months of budget and actuals, then applied to whichever months are still open; closed months simply carry the actual.</p>
-  </div>
-</section>
 
-<section id="summary-tab">
-  <div class="container">
-    <p class="tab-eyebrow reveal">Tab 2</p>
-    <h2 class="tab-title reveal">Model_Summary</h2>
-    <p class="tab-desc reveal">The tab has two halves. The left half is Power Query output straight from the database: Actuals and Budget, as pivoted from the Meridian database, refreshable on its own whenever new actuals land. The right half is the forecast, pulled from Model_Calculations by SUMIFS. If Model_Calculations changes, this half changes with it.</p>
+    <div class="tab-panel" id="tabpanel-engine" role="tabpanel" aria-labelledby="tabbtn-engine" hidden>
+      <p class="tab-eyebrow">Tab 1</p>
+      <h2 class="tab-title">Model_Calculations</h2>
+      <p class="tab-desc">The forecast engine, and the only tab in the workbook where a number is actually derived rather than looked up. One row per Channel x Collection x Country x Month, 13,440 rows in total: 2 channel types by 2 channel modes by 10 collections by up to 32 countries by 12 months.</p>
+      <p class="tab-desc">For every row, a growth rate is computed independently for Units, COGS, and Revenue: year-to-date Actuals divided by year-to-date Budget, minus 1. Where Budget is 0 for that cut, growth defaults to 0 rather than erroring out or sitting blank. Forecast then equals the Actual, for the six months already closed, or Budget multiplied by (1 plus Growth), for the six months still open.</p>
+      <p class="tab-desc">This is a control mechanism, not a modeling exercise. No assumption is set here and no target is chosen. Each row just carries forward what the year has actually done so far.</p>
 
-    <div class="table-wrap reveal">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Month</th><th>2025 Actuals</th><th>2026 Actuals</th><th>2026 Budget</th><th>2026 Forecast</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Jan</td><td class="v-gray">63,896,491</td><td>70,958,559</td><td>82,382,445</td><td>70,958,559</td></tr>
-          <tr><td>Feb</td><td class="v-gray">61,428,994</td><td>67,748,869</td><td>81,554,153</td><td>67,748,869</td></tr>
-          <tr><td>Mar</td><td class="v-gray">76,771,853</td><td>84,591,120</td><td>83,697,668</td><td>84,591,120</td></tr>
-          <tr><td>Apr</td><td class="v-gray">71,107,882</td><td>77,673,877</td><td>83,185,402</td><td>77,673,877</td></tr>
-          <tr><td>May</td><td class="v-gray">75,443,430</td><td>82,028,726</td><td>86,045,416</td><td>82,028,726</td></tr>
-          <tr><td>Jun</td><td class="v-gray">72,981,103</td><td>79,707,905</td><td>86,001,317</td><td>79,707,905</td></tr>
-          <tr><td>Jul</td><td class="v-gray">72,015,413</td><td class="v-gray">not yet closed</td><td>84,448,323</td><td>77,974,403</td></tr>
-          <tr><td>Aug</td><td class="v-gray">69,657,165</td><td class="v-gray">not yet closed</td><td>85,293,961</td><td>78,835,367</td></tr>
-          <tr><td>Dec</td><td class="v-gray">123,757,277</td><td class="v-gray">not yet closed</td><td>97,072,592</td><td>90,380,849</td></tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Channel</th><th>Collection</th><th>Country</th><th>Month</th>
+              <th>2026 Budget</th><th>YTD Growth</th><th>2026 Forecast</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Boutique / Online</td><td>Atelier</td><td>Australia</td><td>Mar</td><td>99,268</td><td class="v-gray">closed, actual</td><td>33,953</td></tr>
+            <tr><td>Boutique / Online</td><td>Atelier</td><td>Australia</td><td>Jul</td><td>108,224</td><td class="v-neg">-38.6%</td><td>66,477</td></tr>
+            <tr><td>Wholesale / Online</td><td>Atelier</td><td>Australia</td><td>Jul</td><td>126,431</td><td class="v-pos">+19.0%</td><td>150,429</td></tr>
+            <tr><td>Wholesale / Online</td><td>Celeste</td><td>Italy</td><td>Jul</td><td>36,142</td><td class="v-pos">+18.6%</td><td>42,874</td></tr>
+            <tr><td>Wholesale / Online</td><td>Aventus</td><td>Thailand</td><td>Jul</td><td>0</td><td class="v-gray">budget is 0, growth = 0</td><td>0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tab-note">Same collection, same country, two different channel cuts, two different growth rates: Atelier is running behind budget through the Boutique channel in Australia and ahead of it through Wholesale in the same market, in the same month.</p>
+      <p class="not-shown">13,440 rows total. Growth is computed once per Channel x Collection x Country combination from the twelve months of budget and actuals, then applied to whichever months are still open; closed months simply carry the actual.</p>
     </div>
-    <p class="not-shown">Total Net Revenue shown; the same left-side/right-side structure runs for Units and COGS, and for every Channel, Collection, Region, and Country cut, not just the monthly topline shown here. Sep, Oct, and Nov omitted for space.</p>
-  </div>
-</section>
 
-<section id="key-figures">
-  <div class="container">
-    <p class="tab-eyebrow reveal">Tab 3</p>
-    <h2 class="tab-title reveal">Forecast_Key Figures</h2>
-    <p class="tab-desc reveal">Budget vs. Forecast Revenue, cut by channel, mode, region, and country, with variance, margin impact, and mix shown side by side. Every figure is a lookup against Model_Calculations, filtered by category; nothing is recalculated on this tab. Forecast_In-Depth View covers the same categories with a wider set of metrics; this tab shows Revenue only.</p>
+    <div class="tab-panel" id="tabpanel-summary-tab" role="tabpanel" aria-labelledby="tabbtn-summary-tab" hidden>
+      <p class="tab-eyebrow">Tab 2</p>
+      <h2 class="tab-title">Model_Summary</h2>
+      <p class="tab-desc">The tab has two halves. The left half is Power Query output straight from the database: Actuals and Budget, as pivoted from the Meridian database, refreshable on its own whenever new actuals land. The right half is the forecast, pulled from Model_Calculations by SUMIFS. If Model_Calculations changes, this half changes with it.</p>
 
-    <div class="summary-grid reveal">
-      <div class="summary-card">
-        <p class="summary-card-title">Topline Revenue</p>
-        <div class="summary-row">
-          <span class="summary-row-label">Boutique</span>
-          <span class="summary-row-figures"><span class="summary-row-value">254,402,196</span><span class="summary-row-sub down">-5.7% vs budget</span></span>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Month</th><th>2025 Actuals</th><th>2026 Actuals</th><th>2026 Budget</th><th>2026 Forecast</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Jan</td><td class="v-gray">63,896,491</td><td>70,958,559</td><td>82,382,445</td><td>70,958,559</td></tr>
+            <tr><td>Feb</td><td class="v-gray">61,428,994</td><td>67,748,869</td><td>81,554,153</td><td>67,748,869</td></tr>
+            <tr><td>Mar</td><td class="v-gray">76,771,853</td><td>84,591,120</td><td>83,697,668</td><td>84,591,120</td></tr>
+            <tr><td>Apr</td><td class="v-gray">71,107,882</td><td>77,673,877</td><td>83,185,402</td><td>77,673,877</td></tr>
+            <tr><td>May</td><td class="v-gray">75,443,430</td><td>82,028,726</td><td>86,045,416</td><td>82,028,726</td></tr>
+            <tr><td>Jun</td><td class="v-gray">72,981,103</td><td>79,707,905</td><td>86,001,317</td><td>79,707,905</td></tr>
+            <tr><td>Jul</td><td class="v-gray">72,015,413</td><td class="v-gray">not yet closed</td><td>84,448,323</td><td>77,974,403</td></tr>
+            <tr><td>Aug</td><td class="v-gray">69,657,165</td><td class="v-gray">not yet closed</td><td>85,293,961</td><td>78,835,367</td></tr>
+            <tr><td>Dec</td><td class="v-gray">123,757,277</td><td class="v-gray">not yet closed</td><td>97,072,592</td><td>90,380,849</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="not-shown">Total Net Revenue shown; the same left-side/right-side structure runs for Units and COGS, and for every Channel, Collection, Region, and Country cut, not just the monthly topline shown here. Sep, Oct, and Nov omitted for space.</p>
+    </div>
+
+    <div class="tab-panel" id="tabpanel-key-figures" role="tabpanel" aria-labelledby="tabbtn-key-figures" hidden>
+      <p class="tab-eyebrow">Tab 3</p>
+      <h2 class="tab-title">Forecast_Key Figures</h2>
+      <p class="tab-desc">Budget vs. Forecast Revenue, cut by channel, mode, region, and country, with variance, margin impact, and mix shown side by side. Every figure is a lookup against Model_Calculations, filtered by category; nothing is recalculated on this tab. Forecast_In-Depth View covers the same categories with a wider set of metrics; this tab shows Revenue only.</p>
+
+      <div class="summary-grid">
+        <div class="summary-card">
+          <p class="summary-card-title">Topline Revenue</p>
+          <div class="summary-row">
+            <span class="summary-row-label">Boutique</span>
+            <span class="summary-row-figures"><span class="summary-row-value">254,402,196</span><span class="summary-row-sub down">-5.7% vs budget</span></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">Wholesale</span>
+            <span class="summary-row-figures"><span class="summary-row-value">711,563,590</span><span class="summary-row-sub down">-8.1% vs budget</span></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">Grand Total</span>
+            <span class="summary-row-figures"><span class="summary-row-value">965,965,786</span><span class="summary-row-sub down">-7.5% vs budget</span></span>
+          </div>
         </div>
-        <div class="summary-row">
-          <span class="summary-row-label">Wholesale</span>
-          <span class="summary-row-figures"><span class="summary-row-value">711,563,590</span><span class="summary-row-sub down">-8.1% vs budget</span></span>
+        <div class="summary-card">
+          <p class="summary-card-title">Retail / Online</p>
+          <div class="summary-row">
+            <span class="summary-row-label">Online</span>
+            <span class="summary-row-figures"><span class="summary-row-value">263,030,679</span><span class="summary-row-sub down">-5.9% vs budget</span></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">Retail</span>
+            <span class="summary-row-figures"><span class="summary-row-value">702,935,107</span><span class="summary-row-sub down">-8.1% vs budget</span></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">Grand Total</span>
+            <span class="summary-row-figures"><span class="summary-row-value">965,965,786</span><span class="summary-row-sub down">-7.5% vs budget</span></span>
+          </div>
         </div>
-        <div class="summary-row">
-          <span class="summary-row-label">Grand Total</span>
-          <span class="summary-row-figures"><span class="summary-row-value">965,965,786</span><span class="summary-row-sub down">-7.5% vs budget</span></span>
+        <div class="summary-card">
+          <p class="summary-card-title">Regional split</p>
+          <div class="summary-row">
+            <span class="summary-row-label">EMEA</span>
+            <span class="summary-row-figures"><span class="summary-row-value">456,592,644</span><span class="summary-row-sub down">-7.7% vs budget</span></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">APAC</span>
+            <span class="summary-row-figures"><span class="summary-row-value">286,616,270</span><span class="summary-row-sub down">-7.5% vs budget</span></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">NA</span>
+            <span class="summary-row-figures"><span class="summary-row-value">159,368,326</span><span class="summary-row-sub down">-5.4% vs budget</span></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">LATAM</span>
+            <span class="summary-row-figures"><span class="summary-row-value">63,388,546</span><span class="summary-row-sub down">-11.0% vs budget</span></span>
+          </div>
         </div>
       </div>
-      <div class="summary-card">
-        <p class="summary-card-title">Retail / Online</p>
-        <div class="summary-row">
-          <span class="summary-row-label">Online</span>
-          <span class="summary-row-figures"><span class="summary-row-value">263,030,679</span><span class="summary-row-sub down">-5.9% vs budget</span></span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-row-label">Retail</span>
-          <span class="summary-row-figures"><span class="summary-row-value">702,935,107</span><span class="summary-row-sub down">-8.1% vs budget</span></span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-row-label">Grand Total</span>
-          <span class="summary-row-figures"><span class="summary-row-value">965,965,786</span><span class="summary-row-sub down">-7.5% vs budget</span></span>
-        </div>
+      <p class="summary-caption">Figures are 2026 Forecast Revenue against 2026 Budget Revenue, current as of the Jun refresh. Every region and both channels are running below budget in the same -5% to -11% band. Nothing here is concentrated in one part of the business.</p>
+    </div>
+
+    <div class="tab-panel" id="tabpanel-in-depth" role="tabpanel" aria-labelledby="tabbtn-in-depth" hidden>
+      <p class="tab-eyebrow">Tab 4</p>
+      <h2 class="tab-title">Forecast_In-Depth View</h2>
+      <p class="tab-desc">Same categories as Forecast_Key Figures: channel, collection, region, country. Every metric is shown at once: LY, Actuals, Budget, and Forecast, across Units, COGS, and Revenue, each with its own variance against LY, Actuals, and Budget. Every figure is a lookup against Model_Calculations, filtered by category.</p>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>Collection</th><th>Units vs Budget</th><th>Revenue vs Budget</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Heritage</td><td class="v-neg">-2.4%</td><td class="v-neg">-2.5%</td></tr>
+            <tr><td>Grand Complication</td><td class="v-neg">-6.5%</td><td class="v-neg">-4.5%</td></tr>
+            <tr><td>Aventus</td><td class="v-neg">-7.4%</td><td class="v-neg">-7.4%</td></tr>
+            <tr><td>Atelier</td><td class="v-neg">-9.0%</td><td class="v-neg">-8.3%</td></tr>
+            <tr><td>Terra</td><td class="v-neg">-8.2%</td><td class="v-neg">-8.4%</td></tr>
+            <tr><td>Sportivo</td><td class="v-neg">-9.5%</td><td class="v-neg">-8.7%</td></tr>
+            <tr><td>Meridian Classic</td><td class="v-neg">-9.5%</td><td class="v-neg">-8.6%</td></tr>
+            <tr><td>Celeste</td><td class="v-neg">-9.7%</td><td class="v-neg">-8.8%</td></tr>
+            <tr><td>Lumina</td><td class="v-neg">-11.6%</td><td class="v-neg">-10.1%</td></tr>
+            <tr><td>Nautique</td><td class="v-neg">-11.9%</td><td class="v-neg">-11.8%</td></tr>
+          </tbody>
+        </table>
       </div>
-      <div class="summary-card">
-        <p class="summary-card-title">Regional split</p>
-        <div class="summary-row">
-          <span class="summary-row-label">EMEA</span>
-          <span class="summary-row-figures"><span class="summary-row-value">456,592,644</span><span class="summary-row-sub down">-7.7% vs budget</span></span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-row-label">APAC</span>
-          <span class="summary-row-figures"><span class="summary-row-value">286,616,270</span><span class="summary-row-sub down">-7.5% vs budget</span></span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-row-label">NA</span>
-          <span class="summary-row-figures"><span class="summary-row-value">159,368,326</span><span class="summary-row-sub down">-5.4% vs budget</span></span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-row-label">LATAM</span>
-          <span class="summary-row-figures"><span class="summary-row-value">63,388,546</span><span class="summary-row-sub down">-11.0% vs budget</span></span>
-        </div>
+      <p class="tab-note">All ten collections are forecast below budget. Heritage is the most resilient by some margin; Nautique and Lumina are the weakest.</p>
+      <p class="not-shown">Collection view shown; the same LY / Actuals / Budget / Forecast structure runs by channel, mode, region, and all 32 countries, including the Brazil cut called out in the Controller's Note above.</p>
+    </div>
+
+    <div class="tab-panel" id="tabpanel-income-statement" role="tabpanel" aria-labelledby="tabbtn-income-statement" hidden>
+      <p class="tab-eyebrow">Tab 5</p>
+      <h2 class="tab-title">Income Statement</h2>
+      <p class="tab-desc">Revenue and COGS carried down to Net Income. Revenue and COGS are fully computed, straight from the growth rates in Model_Calculations. Below Gross Profit, Operating Expenses, Interest, and Corporate Tax run on the six fixed coefficients of Revenue described in the legend above, because this model does not track headcount, lease terms, or financing detail as separate inputs. There is nothing to computationally derive an expense ratio from, so those six lines are held constant rather than invented. That is a stated scope boundary of this build, not an inconsistency in the logic above it.</p>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>Line</th><th>2026 Budget</th><th>2026 Forecast</th><th>Var %</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Boutique Revenue</td><td>279,632,185</td><td>254,402,196</td><td class="v-neg">-9.0%</td></tr>
+            <tr><td>Wholesale Revenue</td><td>764,679,976</td><td>711,563,590</td><td class="v-neg">-6.9%</td></tr>
+            <tr class="total-row"><td>Total Net Revenue</td><td>1,044,312,161</td><td>965,965,786</td><td class="v-neg">-7.5%</td></tr>
+            <tr><td>Boutique COGS</td><td>96,280,930</td><td>62,558,959</td><td class="v-pos">-35.0%</td></tr>
+            <tr><td>Wholesale COGS</td><td>249,571,061</td><td>264,066,180</td><td class="v-neg">+5.8%</td></tr>
+            <tr class="total-row"><td>Total COGS</td><td>345,851,990</td><td>326,625,139</td><td class="v-pos">-5.6%</td></tr>
+            <tr class="total-row"><td>Gross Profit</td><td>698,460,171</td><td>639,340,647</td><td class="v-neg">-8.5%</td></tr>
+            <tr class="pct-row"><td>Gross Margin %</td><td>66.9%</td><td>66.2%</td><td>-0.7pp</td></tr>
+            <tr><td>Amortisation &amp; Depreciation</td><td>-52,215,608</td><td>-48,298,289</td><td class="v-pos">-7.5%</td></tr>
+            <tr><td>Marketing</td><td>-104,431,216</td><td>-96,596,579</td><td class="v-pos">-7.5%</td></tr>
+            <tr><td>General &amp; Administrative</td><td>-52,215,608</td><td>-38,638,631</td><td class="v-pos">-26.0%</td></tr>
+            <tr><td>Salaries &amp; Benefits</td><td>-208,862,432</td><td>-173,873,841</td><td class="v-pos">-16.8%</td></tr>
+            <tr class="total-row"><td>Operating Result</td><td>280,735,306</td><td>281,933,306</td><td class="v-pos">+0.4%</td></tr>
+            <tr class="pct-row"><td>Operating Margin %</td><td>26.9%</td><td>29.2%</td><td>+2.3pp</td></tr>
+            <tr><td>Net Interest Expense</td><td>-25,266,178</td><td>-28,193,331</td><td class="v-neg">+11.6%</td></tr>
+            <tr><td>Corporate Tax</td><td>-76,500,371</td><td>-70,483,327</td><td class="v-pos">-7.9%</td></tr>
+            <tr class="total-row"><td>Net Income</td><td>178,968,758</td><td>183,256,649</td><td class="v-pos">+2.4%</td></tr>
+            <tr class="pct-row"><td>Net Income Margin %</td><td>17.1%</td><td>19.0%</td><td>+1.8pp</td></tr>
+          </tbody>
+        </table>
       </div>
+      <p class="tab-note">Gross Profit is down 8.5% against budget, but Net Income is fractionally up, because the fixed expense coefficients scale down with the lower forecast revenue faster than the softer topline itself.</p>
+      <p class="not-shown">Annual view shown. The workbook also carries the same comparison split by quarter and by month.</p>
     </div>
-    <p class="summary-caption reveal">Figures are 2026 Forecast Revenue against 2026 Budget Revenue, current as of the Jun refresh. Every region and both channels are running below budget in the same -5% to -11% band. Nothing here is concentrated in one part of the business.</p>
-  </div>
-</section>
-
-<section id="in-depth">
-  <div class="container">
-    <p class="tab-eyebrow reveal">Tab 4</p>
-    <h2 class="tab-title reveal">Forecast_In-Depth View</h2>
-    <p class="tab-desc reveal">Same categories as Forecast_Key Figures: channel, collection, region, country. Every metric is shown at once: LY, Actuals, Budget, and Forecast, across Units, COGS, and Revenue, each with its own variance against LY, Actuals, and Budget. Every figure is a lookup against Model_Calculations, filtered by category.</p>
-
-    <div class="table-wrap reveal">
-      <table class="data-table">
-        <thead>
-          <tr><th>Collection</th><th>Units vs Budget</th><th>Revenue vs Budget</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Heritage</td><td class="v-neg">-2.4%</td><td class="v-neg">-2.5%</td></tr>
-          <tr><td>Grand Complication</td><td class="v-neg">-6.5%</td><td class="v-neg">-4.5%</td></tr>
-          <tr><td>Aventus</td><td class="v-neg">-7.4%</td><td class="v-neg">-7.4%</td></tr>
-          <tr><td>Atelier</td><td class="v-neg">-9.0%</td><td class="v-neg">-8.3%</td></tr>
-          <tr><td>Terra</td><td class="v-neg">-8.2%</td><td class="v-neg">-8.4%</td></tr>
-          <tr><td>Sportivo</td><td class="v-neg">-9.5%</td><td class="v-neg">-8.7%</td></tr>
-          <tr><td>Meridian Classic</td><td class="v-neg">-9.5%</td><td class="v-neg">-8.6%</td></tr>
-          <tr><td>Celeste</td><td class="v-neg">-9.7%</td><td class="v-neg">-8.8%</td></tr>
-          <tr><td>Lumina</td><td class="v-neg">-11.6%</td><td class="v-neg">-10.1%</td></tr>
-          <tr><td>Nautique</td><td class="v-neg">-11.9%</td><td class="v-neg">-11.8%</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="tab-note reveal">All ten collections are forecast below budget. Heritage is the most resilient by some margin; Nautique and Lumina are the weakest.</p>
-    <p class="not-shown">Collection view shown; the same LY / Actuals / Budget / Forecast structure runs by channel, mode, region, and all 32 countries, including the Brazil cut called out in the Controller's Note above.</p>
-  </div>
-</section>
-
-<section id="income-statement">
-  <div class="container">
-    <p class="tab-eyebrow reveal">Tab 5</p>
-    <h2 class="tab-title reveal">Income Statement</h2>
-    <p class="tab-desc reveal">Revenue and COGS carried down to Net Income. Revenue and COGS are fully computed, straight from the growth rates in Model_Calculations. Below Gross Profit, Operating Expenses, Interest, and Corporate Tax run on the six fixed coefficients of Revenue described in the legend above, because this model does not track headcount, lease terms, or financing detail as separate inputs. There is nothing to computationally derive an expense ratio from, so those six lines are held constant rather than invented. That is a stated scope boundary of this build, not an inconsistency in the logic above it.</p>
-
-    <div class="table-wrap reveal">
-      <table class="data-table">
-        <thead>
-          <tr><th>Line</th><th>2026 Budget</th><th>2026 Forecast</th><th>Var %</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Boutique Revenue</td><td>279,632,185</td><td>254,402,196</td><td class="v-neg">-9.0%</td></tr>
-          <tr><td>Wholesale Revenue</td><td>764,679,976</td><td>711,563,590</td><td class="v-neg">-6.9%</td></tr>
-          <tr class="total-row"><td>Total Net Revenue</td><td>1,044,312,161</td><td>965,965,786</td><td class="v-neg">-7.5%</td></tr>
-          <tr><td>Boutique COGS</td><td>96,280,930</td><td>62,558,959</td><td class="v-pos">-35.0%</td></tr>
-          <tr><td>Wholesale COGS</td><td>249,571,061</td><td>264,066,180</td><td class="v-neg">+5.8%</td></tr>
-          <tr class="total-row"><td>Total COGS</td><td>345,851,990</td><td>326,625,139</td><td class="v-pos">-5.6%</td></tr>
-          <tr class="total-row"><td>Gross Profit</td><td>698,460,171</td><td>639,340,647</td><td class="v-neg">-8.5%</td></tr>
-          <tr class="pct-row"><td>Gross Margin %</td><td>66.9%</td><td>66.2%</td><td>-0.7pp</td></tr>
-          <tr><td>Amortisation &amp; Depreciation</td><td>-52,215,608</td><td>-48,298,289</td><td class="v-pos">-7.5%</td></tr>
-          <tr><td>Marketing</td><td>-104,431,216</td><td>-96,596,579</td><td class="v-pos">-7.5%</td></tr>
-          <tr><td>General &amp; Administrative</td><td>-52,215,608</td><td>-38,638,631</td><td class="v-pos">-26.0%</td></tr>
-          <tr><td>Salaries &amp; Benefits</td><td>-208,862,432</td><td>-173,873,841</td><td class="v-pos">-16.8%</td></tr>
-          <tr class="total-row"><td>Operating Result</td><td>280,735,306</td><td>281,933,306</td><td class="v-pos">+0.4%</td></tr>
-          <tr class="pct-row"><td>Operating Margin %</td><td>26.9%</td><td>29.2%</td><td>+2.3pp</td></tr>
-          <tr><td>Net Interest Expense</td><td>-25,266,178</td><td>-28,193,331</td><td class="v-neg">+11.6%</td></tr>
-          <tr><td>Corporate Tax</td><td>-76,500,371</td><td>-70,483,327</td><td class="v-pos">-7.9%</td></tr>
-          <tr class="total-row"><td>Net Income</td><td>178,968,758</td><td>183,256,649</td><td class="v-pos">+2.4%</td></tr>
-          <tr class="pct-row"><td>Net Income Margin %</td><td>17.1%</td><td>19.0%</td><td>+1.8pp</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="tab-note reveal">Gross Profit is down 8.5% against budget, but Net Income is fractionally up, because the fixed expense coefficients scale down with the lower forecast revenue faster than the softer topline itself.</p>
-    <p class="not-shown">Annual view shown. The workbook also carries the same comparison split by quarter and by month.</p>
   </div>
 </section>
 
@@ -458,6 +472,38 @@
     }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
     reveals.forEach(el => observer.observe(el));
   }
+
+  (function () {
+    const tabBar = document.querySelector('.tab-bar');
+    if (!tabBar) return;
+    const tabs = Array.from(tabBar.querySelectorAll('[role="tab"]'));
+    const panels = tabs.map(t => document.getElementById(t.getAttribute('aria-controls')));
+
+    function selectTab(index, moveFocus) {
+      tabs.forEach((tab, i) => {
+        const active = i === index;
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+        panels[i].hidden = !active;
+      });
+      if (moveFocus) tabs[index].focus();
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => selectTab(i, false));
+      tab.addEventListener('keydown', (e) => {
+        let next = null;
+        if (e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = tabs.length - 1;
+        if (next !== null) {
+          e.preventDefault();
+          selectTab(next, true);
+        }
+      });
+    });
+  })();
 
   function renderDownloadPanel(containerId, files) {
     const container = document.getElementById(containerId);
