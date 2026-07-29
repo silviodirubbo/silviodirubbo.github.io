@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rolling Forecast Model · Meridian Time Group · Silvio di Rubbo</title>
+<title>Forecast Model · Meridian Time Group · Silvio di Rubbo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Ccircle cx='55' cy='55' r='42' stroke='%231A1814' stroke-width='4' fill='none'/%3E%3Ccircle cx='55' cy='55' r='14' fill='%232C4A3E'/%3E%3Cpath d='M30 36 C30 36 44 44 55 55 C66 66 80 72 82 72' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M55 55 L80 84' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
 <style>
@@ -178,18 +178,18 @@
   <div class="page-header-inner">
     <a href="/portfolio/meridian/" class="back-link">← Back to Portfolio</a>
     <div class="page-title-row">
-      <h1 class="page-title">Rolling Forecast<br><em>Model</em></h1>
-      <span class="status-badge">Rolling Forecast Model: Available</span>
+      <h1 class="page-title">Forecast<br><em>Model</em></h1>
+      <span class="status-badge">Forecast Model: Available</span>
     </div>
     <div class="header-desc">
       <p>The second deliverable in the Meridian Time Group controlling cycle, after the Master Budget Model. It answers a different question. The Budget Model says what the business decided to plan for FY2026. This model says what the actual numbers, six months into the year, suggest will happen if nothing changes between now and December.</p>
-      <p>The Budget Model is built once a year from stakeholder inputs: unit, price, and cost assumptions set by judgment before the year starts. This model is built the opposite way. It is computed automatically from a single growth-rate engine applied to actuals against that same budget, at full Channel x Collection x Country x Month grain, with no qualitative input in the calculation itself. Neither model is better than the other. The Budget sets the target. This Forecast tracks reality against it.</p>
+      <p>The Budget Model is built once a year from stakeholder inputs: unit, price, and cost assumptions set by judgment before the year starts. This model is built the opposite way. It is computed automatically from a single growth-rate engine applied to actuals against that same budget, at full Channel x Collection x Country x Month grain, with no qualitative input in the calculation itself. The two models are built to deliberately different patterns, input-driven and computational, so they demonstrate distinct, complementary skills rather than the same skill twice.</p>
     </div>
     <button type="button" class="commentary-toggle" id="commentaryToggle" aria-expanded="false" aria-controls="commentaryPanel">Read the Controller's Note ↓</button>
     <div class="commentary-panel" id="commentaryPanel" hidden>
       <div class="commentary-box">
         <p>Six months of actuals against the FY2026 budget point to full-year revenue of roughly CHF 966m against a CHF 1.04bn budget, a 7.5% shortfall that also costs about 70 basis points of gross margin (66.9% budgeted, 66.2% forecast). The softness is broad-based, not a single weak market: every region is running below budget (EMEA -7.7%, APAC -7.5%, NA -5.4%, LATAM -11.0%), and both channels are down (Wholesale -8.1%, Boutique -5.7%).</p>
-        <p>The one concentrated outlier worth a closer look is Brazil, tracking about 22% below its roughly CHF 40m budget on current trend, a materially sharper pullback than anywhere else in the portfolio. None of this is visible in the Budget Model itself. It only surfaces once six months of real sell-in and sell-out data are run through the growth-rate engine below.</p>
+        <p>The one concentrated outlier worth a closer look is Brazil, tracking about 22% below its roughly CHF 40m budget on current trend, a materially sharper pullback than anywhere else in the portfolio. None of this is visible in the Budget Model itself.</p>
       </div>
     </div>
   </div>
@@ -205,17 +205,16 @@
       </div>
       <div class="contrast-card forecast">
         <h3>Forecast Model</h3>
-        <p>What do the actual numbers say will happen if nothing changes. Computed automatically from year-to-date actuals against the same budget, at full Channel x Collection x Country x Month grain. Mechanical by nature, and meant to be.</p>
+        <p>What do the actual numbers say will happen if nothing changes. Computed automatically from year-to-date actuals against the same budget, at full Channel x Collection x Country x Month grain.</p>
       </div>
     </div>
-    <p class="contrast-note reveal">Both run on the same underlying business and the same FY2026 planning cycle. The Budget sets the target once a year. The Forecast checks that target against reality every time actuals are refreshed, with no judgment call built into the calculation itself.</p>
   </div>
 </section>
 
 <section id="legend">
   <div class="container">
     <p class="section-label reveal">How to read it</p>
-    <p class="conv-intro reveal">This workbook uses a narrower color convention than the Budget Model, because there is far less to color. Blue marks a manual input, and on this workbook that is six cells only: the fixed expense coefficients on the Income Statement. Every other cell, across Model_Calculations, Model_Summary, Forecast_Key Figures, and Forecast_In-Depth View, is either black or green. There is no blue anywhere in the forecast engine itself.</p>
+    <p class="conv-intro reveal">Blue = manual input (the six fixed expense coefficients on the Income Statement, nowhere else in the workbook). Black = calculated cell. Green = formula that pulls from another tab, always Model_Calculations.</p>
     <div class="conv-grid reveal">
       <div class="conv-card">
         <p class="conv-swatch blue">Blue</p>
@@ -230,7 +229,7 @@
       <div class="conv-card">
         <p class="conv-swatch green">Green</p>
         <p class="conv-label">Cross-sheet link</p>
-        <p class="conv-desc">Formula that pulls from another tab, most often Model_Calculations.</p>
+        <p class="conv-desc">Formula that pulls from another tab, always Model_Calculations.</p>
       </div>
     </div>
   </div>
@@ -261,7 +260,7 @@
         </tbody>
       </table>
     </div>
-    <p class="tab-note reveal">Same collection, same country, two different channel cuts, two different growth rates: Atelier is running well behind budget through the Boutique channel in Australia and well ahead of it through Wholesale in the same market, in the same month. That is the point of calculating growth at full grain instead of at a channel or collection average: it does not average the two away.</p>
+    <p class="tab-note reveal">Same collection, same country, two different channel cuts, two different growth rates: Atelier is running behind budget through the Boutique channel in Australia and ahead of it through Wholesale in the same market, in the same month.</p>
     <p class="not-shown">13,440 rows total. Growth is computed once per Channel x Collection x Country combination from the twelve months of budget and actuals, then applied to whichever months are still open; closed months simply carry the actual.</p>
   </div>
 </section>
@@ -270,7 +269,7 @@
   <div class="container">
     <p class="tab-eyebrow reveal">Tab 2</p>
     <h2 class="tab-title reveal">Model_Summary</h2>
-    <p class="tab-desc reveal">Two sides, and nothing calculated on either half of it. The left side is Power Query output straight from the database, Actuals and Budget as pivoted from the Meridian database, refreshable on its own whenever new actuals land. The right side is the forecast, pulled from Model_Calculations by SUMIFS. If Model_Calculations changes, this tab changes with it. It holds no logic of its own.</p>
+    <p class="tab-desc reveal">The tab has two halves. The left half is Power Query output straight from the database: Actuals and Budget, as pivoted from the Meridian database, refreshable on its own whenever new actuals land. The right half is the forecast, pulled from Model_Calculations by SUMIFS. If Model_Calculations changes, this half changes with it.</p>
 
     <div class="table-wrap reveal">
       <table class="data-table">
@@ -300,7 +299,7 @@
   <div class="container">
     <p class="tab-eyebrow reveal">Tab 3</p>
     <h2 class="tab-title reveal">Forecast_Key Figures</h2>
-    <p class="tab-desc reveal">The curated read: Budget vs. Forecast Revenue, cut by channel, mode, region, and country, with variance, margin impact, and mix shown side by side. Every figure here is a lookup with a category filter; nothing is recalculated on this tab. This is the five-minute check, not the deep dive.</p>
+    <p class="tab-desc reveal">Budget vs. Forecast Revenue, cut by channel, mode, region, and country, with variance, margin impact, and mix shown side by side. Every figure is a lookup against Model_Calculations, filtered by category; nothing is recalculated on this tab. Forecast_In-Depth View covers the same categories with a wider set of metrics; this tab shows Revenue only.</p>
 
     <div class="summary-grid reveal">
       <div class="summary-card">
@@ -361,7 +360,7 @@
   <div class="container">
     <p class="tab-eyebrow reveal">Tab 4</p>
     <h2 class="tab-title reveal">Forecast_In-Depth View</h2>
-    <p class="tab-desc reveal">Same categories as Forecast_Key Figures, channel, collection, region, country, but every metric at once: LY, Actuals, Budget, and Forecast, across Units, COGS, and Revenue, each with its own variance against LY, Actuals, and Budget. This is where a controller checks whether a headline number is being driven by volume, cost, or price, and where a single outlier cut shows up against the broader pattern.</p>
+    <p class="tab-desc reveal">Same categories as Forecast_Key Figures: channel, collection, region, country. Every metric is shown at once: LY, Actuals, Budget, and Forecast, across Units, COGS, and Revenue, each with its own variance against LY, Actuals, and Budget. Every figure is a lookup against Model_Calculations, filtered by category.</p>
 
     <div class="table-wrap reveal">
       <table class="data-table">
@@ -382,7 +381,7 @@
         </tbody>
       </table>
     </div>
-    <p class="tab-note reveal">All ten collections are forecast below budget, which is another way of confirming the softness is broad-based rather than a one-collection story. Heritage is the most resilient by some margin; Nautique and Lumina are the weakest.</p>
+    <p class="tab-note reveal">All ten collections are forecast below budget. Heritage is the most resilient by some margin; Nautique and Lumina are the weakest.</p>
     <p class="not-shown">Collection view shown; the same LY / Actuals / Budget / Forecast structure runs by channel, mode, region, and all 32 countries, including the Brazil cut called out in the Controller's Note above.</p>
   </div>
 </section>
@@ -420,7 +419,7 @@
         </tbody>
       </table>
     </div>
-    <p class="tab-note reveal">Gross Profit is down 8.5% against budget, but Net Income is fractionally up, because the fixed expense coefficients scale down with the lower forecast revenue faster than the softer topline itself. That is a mechanical result of how the six coefficients are built, not a signal that cost discipline has improved: this model does not have a way to tell the difference between the two.</p>
+    <p class="tab-note reveal">Gross Profit is down 8.5% against budget, but Net Income is fractionally up, because the fixed expense coefficients scale down with the lower forecast revenue faster than the softer topline itself.</p>
     <p class="not-shown">Annual view shown. The workbook also carries the same comparison split by quarter and by month.</p>
   </div>
 </section>
