@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sell-Out Reporting Pack · Meridian Time Group · Silvio di Rubbo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Ccircle cx='55' cy='55' r='42' stroke='%231A1814' stroke-width='4' fill='none'/%3E%3Ccircle cx='55' cy='55' r='14' fill='%232C4A3E'/%3E%3Cpath d='M30 36 C30 36 44 44 55 55 C66 66 80 72 82 72' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M55 55 L80 84' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --off-white: #F7F5F0; --warm-white: #FDFCFA; --ink: #1A1814;
+    --ink-mid: #4A4640; --ink-light: #8A8480; --ink-faint: #C8C4BE;
+    --accent: #2C4A3E; --accent-warm: #8B6914; --rule: #E2DED8;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', 'Courier New', monospace;
+    --v-blue: #1F4E96; --v-green: #1E7B34; --v-gray: #6B6B6B; --v-neg: #A33A2E;
+    /* Power BI mockup palette, sampled from the source PDF export */
+    --pbi-page: #EDE9E5; --pbi-panel: #F9F7F6; --pbi-dark: #241A16;
+    --pbi-tan: #BBAFA9; --pbi-tan-soft: #DCD5CF; --pbi-arrow: #8B6F58;
+    --pbi-border: #E3DEDA; --pbi-text: #241A16; --pbi-text-light: #8A8078;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--warm-white); color: var(--ink); font-family: var(--serif); font-size: 18px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  #nav-container nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; background: var(--warm-white); border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+  #nav-container nav.scrolled { border-bottom-color: var(--rule); }
+  .nav-name { font-family: var(--serif); font-size: 0.95rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--mono); font-size: 0.68rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 1px; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 1px; background: var(--ink); transition: transform 0.3s, opacity 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .nav-mobile { display: none; position: fixed; top: 57px; left: 0; right: 0; z-index: 199; background: var(--warm-white); border-bottom: 1px solid var(--rule); padding: 1.5rem 2rem; flex-direction: column; gap: 1.2rem; }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; }
+  .nav-mobile a:hover, .nav-mobile a.active { color: var(--ink); }
+  section { padding: 6rem 4rem; }
+  .container { max-width: 1120px; margin: 0 auto; }
+  .section-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--rule); }
+  .tag { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); border: 1px solid var(--rule); padding: 0.3rem 0.7rem; }
+  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+  .footer-mark { opacity: 0.3; display: flex; align-items: center; }
+  .footer-mark svg circle, .footer-mark svg path { stroke: #fff; }
+  .footer-mark svg circle:nth-child(2) { fill: rgba(255,255,255,0.4); stroke: none; }
+  .footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+  .footer-nav { display: flex; gap: 2rem; }
+  .footer-nav a { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
+  .footer-nav a:hover { color: rgba(255,255,255,0.5); }
+  .reveal { opacity: 1; transform: translateY(0); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .js-ready .reveal { opacity: 0; transform: translateY(24px); }
+  .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  #page-header { padding: 9rem 4rem 4rem; border-bottom: 1px solid var(--rule); }
+  .page-header-inner { max-width: 1120px; margin: 0 auto; }
+  .back-link { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: color 0.2s; }
+  .back-link:hover { color: var(--ink); }
+  .page-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .page-title { font-size: clamp(2.4rem, 4.5vw, 3.8rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .status-badge { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 0.9rem; border: 1px solid var(--accent); color: var(--accent); white-space: nowrap; margin-top: 0.5rem; }
+  .header-desc { font-size: 1rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; max-width: 760px; }
+  .header-desc p { margin-bottom: 1rem; }
+  .header-desc p:last-child { margin-bottom: 0; }
+  .header-desc .scope-line { font-style: italic; color: var(--ink-light); }
+
+  /* Commentary toggle */
+  .commentary-toggle { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.6rem 1.2rem; background: var(--warm-white); border: 1px solid var(--rule); color: var(--ink-mid); cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; margin-top: 1.8rem; }
+  .commentary-toggle:hover { color: var(--ink); border-color: var(--ink-mid); }
+  .commentary-toggle.active { background: var(--ink); color: var(--warm-white); border-color: var(--ink); }
+  .commentary-panel[hidden] { display: none; }
+  .commentary-panel { margin-top: 1.8rem; max-width: 800px; }
+  .commentary-box { border-left: 3px solid var(--accent); background: var(--off-white); padding: 2rem 2.2rem; }
+  .commentary-box p { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; }
+  .commentary-box p + p { margin-top: 1rem; }
+  .commentary-box.full { border-left-color: var(--accent-warm); max-width: none; }
+
+  /* Contrast panel (scope section) */
+  #scope { background: var(--off-white); }
+  .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 1.5rem; }
+  .contrast-card { background: var(--warm-white); border: 1px solid var(--rule); padding: 1.8rem 2rem; }
+  .contrast-card h3 { font-size: 1.15rem; font-weight: 500; margin-bottom: 1rem; color: var(--accent); }
+  .contrast-card p { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; }
+  .scope-note { display: flex; gap: 1.4rem; align-items: flex-start; background: var(--warm-white); border: 1px solid var(--rule); padding: 1.6rem 1.8rem; margin-top: 1.5rem; }
+  .scope-note-icon { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--v-neg); background: rgba(163,58,46,0.08); border: 1px solid rgba(163,58,46,0.25); padding: 0.3rem 0.55rem; flex-shrink: 0; margin-top: 0.2rem; }
+  .scope-note-text { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; }
+  .scope-note-text b { font-weight: 500; color: var(--ink); }
+
+  /* ===================== Dashboard mockup ===================== */
+  #dashboard-section { background: var(--pbi-page); }
+  .dash-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; max-width: 760px; margin-bottom: 2.2rem; }
+  .dash-tabbar { display: flex; gap: 2px; margin-bottom: 2rem; border: 1px solid var(--pbi-border); background: var(--pbi-border); width: max-content; max-width: 100%; }
+  .dash-tabbar button { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pbi-text-light); background: var(--pbi-panel); border: none; padding: 0.9rem 1.6rem; cursor: pointer; transition: background 0.15s, color 0.15s; white-space: nowrap; }
+  .dash-tabbar button.active { background: var(--pbi-dark); color: var(--pbi-panel); }
+  .dash-tabbar button:hover:not(.active) { color: var(--pbi-text); }
+
+  .biz-dash { background: var(--pbi-page); padding: 1.2rem; border: 1px solid var(--pbi-border); }
+  .biz-dash[hidden] { display: none; }
+
+  .dash-kpis { display: grid; grid-template-columns: repeat(5, 1fr) 1.5fr; gap: 2px; margin-bottom: 2px; }
+  .dash-kpi { background: var(--pbi-panel); padding: 1.1rem 1.2rem; min-width: 0; }
+  .dash-kpi-label { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pbi-text-light); margin-bottom: 0.55rem; }
+  .dash-kpi-value { font-family: var(--mono); font-size: 1.5rem; color: var(--pbi-dark); line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dash-kpi-delta { font-family: var(--mono); font-size: 0.72rem; color: var(--pbi-arrow); margin-top: 0.5rem; }
+  .dash-kpi-delta.flat { color: var(--pbi-text-light); }
+  .dash-month { background: var(--pbi-panel); padding: 1.1rem 1.2rem; display: flex; flex-direction: column; justify-content: center; }
+  .dash-month select { font-family: var(--mono); font-size: 0.78rem; color: var(--pbi-text); background: var(--warm-white); border: 1px solid var(--pbi-border); padding: 0.5rem 0.6rem; margin-top: 0.5rem; width: 100%; cursor: pointer; }
+
+  .dash-charts { display: grid; grid-template-columns: 1.1fr 1.3fr 0.8fr; gap: 2px; margin-bottom: 2px; }
+  .dash-panel { background: var(--pbi-panel); padding: 1.3rem 1.4rem 1rem; min-width: 0; }
+  .dash-panel-title { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pbi-text-light); margin-bottom: 0.9rem; }
+
+  /* vertical bar groups (region / channel) */
+  .vbar-chart { display: flex; align-items: flex-end; gap: 0.9rem; height: 210px; padding-top: 0.5rem; }
+  .vbar-group { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; min-width: 0; cursor: pointer; border: none; background: none; font: inherit; }
+  .vbar-cols { display: flex; align-items: flex-end; gap: 4px; flex: 1; width: 100%; justify-content: center; }
+  .vbar-col { width: 40%; height: 100%; display: flex; align-items: flex-end; }
+  .vbar-fill { width: 100%; background: var(--pbi-dark); display: flex; flex-direction: column; justify-content: flex-end; transition: height 0.35s ease, opacity 0.2s; min-height: 2px; }
+  .vbar-fill.is-py { background: var(--pbi-tan); }
+  .vbar-hl { width: 100%; background: var(--pbi-dark); min-height: 0; }
+  .vbar-fill.is-py .vbar-hl { background: var(--pbi-dark); opacity: 0.85; }
+  .vbar-label { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.03em; color: var(--pbi-text); margin-top: 0.7rem; text-align: center; }
+  .vbar-group.is-selected .vbar-label { color: var(--pbi-dark); font-weight: 700; }
+  .vbar-group.is-dim { opacity: 0.42; }
+  .vbar-group:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* horizontal bars (collections) */
+  .hbar-chart { display: flex; flex-direction: column; gap: 0.55rem; }
+  .hbar-row { display: grid; grid-template-columns: 118px 1fr; align-items: center; gap: 0.7rem; cursor: pointer; border: none; background: none; font: inherit; text-align: left; padding: 2px 0; width: 100%; }
+  .hbar-label { font-family: var(--serif); font-size: 0.8rem; color: var(--pbi-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hbar-row.is-selected .hbar-label { font-weight: 700; }
+  .hbar-row.is-dim .hbar-label, .hbar-row.is-dim .hbar-tracks { opacity: 0.4; }
+  .hbar-tracks { display: flex; flex-direction: column; gap: 3px; }
+  .hbar-track { height: 8px; background: transparent; display: flex; }
+  .hbar-fill { height: 100%; background: var(--pbi-dark); border-radius: 0 2px 2px 0; transition: width 0.35s ease; min-width: 2px; }
+  .hbar-fill.is-py { background: var(--pbi-tan); }
+  .hbar-row:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .dash-bottom { display: grid; grid-template-columns: 1.7fr 1fr; gap: 2px; }
+  .dash-legend { display: flex; gap: 1.6rem; margin-bottom: 0.6rem; justify-content: center; }
+  .dash-legend-item { display: flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.04em; color: var(--pbi-text-light); }
+  .dash-legend-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--pbi-dark); }
+  .dash-legend-dot.py { background: var(--pbi-tan); }
+  .dash-trend-svg { width: 100%; height: auto; display: block; }
+  .dash-trend-svg .pt-cur { fill: var(--pbi-dark); }
+  .dash-trend-svg .pt-py { fill: var(--pbi-tan); }
+  .dash-trend-svg text { font-family: var(--mono); font-size: 9.5px; fill: var(--pbi-text-light); }
+  .dash-trend-svg .grid-line { stroke: var(--pbi-border); stroke-width: 1; }
+  .dash-trend-svg .month-marker { stroke: var(--pbi-arrow); stroke-width: 1; stroke-dasharray: 3 3; }
+
+  .dash-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.74rem; }
+  .dash-table thead th { text-align: left; font-size: 0.56rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--pbi-text-light); font-weight: 400; padding-bottom: 0.6rem; border-bottom: 1px solid var(--pbi-border); }
+  .dash-table thead th:last-child, .dash-table thead th:nth-child(2) { text-align: right; }
+  .dash-table tbody td { padding: 0.6rem 0.2rem; border-bottom: 1px solid var(--pbi-border); color: var(--pbi-text); }
+  .dash-table tbody td:last-child, .dash-table tbody td:nth-child(2) { text-align: right; }
+  .dash-table tbody tr:last-child td { border-bottom: none; }
+  .dash-table tbody tr { cursor: pointer; transition: background 0.15s; }
+  .dash-table tbody tr:hover { background: rgba(36,26,22,0.05); }
+  .dash-table tbody tr.is-selected { background: var(--pbi-dark); }
+  .dash-table tbody tr.is-selected td { color: var(--pbi-panel); }
+  .dash-table-name { font-family: var(--serif); font-size: 0.85rem; }
+
+  .dash-status-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
+  .dash-status { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.03em; color: var(--ink-mid); }
+  .dash-status b { color: var(--ink); font-weight: 500; }
+  .dash-clear { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mid); background: var(--warm-white); border: 1px solid var(--rule); padding: 0.45rem 0.9rem; cursor: pointer; transition: color 0.15s, border-color 0.15s; }
+  .dash-clear:hover { color: var(--ink); border-color: var(--ink-mid); }
+  .dash-clear:disabled { opacity: 0.35; cursor: default; }
+  .dash-hint { font-size: 0.85rem; font-weight: 300; color: var(--ink-light); font-style: italic; line-height: 1.7; max-width: 760px; margin-bottom: 1.6rem; }
+
+  /* Screenshot gallery */
+  .shot-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
+  .shot-card { background: var(--warm-white); border: 1px solid var(--rule); }
+  .shot-card img { width: 100%; display: block; border-bottom: 1px solid var(--rule); cursor: zoom-in; }
+  .shot-caption { padding: 0.9rem 1rem; }
+  .shot-caption-title { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.3rem; }
+  .shot-caption-desc { font-size: 0.78rem; font-weight: 300; color: var(--ink-light); line-height: 1.55; }
+  .lightbox { position: fixed; inset: 0; background: rgba(26,24,20,0.92); z-index: 500; display: none; align-items: center; justify-content: center; padding: 3rem; cursor: zoom-out; }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 100%; max-height: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+
+  /* Independent Read section */
+  #independent-read .method-note { font-size: 0.85rem; font-weight: 300; color: var(--ink-light); font-style: italic; line-height: 1.75; max-width: 760px; margin-bottom: 2.5rem; }
+  .read-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-bottom: 2.5rem; }
+  .read-card { background: var(--off-white); border: 1px solid var(--rule); padding: 1.6rem 1.5rem; }
+  .read-card-label { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 0.8rem; }
+  .read-card-value { font-family: var(--mono); font-size: 1.5rem; color: var(--ink); line-height: 1.1; margin-bottom: 0.5rem; }
+  .read-card-sub { font-size: 0.82rem; font-weight: 300; color: var(--ink-mid); line-height: 1.55; }
+
+  .table-wrap { overflow-x: auto; border: 1px solid var(--rule); margin-bottom: 1rem; }
+  table.data-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.78rem; white-space: nowrap; }
+  table.data-table th, table.data-table td { padding: 0.65rem 1rem; text-align: right; border-bottom: 1px solid var(--rule); }
+  table.data-table th:first-child, table.data-table td:first-child { text-align: left; }
+  table.data-table thead th { font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); font-weight: 400; background: var(--warm-white); white-space: nowrap; }
+  table.data-table tbody tr:last-child td { border-bottom: none; }
+  table.data-table tbody tr.total-row td { font-weight: 400; color: var(--ink); background: var(--warm-white); }
+  table.data-table td.v-pos { color: var(--v-green); }
+  table.data-table td.v-neg { color: var(--v-neg); }
+  table.data-table td.v-gray { color: var(--v-gray); font-style: italic; }
+  .read-table-title { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); margin: 2rem 0 0.9rem; }
+  .read-table-title:first-of-type { margin-top: 0; }
+
+  /* Downloads */
+  .downloads-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 680px; margin-bottom: 2.5rem; }
+  .download-panel { display: flex; flex-direction: column; gap: 2px; }
+  .download-item { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; background: var(--off-white); border: 1px solid var(--rule); padding: 1.6rem 2rem; }
+  .download-info { display: flex; align-items: flex-start; gap: 1rem; min-width: 0; }
+  .download-badge { flex-shrink: 0; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.04em; color: var(--accent-warm); background: rgba(139,105,20,0.08); border: 1px solid rgba(139,105,20,0.25); padding: 0.3rem 0.55rem; margin-top: 0.15rem; }
+  .download-text { min-width: 0; }
+  .download-name { font-family: var(--mono); font-size: 0.88rem; color: var(--ink); display: block; margin-bottom: 0.4rem; word-break: break-word; }
+  .download-desc { font-size: 0.85rem; font-weight: 300; color: var(--ink-mid); line-height: 1.6; }
+  .download-action { display: flex; align-items: center; gap: 1.2rem; flex-shrink: 0; }
+  .download-size { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-light); white-space: nowrap; }
+  .download-btn { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm-white); background: var(--ink); border: 1px solid var(--ink); padding: 0.65rem 1.3rem; text-decoration: none; white-space: nowrap; transition: background 0.2s, border-color 0.2s; }
+  .download-btn:hover { background: var(--accent); border-color: var(--accent); }
+
+  @media (max-width: 1080px) {
+    .dash-kpis { grid-template-columns: repeat(3, 1fr); }
+    .dash-month { grid-column: span 3; }
+    .dash-charts { grid-template-columns: 1fr 1fr; }
+    .dash-panel-channel { grid-column: span 2; }
+    .read-grid { grid-template-columns: repeat(2, 1fr); }
+    .shot-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .contrast-grid { grid-template-columns: 1fr; }
+    .dash-bottom { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    #page-header { padding: 8rem 2rem 3rem; }
+    section { padding: 4rem 2rem; }
+    #nav-container nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    footer { padding: 1.2rem 2rem; flex-direction: column; gap: 0.8rem; text-align: center; }
+    .footer-nav { justify-content: center; flex-wrap: wrap; }
+    .dash-kpis { grid-template-columns: repeat(2, 1fr); }
+    .dash-month { grid-column: span 2; }
+    .dash-charts { grid-template-columns: 1fr; }
+    .dash-panel-channel { grid-column: span 1; }
+    .vbar-chart { height: 160px; }
+    .hbar-row { grid-template-columns: 92px 1fr; }
+    .hbar-label { font-size: 0.72rem; }
+    .read-grid { grid-template-columns: 1fr; }
+    .shot-grid { grid-template-columns: 1fr; }
+    .dash-kpi-value { font-size: 1.2rem; }
+    .biz-dash { padding: 0.6rem; }
+    .dash-panel { padding: 1rem 1rem 0.8rem; }
+    .dash-tabbar { width: 100%; }
+    .dash-tabbar button { flex: 1; white-space: normal; text-align: center; padding: 0.7rem 0.5rem; font-size: 0.6rem; line-height: 1.4; }
+  }
+</style>
+</head>
+<body>
+<div id="nav-container"></div>
+<script src="/nav.js"></script>
+
+<div id="page-header">
+  <div class="page-header-inner">
+    <a href="/portfolio/meridian/" class="back-link">← Back to Portfolio</a>
+    <div class="page-title-row">
+      <h1 class="page-title">Sell-Out<br><em>Reporting Pack</em></h1>
+      <span class="status-badge">Sell-Out Reporting Pack: Available</span>
+    </div>
+    <div class="header-desc">
+      <p>A recurring report, not a one-off model: what actually moved through to the end customer in 2025, not what Meridian shipped to get it there. Wholesale Sell-Through and DTC / Boutique run as two dedicated pages rather than one page filtered two ways, because they read from genuinely different sources: partner-reported point-of-sale data on one side, Meridian's own boutique tills on the other.</p>
+      <p class="scope-line">Scope is deliberately narrow: sell-out revenue and units only, cut by region, channel, collection, partner/store, and month. No sell-in, no cost, no margin sits anywhere on either page. A sell-in / sell-out reconciliation, tying what shipped to what actually sold through by partner and period, is a plausible future phase of this project; it is not attempted here.</p>
+    </div>
+    <button type="button" class="commentary-toggle" id="commentaryToggle" aria-expanded="false" aria-controls="commentaryPanel">Read the Controller's Note ↓</button>
+    <div class="commentary-panel" id="commentaryPanel" hidden>
+      <div class="commentary-box">
+        <p>2025 sell-out closed at CHF 565.6m through Wholesale and CHF 227.4m through DTC, up 7.5% and 20.2% on 2024. The more consequential number sits underneath the topline: only 119 of Meridian's 224 wholesale accounts, 53%, report sell-out data at all, so any Wholesale cut on this page describes roughly half the network, not the whole of it, and that gap runs broadly even across regions and channels rather than hiding in one corner.</p>
+        <p>Partner concentration is reassuringly low (the top 5 accounts carry 5.8% of sell-out revenue, the top 20 just 21.2%), and both channels carry the same seasonal shape, soft mid-year, roughly double the volume by December. Full read, with the queries behind it, further down the page.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="scope">
+  <div class="container">
+    <p class="section-label reveal">What this is, and isn't</p>
+    <div class="contrast-grid reveal">
+      <div class="contrast-card">
+        <h3>Wholesale — Sell-Through</h3>
+        <p>Point-of-sale data reported back by wholesale partners: what left their shelf, not what Meridian shipped them. Only accounts flagged to report sell-out feed this page, roughly half of the wholesale roster by count. Cut by region, channel, collection, and the top reporting partners.</p>
+      </div>
+      <div class="contrast-card">
+        <h3>DTC / Boutique</h3>
+        <p>Transaction data straight from Meridian's own boutique till systems, Retail and Online. Complete by construction, every boutique sale runs through Meridian's own systems, so there's no partner-reporting gap here the way there is on the Wholesale side.</p>
+      </div>
+    </div>
+    <div class="scope-note reveal">
+      <span class="scope-note-icon">Out of scope</span>
+      <p class="scope-note-text"><b>Sell-in, cost, and margin are intentionally absent.</b> This pack answers "what sold through," not "what shipped" or "at what margin." A sell-in/sell-out reconciliation, matching wholesale shipments to a partner's actual shelf sell-through period by period, is a coherent next phase of this project. Building it into this pack would have made it a hybrid report answering two questions at once instead of one question well; it stays a named future phase instead.</p>
+    </div>
+  </div>
+</section>
+
+<section id="dashboard-section">
+  <div class="container">
+    <p class="section-label reveal">The report</p>
+    <p class="dash-intro reveal">An interactive rebuild of the Power BI report itself, styled to match the source .pbix and driven by real 2025/2024 figures pulled from the same database it reports on (not a live connection: the underlying dataset is fixed, matching the export below). Click a month, a partner or store row, or a bar in any chart to see the cross-filtering the actual report uses.</p>
+    <p class="dash-hint reveal">Bars respond two ways: clicking a <b>region, channel, or a partner/store row</b> filters the whole page down to that slice. Clicking a <b>collection</b> bar cross-highlights instead, every chart keeps its full-year context and shows that collection's share within it, matching how the source report itself behaves.</p>
+
+    <div class="dash-tabbar reveal" role="tablist" aria-label="Sell-out report pages">
+      <button type="button" role="tab" id="pagebtn-wholesale" aria-controls="page-wholesale" aria-selected="true">Wholesale — Sell-Through</button>
+      <button type="button" role="tab" id="pagebtn-dtc" aria-controls="page-dtc" aria-selected="false">DTC / Boutique</button>
+    </div>
+
+    <div class="reveal" id="dash-root"></div>
+  </div>
+</section>
+
+<section id="screenshots">
+  <div class="container">
+    <p class="section-label reveal">Reference: cross-filtering in the source report</p>
+    <p class="dash-intro reveal">Four exports from the live .pbix, captured mid-interaction. These are the behaviors the mockup above reproduces: clicking a partner row hard-filters the page, clicking a collection bar cross-highlights it, and the month slicer and channel bars both filter cleanly. Click any thumbnail to enlarge.</p>
+    <div class="shot-grid reveal">
+      <div class="shot-card">
+        <img src="fullyear_account174_wholesale.jpg" alt="Wholesale page filtered to Account 174" loading="lazy">
+        <div class="shot-caption">
+          <p class="shot-caption-title">Partner drill-in</p>
+          <p class="shot-caption-desc">Clicking Account 174 in the Top 5 table hard-filters every visual to that one account: region collapses to APAC alone, channel to Retail alone.</p>
+        </div>
+      </div>
+      <div class="shot-card">
+        <img src="fullyear_celeste_focus_wholesale.jpg" alt="Wholesale page cross-highlighted on the Celeste collection" loading="lazy">
+        <div class="shot-caption">
+          <p class="shot-caption-title">Collection cross-highlight</p>
+          <p class="shot-caption-desc">Clicking Celeste in the collection chart keeps every bar at full-year height and darkens the Celeste share within it; the Top 5 table re-ranks to Celeste's own top partners.</p>
+        </div>
+      </div>
+      <div class="shot-card">
+        <img src="fullyear_may_only_dtc.jpg" alt="DTC page filtered to May" loading="lazy">
+        <div class="shot-caption">
+          <p class="shot-caption-title">Month slicer</p>
+          <p class="shot-caption-desc">The Select Month control on the DTC page, set to May, filters KPI cards, both bar charts and the store table to that single month.</p>
+        </div>
+      </div>
+      <div class="shot-card">
+        <img src="fullyear_online_only_dtc.jpg" alt="DTC page filtered to Online channel" loading="lazy">
+        <div class="shot-caption">
+          <p class="shot-caption-title">Channel filter</p>
+          <p class="shot-caption-desc">Clicking Online in the channel chart filters the page to Meridian's online boutique sales only, a different Top 5 Stores list than the Retail-heavy default view.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox"><img id="lightbox-img" src="" alt=""></div>
+
+<section id="independent-read">
+  <div class="container">
+    <p class="section-label reveal">Independent read</p>
+    <p class="dash-intro reveal">A topline assessment run directly against <code>fact_sell_out</code> and <code>fact_boutique_sales</code> in <a href="/portfolio/meridian/database/" style="color:inherit;">meridian.db</a>, independent of the .pbix. The figures below land close to the source report's own numbers, expected, since both draw on the same underlying data, not a reconciliation exercise.</p>
+    <p class="method-note reveal">Method: direct SQL against the SQLite reference database, joined to <code>dim_wholesale_customer</code>, <code>dim_store</code>, <code>dim_geography</code>, and <code>dim_line</code>. Wholesale coverage is measured off <code>dim_wholesale_customer.reports_sellout</code>; DTC figures cover all 56 boutiques present in <code>dim_store</code> as of this dataset snapshot.</p>
+
+    <div class="read-grid reveal">
+      <div class="read-card">
+        <p class="read-card-label">Wholesale sell-out coverage</p>
+        <p class="read-card-value">119 / 224</p>
+        <p class="read-card-sub">53.1% of wholesale accounts report sell-out data at all; the rest (≈CHF 342m of 2025 sell-in revenue) has no downstream visibility on this page.</p>
+      </div>
+      <div class="read-card">
+        <p class="read-card-label">Reporting completeness</p>
+        <p class="read-card-value">97 / 119</p>
+        <p class="read-card-sub">Have a full 12-month 2025 record. 20 accounts are missing one month, 2 are missing two; together under CHF 100m of the CHF 565.6m total.</p>
+      </div>
+      <div class="read-card">
+        <p class="read-card-label">Partner concentration</p>
+        <p class="read-card-value">5.8% / 21.2%</p>
+        <p class="read-card-sub">Top 5 / top 20 share of 2025 sell-out revenue. The 119 reporting accounts range narrowly, CHF 3.0m to CHF 7.1m, no single-partner dependency.</p>
+      </div>
+      <div class="read-card">
+        <p class="read-card-label">DTC store base</p>
+        <p class="read-card-value">56 stores</p>
+        <p class="read-card-sub">Vs. 61 in the live .pbix, an expected snapshot drift. All 56 show transacting months across all of 2025 in this dataset.</p>
+      </div>
+    </div>
+
+    <p class="read-table-title">Sell-out coverage by region &amp; channel (accounts)</p>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Cut</th><th>Total accounts</th><th>Reporting sell-out</th><th>Coverage</th></tr></thead>
+        <tbody>
+          <tr><td>EMEA</td><td>106</td><td>56</td><td>52.8%</td></tr>
+          <tr><td>APAC</td><td>67</td><td>35</td><td>52.2%</td></tr>
+          <tr><td>NA</td><td>36</td><td>19</td><td>52.8%</td></tr>
+          <tr><td>LATAM</td><td>15</td><td>9</td><td>60.0%</td></tr>
+          <tr><td>Wholesale / Retail channel</td><td>155</td><td>86</td><td>55.5%</td></tr>
+          <tr><td>Wholesale / Online channel</td><td>69</td><td>33</td><td>47.8%</td></tr>
+          <tr class="total-row"><td>Total</td><td>224</td><td>119</td><td>53.1%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="read-table-title">2025 sell-out revenue by region, both pages (CHF, vs. 2024)</p>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Region</th><th>Wholesale 2025</th><th>Wholesale vs 2024</th><th>DTC 2025</th><th>DTC vs 2024</th></tr></thead>
+        <tbody>
+          <tr><td>EMEA</td><td>263,565,512</td><td class="v-pos">+4.9%</td><td>108,193,803</td><td class="v-pos">+15.1%</td></tr>
+          <tr><td>APAC</td><td>168,708,578</td><td class="v-pos">+9.4%</td><td>69,184,811</td><td class="v-pos">+12.6%</td></tr>
+          <tr><td>NA</td><td>91,637,455</td><td class="v-pos">+16.2%</td><td>32,023,848</td><td class="v-pos">+23.7%</td></tr>
+          <tr><td>LATAM</td><td>41,729,183</td><td class="v-gray">+0.1%</td><td>17,989,624</td><td class="v-pos">+129.8%</td></tr>
+          <tr class="total-row"><td>Total</td><td>565,640,728</td><td class="v-pos">+7.5%</td><td>227,392,087</td><td class="v-pos">+20.2%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="method-note" style="margin-bottom:0;">LATAM is the standout divergence: Wholesale essentially flat (+0.1%) against DTC up 129.8%, almost entirely new-boutique-driven (Chile 1 and Argentina 1 among the recent openings). Covered in the commentary below.</p>
+  </div>
+</section>
+
+<section id="commentary">
+  <div class="container">
+    <p class="section-label reveal">Controller's commentary</p>
+    <div class="commentary-box full reveal">
+      <p>2025 sell-out landed at CHF 565.6m through Wholesale and CHF 227.4m through DTC, up 7.5% and 20.2% on 2024. Both numbers describe the same thing from two different vantage points, what actually left a partner's shelf or a Meridiana boutique till, not what Meridian invoiced to get it there. That distinction is the entire point of this pack, and its entire boundary: no sell-in, no cost, no margin sits anywhere on either page. A sell-in/sell-out reconciliation, matching shipments to shelf sell-through by partner and period, would be a natural next phase, but building it into this pack would have blurred a report that is deliberately single-purpose.</p>
+      <p>The more consequential number on the Wholesale page isn't revenue, it's coverage: only 119 of Meridian's 224 wholesale accounts (53%) report sell-out data at all. The other 105 accounts, and the roughly CHF 342m of 2025 sell-in revenue attached to them, are structurally invisible on this page; Wholesale sell-out reporting shows what half the network sold, not what the whole network sold. That gap doesn't concentrate anywhere convenient, coverage runs 52-53% in EMEA, APAC and NA and only edges up to 60% in LATAM's much smaller 15-account base, and it's somewhat worse for accounts on the wholesale online channel (48%) than retail (55%). It's a broad, structural blind spot, not a market-specific one, and it's the first caveat anyone reading this pack needs before trusting a regional or channel cut at face value.</p>
+      <p>The "Report Coverage: 100%" card on the report itself is honest but narrow: it counts an account as covered if it filed any sell-out data in 2025 at all. Tested at the stricter bar of a complete 12-month record, 97 of the 119 reporting accounts pass; 20 are missing one month and 2 are missing two. None of the gaps are individually large (the incomplete accounts represent under CHF 100m of the CHF 565.6m total) but they're worth knowing before a month-over-month partner comparison gets taken as gospel.</p>
+      <p>Partner concentration, by contrast, is a genuinely reassuring read rather than a footnote. The top 5 accounts carry only 5.8% of sell-out revenue, the top 20 just 21.2%, and the reporting base itself is tightly banded: the smallest of the 119 reporting accounts still closed 2025 at CHF 3.0m, the largest at CHF 7.1m, barely 2.3x apart. There is no single account, or even a small cluster, whose loss would move the topline. That's a diversified wholesale book, not one propped up by two or three large partners.</p>
+      <p>DTC runs on 56 boutiques in this dataset (the live report's 61 reflects a later store count than this reference snapshot, an expected drift, not a discrepancy worth chasing). Every one of the 56 shows sales in all twelve months of 2025 as the data is generated, including boutiques whose own opening date falls mid-year: Chile 1 opened 8 March 2025 per the store master, yet carries January and February revenue in <code>fact_boutique_sales</code>. That's a data-generation artifact, no pre-opening ramp was modeled, not a genuine finding, and it's called out here rather than quietly smoothed over, because a store's true activation date should gate its numbers in any production version of this pack.</p>
+      <p>Both channels carry the same seasonal shape: flat-to-soft through the first half, a trough around July-August, and a sharp back-half build that peaks in December. Wholesale's December revenue is roughly double its August low; DTC's December is almost exactly double its February low. That's a conventional luxury-retail curve, gifting season and year-end travel retail, and it argues for reading any single mid-year month with real caution; August softness is a seasonal fact of this business, not a warning sign on its own.</p>
+      <p>One divergence is worth flagging on its own: Wholesale LATAM was essentially flat in 2025 (+0.1%) while DTC LATAM grew 129.8%, almost entirely new-store-driven. That mirrors, in actuals, exactly the channel-mix shift the FY2026 <a href="/portfolio/meridian/budget/" style="color:inherit;">Budget Model</a> already plans for, Colombia and Thailand deliberately trading wholesale volume for boutique presence, and it's a useful independent confirmation that the shift is already showing up in 2025 behavior, not just next year's plan. DTC's own channel split tells a smaller version of the same story: Online is growing faster than Retail within the boutique estate (+45.3% vs +16.5%), a modest but real mix shift worth watching alongside it.</p>
+    </div>
+  </div>
+</section>
+
+<section id="downloads">
+  <div class="container">
+    <p class="section-label reveal">Source files</p>
+    <p class="downloads-intro reveal">The actual Power BI file behind the mockup above, plus the full static export used as the primary visual reference for this build.</p>
+    <div class="download-panel reveal" id="downloadPanel"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-mark"><svg width="28" height="28" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Silvio di Rubbo mark">
+  <circle cx="55" cy="55" r="42" stroke="#1A1814" stroke-width="2"/>
+  <circle cx="55" cy="55" r="14" fill="#2C4A3E"/>
+  <path d="M 30,36 C 30,36 44,44 55,55 C 66,66 80,72 82,72" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 55,55 L 80,84" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg></div>
+  <span class="footer-copy">© 2026 Silvio di Rubbo</span>
+  <nav class="footer-nav">
+    <a href="/">Home</a>
+    <a href="/cv/">CV</a>
+    <a href="/portfolio/">Portfolio</a>
+    <a href="/projects/">Projects</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+</footer>
+
+<script src="mockup-data.js"></script>
+<script src="dashboard.js"></script>
+<script>
+  if ('IntersectionObserver' in window) {
+    document.body.classList.add('js-ready');
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  }
+
+  const commentaryToggle = document.getElementById('commentaryToggle');
+  const commentaryPanel = document.getElementById('commentaryPanel');
+  commentaryToggle.addEventListener('click', () => {
+    const isOpen = !commentaryPanel.hidden;
+    commentaryPanel.hidden = isOpen;
+    commentaryToggle.classList.toggle('active', !isOpen);
+    commentaryToggle.setAttribute('aria-expanded', String(!isOpen));
+    commentaryToggle.textContent = isOpen ? "Read the Controller's Note ↓" : "Hide the Controller's Note ↑";
+  });
+
+  // Page tab switcher (Wholesale / DTC)
+  (function () {
+    const tabs = [document.getElementById('pagebtn-wholesale'), document.getElementById('pagebtn-dtc')];
+    const panels = { wholesale: null, dtc: null };
+    function select(which) {
+      tabs.forEach(t => {
+        const active = t.id === 'pagebtn-' + which;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', String(active));
+      });
+      if (window.MeridianDash) window.MeridianDash.showPage(which);
+    }
+    tabs[0].addEventListener('click', () => select('wholesale'));
+    tabs[1].addEventListener('click', () => select('dtc'));
+  })();
+
+  // Lightbox for reference screenshots
+  (function () {
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('.shot-card img').forEach(img => {
+      img.addEventListener('click', () => { lbImg.src = img.src; lbImg.alt = img.alt; lb.classList.add('open'); });
+    });
+    lb.addEventListener('click', () => lb.classList.remove('open'));
+  })();
+
+  function renderDownloadPanel(containerId, files) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = files.map(f => `
+      <div class="download-item">
+        <div class="download-info">
+          <span class="download-badge">.${f.ext}</span>
+          <div class="download-text">
+            <span class="download-name">${f.name}</span>
+            <p class="download-desc">${f.desc}</p>
+          </div>
+        </div>
+        <div class="download-action">
+          <span class="download-size">${f.size}</span>
+          <a href="${f.path}" download class="download-btn">Download ↓</a>
+        </div>
+      </div>
+    `).join('');
+  }
+  renderDownloadPanel('downloadPanel', [
+    { name: 'Sell_Out_Dashboard.pbix', ext: 'pbix', size: '1.3 MB', path: '/portfolio/meridian/sell_out_reporting/Sell_Out_Dashboard.pbix', desc: 'The Power BI file this page reproduces: Wholesale Sell-Through and DTC / Boutique pages, live model and visuals intact. Reference only, not analyzed programmatically for this build.' },
+    { name: 'Sell_Out_Dashboard_Full_View.pdf', ext: 'pdf', size: '256 KB', path: '/portfolio/meridian/sell_out_reporting/Sell_Out_Dashboard_Full_View.pdf', desc: 'Full static export of both report pages at default filters, the primary visual reference for the mockup above.' }
+  ]);
+</script>
+</body>
+</html>
