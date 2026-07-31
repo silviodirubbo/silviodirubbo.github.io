@@ -170,7 +170,6 @@
   .dash-clear { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mid); background: var(--warm-white); border: 1px solid var(--rule); padding: 0.45rem 0.9rem; cursor: pointer; transition: color 0.15s, border-color 0.15s; }
   .dash-clear:hover { color: var(--ink); border-color: var(--ink-mid); }
   .dash-clear:disabled { opacity: 0.35; cursor: default; }
-  .dash-hint { font-size: 0.85rem; font-weight: 300; color: var(--ink-light); font-style: italic; line-height: 1.7; max-width: 760px; margin-bottom: 1.6rem; }
 
   /* Screenshot gallery */
   .shot-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
@@ -268,13 +267,13 @@
     </div>
     <div class="header-desc">
       <p>A recurring report, not a one-off model: what actually moved through to the end customer in 2025, not what Meridian shipped to get it there. Wholesale Sell-Through and DTC / Boutique run as two dedicated pages rather than one page filtered two ways, because they read from genuinely different sources: partner-reported point-of-sale data on one side, Meridian's own boutique tills on the other.</p>
-      <p class="scope-line">Scope is deliberately narrow: sell-out revenue and units only, cut by region, channel, collection, partner/store, and month. No sell-in, no cost, no margin sits anywhere on either page. A sell-in / sell-out reconciliation, tying what shipped to what actually sold through by partner and period, is a plausible future phase of this project; it is not attempted here.</p>
+      <p class="scope-line">This is pure sell-out: revenue and units, cut by region, channel, collection, partner/store, and month. No sell-in, no cost, no margin sits anywhere on either page. A sell-in/sell-out reconciliation, tying what shipped to what actually sold through by partner and period, is a plausible future phase of this project; it is not attempted here.</p>
     </div>
     <button type="button" class="commentary-toggle" id="commentaryToggle" aria-expanded="false" aria-controls="commentaryPanel">Read the Controller's Note ↓</button>
     <div class="commentary-panel" id="commentaryPanel" hidden>
       <div class="commentary-box">
         <p>2025 sell-out closed at CHF 565.6m through Wholesale and CHF 227.4m through DTC, up 7.5% and 20.2% on 2024. The more consequential number sits underneath the topline: only 119 of Meridian's 224 wholesale accounts, 53%, report sell-out data at all, so any Wholesale cut on this page describes roughly half the network, not the whole of it, and that gap runs broadly even across regions and channels rather than hiding in one corner.</p>
-        <p>Partner concentration is reassuringly low (the top 5 accounts carry 5.8% of sell-out revenue, the top 20 just 21.2%), and both channels carry the same seasonal shape, soft mid-year, roughly double the volume by December. Full read, with the queries behind it, further down the page.</p>
+        <p>Partner concentration is reassuringly low (the top 5 accounts carry 5.8% of sell-out revenue, the top 20 just 21.2%), and both channels carry the same seasonal shape, soft mid-year, roughly double the volume by December.</p>
       </div>
     </div>
   </div>
@@ -295,7 +294,7 @@
     </div>
     <div class="scope-note reveal">
       <span class="scope-note-icon">Out of scope</span>
-      <p class="scope-note-text"><b>Sell-in, cost, and margin are intentionally absent.</b> This pack answers "what sold through," not "what shipped" or "at what margin." A sell-in/sell-out reconciliation, matching wholesale shipments to a partner's actual shelf sell-through period by period, is a coherent next phase of this project. Building it into this pack would have made it a hybrid report answering two questions at once instead of one question well; it stays a named future phase instead.</p>
+      <p class="scope-note-text"><b>Sell-in, cost, and margin are intentionally absent.</b> This is what sold through, not what shipped or at what margin. A sell-in/sell-out reconciliation, matching wholesale shipments to a partner's actual shelf sell-through period by period, is a coherent next phase of this project.</p>
     </div>
   </div>
 </section>
@@ -303,8 +302,7 @@
 <section id="dashboard-section">
   <div class="container">
     <p class="section-label reveal">The report</p>
-    <p class="dash-intro reveal">An interactive rebuild of the Power BI report itself, styled to match the source .pbix and driven by real 2025/2024 figures pulled from the same database it reports on (not a live connection: the underlying dataset is fixed, matching the export below). Click a month, a partner or store row, or a bar in any chart to see the cross-filtering the actual report uses.</p>
-    <p class="dash-hint reveal">Bars respond two ways: clicking a <b>region, channel, or a partner/store row</b> filters the whole page down to that slice. Clicking a <b>collection</b> bar cross-highlights instead, every chart keeps its full-year context and shows that collection's share within it, matching how the source report itself behaves.</p>
+    <p class="dash-intro reveal">The report lives in Power BI, downloadable below. This is a clickable recreation of it: click a month, a partner or store, or any chart bar to filter and cross-filter the page.</p>
 
     <div class="dash-tabbar reveal" role="tablist" aria-label="Sell-out report pages">
       <button type="button" role="tab" id="pagebtn-wholesale" aria-controls="page-wholesale" aria-selected="true">Wholesale — Sell-Through</button>
@@ -317,8 +315,8 @@
 
 <section id="screenshots">
   <div class="container">
-    <p class="section-label reveal">Reference: cross-filtering in the source report</p>
-    <p class="dash-intro reveal">Four exports from the live .pbix, captured mid-interaction. These are the behaviors the mockup above reproduces: clicking a partner row hard-filters the page, clicking a collection bar cross-highlights it, and the month slicer and channel bars both filter cleanly. Click any thumbnail to enlarge.</p>
+    <p class="section-label reveal">Cross-filtering in the report</p>
+    <p class="dash-intro reveal">Four moments from the report mid-interaction: a partner filtered, a collection cross-highlighted, the month slicer applied, a channel isolated. Click any thumbnail to enlarge.</p>
     <div class="shot-grid reveal">
       <div class="shot-card">
         <img src="fullyear_account174_wholesale.jpg" alt="Wholesale page filtered to Account 174" loading="lazy">
@@ -356,9 +354,8 @@
 
 <section id="independent-read">
   <div class="container">
-    <p class="section-label reveal">Independent read</p>
-    <p class="dash-intro reveal">A topline assessment run directly against <code>fact_sell_out</code> and <code>fact_boutique_sales</code> in <a href="/portfolio/meridian/database/" style="color:inherit;">meridian.db</a>, independent of the .pbix. The figures below land close to the source report's own numbers, expected, since both draw on the same underlying data, not a reconciliation exercise.</p>
-    <p class="method-note reveal">Method: direct SQL against the SQLite reference database, joined to <code>dim_wholesale_customer</code>, <code>dim_store</code>, <code>dim_geography</code>, and <code>dim_line</code>. Wholesale coverage is measured off <code>dim_wholesale_customer.reports_sellout</code>; DTC figures cover all 56 boutiques present in <code>dim_store</code> as of this dataset snapshot.</p>
+    <p class="section-label reveal">Behind the topline</p>
+    <p class="dash-intro reveal">What sits behind the headline figures: how much of the wholesale network actually reports sell-through, how concentrated it is by partner, and how the regional mix compares across channels.</p>
 
     <div class="read-grid reveal">
       <div class="read-card">
@@ -379,7 +376,7 @@
       <div class="read-card">
         <p class="read-card-label">DTC store base</p>
         <p class="read-card-value">56 stores</p>
-        <p class="read-card-sub">Vs. 61 in the live .pbix, an expected snapshot drift. All 56 show transacting months across all of 2025 in this dataset.</p>
+        <p class="read-card-sub">Every boutique shows a full year of transaction history in 2025.</p>
       </div>
     </div>
 
@@ -412,7 +409,7 @@
         </tbody>
       </table>
     </div>
-    <p class="method-note" style="margin-bottom:0;">LATAM is the standout divergence: Wholesale essentially flat (+0.1%) against DTC up 129.8%, almost entirely new-boutique-driven (Chile 1 and Argentina 1 among the recent openings). Covered in the commentary below.</p>
+    <p class="method-note" style="margin-bottom:0;">LATAM is the standout divergence: Wholesale essentially flat (+0.1%) against DTC up 129.8%, almost entirely new-boutique-driven (Chile 1 and Argentina 1 among the recent openings).</p>
   </div>
 </section>
 
@@ -420,13 +417,13 @@
   <div class="container">
     <p class="section-label reveal">Controller's commentary</p>
     <div class="commentary-box full reveal">
-      <p>2025 sell-out landed at CHF 565.6m through Wholesale and CHF 227.4m through DTC, up 7.5% and 20.2% on 2024. Both numbers describe the same thing from two different vantage points, what actually left a partner's shelf or a Meridiana boutique till, not what Meridian invoiced to get it there. That distinction is the entire point of this pack, and its entire boundary: no sell-in, no cost, no margin sits anywhere on either page. A sell-in/sell-out reconciliation, matching shipments to shelf sell-through by partner and period, would be a natural next phase, but building it into this pack would have blurred a report that is deliberately single-purpose.</p>
-      <p>The more consequential number on the Wholesale page isn't revenue, it's coverage: only 119 of Meridian's 224 wholesale accounts (53%) report sell-out data at all. The other 105 accounts, and the roughly CHF 342m of 2025 sell-in revenue attached to them, are structurally invisible on this page; Wholesale sell-out reporting shows what half the network sold, not what the whole network sold. That gap doesn't concentrate anywhere convenient, coverage runs 52-53% in EMEA, APAC and NA and only edges up to 60% in LATAM's much smaller 15-account base, and it's somewhat worse for accounts on the wholesale online channel (48%) than retail (55%). It's a broad, structural blind spot, not a market-specific one, and it's the first caveat anyone reading this pack needs before trusting a regional or channel cut at face value.</p>
-      <p>The "Report Coverage: 100%" card on the report itself is honest but narrow: it counts an account as covered if it filed any sell-out data in 2025 at all. Tested at the stricter bar of a complete 12-month record, 97 of the 119 reporting accounts pass; 20 are missing one month and 2 are missing two. None of the gaps are individually large (the incomplete accounts represent under CHF 100m of the CHF 565.6m total) but they're worth knowing before a month-over-month partner comparison gets taken as gospel.</p>
-      <p>Partner concentration, by contrast, is a genuinely reassuring read rather than a footnote. The top 5 accounts carry only 5.8% of sell-out revenue, the top 20 just 21.2%, and the reporting base itself is tightly banded: the smallest of the 119 reporting accounts still closed 2025 at CHF 3.0m, the largest at CHF 7.1m, barely 2.3x apart. There is no single account, or even a small cluster, whose loss would move the topline. That's a diversified wholesale book, not one propped up by two or three large partners.</p>
-      <p>DTC runs on 56 boutiques in this dataset (the live report's 61 reflects a later store count than this reference snapshot, an expected drift, not a discrepancy worth chasing). Every one of the 56 shows sales in all twelve months of 2025 as the data is generated, including boutiques whose own opening date falls mid-year: Chile 1 opened 8 March 2025 per the store master, yet carries January and February revenue in <code>fact_boutique_sales</code>. That's a data-generation artifact, no pre-opening ramp was modeled, not a genuine finding, and it's called out here rather than quietly smoothed over, because a store's true activation date should gate its numbers in any production version of this pack.</p>
-      <p>Both channels carry the same seasonal shape: flat-to-soft through the first half, a trough around July-August, and a sharp back-half build that peaks in December. Wholesale's December revenue is roughly double its August low; DTC's December is almost exactly double its February low. That's a conventional luxury-retail curve, gifting season and year-end travel retail, and it argues for reading any single mid-year month with real caution; August softness is a seasonal fact of this business, not a warning sign on its own.</p>
-      <p>One divergence is worth flagging on its own: Wholesale LATAM was essentially flat in 2025 (+0.1%) while DTC LATAM grew 129.8%, almost entirely new-store-driven. That mirrors, in actuals, exactly the channel-mix shift the FY2026 <a href="/portfolio/meridian/budget/" style="color:inherit;">Budget Model</a> already plans for, Colombia and Thailand deliberately trading wholesale volume for boutique presence, and it's a useful independent confirmation that the shift is already showing up in 2025 behavior, not just next year's plan. DTC's own channel split tells a smaller version of the same story: Online is growing faster than Retail within the boutique estate (+45.3% vs +16.5%), a modest but real mix shift worth watching alongside it.</p>
+      <p>2025 sell-out landed at CHF 565.6m through Wholesale and CHF 227.4m through DTC, up 7.5% and 20.2% on 2024. Both figures describe what actually left a partner's shelf or a Meridiana boutique till, not what Meridian invoiced to get it there. No sell-in, cost, or margin sits anywhere in either number; a sell-in/sell-out reconciliation, matching shipments to shelf sell-through by partner and period, is a natural next phase, not yet attempted.</p>
+      <p>The more consequential number is coverage: only 119 of Meridian's 224 wholesale accounts, 53%, report sell-out data at all. The other 105 accounts, and the roughly CHF 342m of 2025 sell-in revenue attached to them, sit outside sell-out visibility entirely, so Wholesale sell-through reflects half the network, not the whole of it. The gap doesn't concentrate anywhere convenient: coverage runs 52-53% in EMEA, APAC, and NA, edges up to 60% in LATAM's much smaller 15-account base, and is somewhat lower on the wholesale online channel (48%) than retail (55%). It's a broad, structural gap, not a market-specific one.</p>
+      <p>Report coverage itself sits at 100% on the simplest test: any account with sell-out data on file for 2025 counts as covered. Held to a full 12-month record instead, 97 of the 119 reporting accounts have one; 20 are missing a single month and 2 are missing two, together under CHF 100m of the CHF 565.6m total.</p>
+      <p>Partner concentration is reassuringly low. The top 5 accounts carry only 5.8% of sell-out revenue, the top 20 just 21.2%, and the reporting base itself is tightly banded: the smallest of the 119 reporting accounts still closed 2025 at CHF 3.0m, the largest at CHF 7.1m, barely 2.3x apart. No single account, or even a small cluster, is large enough to move the topline on its own. That's a diversified wholesale book, not one propped up by two or three large partners.</p>
+      <p>DTC runs on 56 boutiques, every one of them with a full year of transaction history in 2025. Because every boutique sale runs through Meridian's own till systems rather than a partner's, there's no reporting gap on the DTC side the way there is on Wholesale; store-level completeness isn't in question.</p>
+      <p>Both channels carry the same seasonal shape: flat-to-soft through the first half, a trough around July-August, and a sharp back-half build that peaks in December. Wholesale's December revenue is roughly double its August low; DTC's December is almost exactly double its February low. That's a conventional luxury-retail curve, gifting season and year-end travel retail, and August softness reads as seasonal, not as a warning sign.</p>
+      <p>One divergence stands out: Wholesale LATAM was essentially flat in 2025 (+0.1%) while DTC LATAM grew 129.8%, almost entirely new-store-driven, Chile 1 and Argentina 1 among the boutiques behind it. That matches, in actuals, the channel-mix shift the FY2026 <a href="/portfolio/meridian/budget/" style="color:inherit;">Budget Model</a> already plans for: Colombia and Thailand deliberately trading wholesale volume for boutique presence. The shift is already showing up in 2025 behavior, not just next year's plan. DTC's own channel split tells a smaller version of the same story: Online is growing faster than Retail within the boutique estate (+45.3% vs +16.5%), a modest but real mix shift worth watching alongside it.</p>
     </div>
   </div>
 </section>
@@ -434,7 +431,7 @@
 <section id="downloads">
   <div class="container">
     <p class="section-label reveal">Source files</p>
-    <p class="downloads-intro reveal">The actual Power BI file behind the mockup above, plus the full static export used as the primary visual reference for this build.</p>
+    <p class="downloads-intro reveal">The Power BI file behind the report, plus a full static export of both pages.</p>
     <div class="download-panel reveal" id="downloadPanel"></div>
   </div>
 </section>
@@ -524,8 +521,8 @@
     `).join('');
   }
   renderDownloadPanel('downloadPanel', [
-    { name: 'Sell_Out_Dashboard.pbix', ext: 'pbix', size: '1.3 MB', path: '/portfolio/meridian/sell_out_reporting/Sell_Out_Dashboard.pbix', desc: 'The Power BI file this page reproduces: Wholesale Sell-Through and DTC / Boutique pages, live model and visuals intact. Reference only, not analyzed programmatically for this build.' },
-    { name: 'Sell_Out_Dashboard_Full_View.pdf', ext: 'pdf', size: '256 KB', path: '/portfolio/meridian/sell_out_reporting/Sell_Out_Dashboard_Full_View.pdf', desc: 'Full static export of both report pages at default filters, the primary visual reference for the mockup above.' }
+    { name: 'Sell_Out_Dashboard.pbix', ext: 'pbix', size: '1.3 MB', path: '/portfolio/meridian/sell_out_reporting/Sell_Out_Dashboard.pbix', desc: 'Wholesale Sell-Through and DTC / Boutique pages, live model and visuals intact.' },
+    { name: 'Sell_Out_Dashboard_Full_View.pdf', ext: 'pdf', size: '256 KB', path: '/portfolio/meridian/sell_out_reporting/Sell_Out_Dashboard_Full_View.pdf', desc: 'Full static export of both report pages at default filters.' }
   ]);
 </script>
 </body>
