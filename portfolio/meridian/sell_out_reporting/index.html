@@ -79,18 +79,22 @@
   .commentary-box p + p { margin-top: 1rem; }
   .commentary-box.full { border-left-color: var(--accent-warm); max-width: none; }
 
-  /* Contrast panel (scope section) */
+  /* Contrast panel + scope note */
   #scope { background: var(--off-white); }
   .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 1.5rem; }
   .contrast-card { background: var(--warm-white); border: 1px solid var(--rule); padding: 1.8rem 2rem; }
   .contrast-card h3 { font-size: 1.15rem; font-weight: 500; margin-bottom: 1rem; color: var(--accent); }
   .contrast-card p { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; }
-  .scope-note { display: flex; gap: 1.4rem; align-items: flex-start; background: var(--warm-white); border: 1px solid var(--rule); padding: 1.6rem 1.8rem; margin-top: 1.5rem; }
+  .scope-note { display: flex; gap: 1.4rem; align-items: flex-start; background: var(--warm-white); border: 1px solid var(--rule); padding: 1.6rem 1.8rem; margin-top: 1.5rem; margin-bottom: 2.5rem; }
   .scope-note-icon { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--v-neg); background: rgba(163,58,46,0.08); border: 1px solid rgba(163,58,46,0.25); padding: 0.3rem 0.55rem; flex-shrink: 0; margin-top: 0.2rem; }
   .scope-note-text { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; }
   .scope-note-text b { font-weight: 500; color: var(--ink); }
-  .tab-desc { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; max-width: 800px; margin-bottom: 1.2rem; }
+  .tab-desc { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; max-width: 800px; margin-bottom: 1.5rem; }
   code { font-family: var(--mono); font-size: 0.88em; color: var(--ink); background: var(--warm-white); padding: 0.1em 0.35em; border: 1px solid var(--rule); }
+  .visual-list-title { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); margin-bottom: 1rem; }
+  .visual-list { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .visual-list li { font-size: 0.9rem; font-weight: 300; color: var(--ink-mid); line-height: 1.6; }
+  .visual-list b { font-weight: 500; color: var(--ink); }
 
   /* ===================== Dashboard mockup ===================== */
   #dashboard-section { background: var(--pbi-page); }
@@ -281,9 +285,25 @@
   </div>
 </div>
 
+<section id="dashboard-section">
+  <div class="container">
+    <p class="section-label reveal">The report</p>
+    <p class="dash-intro reveal">Wholesale Sell-Out and DTC / Boutique, recreated from the Power BI file (downloadable below). Click a month, a partner or store, or any chart bar to filter and cross-filter the page.</p>
+
+    <div class="dash-tabbar reveal" role="tablist" aria-label="Sell-out report pages">
+      <button type="button" role="tab" id="pagebtn-wholesale" aria-controls="page-wholesale" aria-selected="true">Wholesale Sell-Out</button>
+      <button type="button" role="tab" id="pagebtn-dtc" aria-controls="page-dtc" aria-selected="false">DTC / Boutique</button>
+    </div>
+
+    <div class="reveal" id="dash-root"></div>
+  </div>
+</section>
+
 <section id="scope">
   <div class="container">
     <p class="section-label reveal">How it was built</p>
+    <p class="tab-desc reveal">Built from <code>fact_sell_out</code> and <code>fact_boutique_sales</code> in <a href="/portfolio/meridian/database/" style="color:inherit;">meridian.db</a>, queried via SQL and loaded into Power BI through Power Query. Local-currency columns are dropped, customer and store names are shortened, and both fact tables connect to their dimension tables, date, geography, channel, and collection, in a star schema. Measures cover core revenue and units, year-over-year comparisons, wholesale coverage and concentration, and a swing measure that flags the largest regional divergence between channels.</p>
+
     <div class="contrast-grid reveal">
       <div class="contrast-card">
         <h3>Wholesale Sell-Out</h3>
@@ -294,45 +314,22 @@
         <p>Transaction data from Meridian's own boutique register systems, read from <code>fact_boutique_sales</code>, Retail and Online. Covers all 56 boutiques with no partner-reporting dependency. Cut by region, channel, collection, and store.</p>
       </div>
     </div>
-    <p class="tab-desc reveal">Both fact tables are queried from <a href="/portfolio/meridian/database/" style="color:inherit;">meridian.db</a> and loaded into Power BI through Power Query: <code>fact_sell_out</code> (34,689 rows: date, customer, SKU, units, sell-out revenue) and <code>fact_boutique_sales</code> (34,433 rows: date, store, SKU, units, net revenue). Each is joined in Power Query to <code>dim_date</code>, <code>dim_line</code>, and its own party table, <code>dim_wholesale_customer</code> for Wholesale, <code>dim_store</code> for DTC.</p>
-    <p class="tab-desc reveal">Power Query transformations: local-currency columns are dropped in favor of the CHF revenue columns already present in both fact tables; customer and store names are shortened for the report's tables and slicers (Wholesale Customer 174 → Account 174; Meridiana Boutique United Kingdom 5 → United Kingdom 5); date columns are typed and a month-name column is added for the Select Month slicer.</p>
-    <p class="tab-desc reveal">In the model view, both fact tables connect to <code>dim_date</code> on <code>date_id</code>, to <code>dim_line</code> on <code>sku_id</code> for collection, and to their party table on <code>customer_id</code> or <code>store_id</code>. <code>dim_wholesale_customer</code> and <code>dim_store</code> both connect onward to <code>dim_geography</code> (region and country) and <code>dim_channel</code> (Retail or Online), so region and channel filters behave the same way on both pages despite reading from two different fact tables.</p>
-    <p class="tab-desc reveal">Measures, grouped by what they compute:</p>
-    <div class="table-wrap reveal">
-      <table class="data-table">
-        <thead><tr><th>Measure</th><th>Page</th><th>Logic</th><th>Category</th></tr></thead>
-        <tbody>
-          <tr><td>Total Sell-Out Revenue</td><td>Both</td><td>SUM(sellout_revenue_chf) / SUM(net_revenue_chf)</td><td>Core</td></tr>
-          <tr><td>Total Units</td><td>Both</td><td>SUM(units)</td><td>Core</td></tr>
-          <tr><td>Average Price</td><td>DTC</td><td>DIVIDE([Total Sell-Out Revenue], [Total Units])</td><td>Core</td></tr>
-          <tr><td>Revenue vs LY</td><td>Both</td><td>DIVIDE([Total Sell-Out Revenue] − [Revenue LY], [Revenue LY])</td><td>vs-LY</td></tr>
-          <tr><td>Units vs LY</td><td>Both</td><td>DIVIDE([Total Units] − [Units LY], [Units LY])</td><td>vs-LY</td></tr>
-          <tr><td>Sell-Out Coverage</td><td>Wholesale</td><td>DIVIDE(COUNTROWS(reporting accounts), COUNTROWS(dim_wholesale_customer))</td><td>Coverage</td></tr>
-          <tr><td>Report Coverage</td><td>Wholesale</td><td>Share of reporting accounts with ≥1 row in the selected period</td><td>Coverage</td></tr>
-          <tr><td>Top 5 / Top 20 Partner Weight</td><td>Wholesale</td><td>DIVIDE(CALCULATE([Total Sell-Out Revenue], TOPN(n, accounts, [Total Sell-Out Revenue])), [Total Sell-Out Revenue])</td><td>Concentration</td></tr>
-          <tr><td>Largest Regional Swing</td><td>Both</td><td>MAXX(regions, ABS([Wholesale Revenue vs LY] − [DTC Revenue vs LY]))</td><td>Exception / Swing</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
 
-<section id="dashboard-section">
-  <div class="container">
-    <p class="section-label reveal">The report</p>
-    <p class="tab-desc reveal">Both pages use the same layout: a KPI row, three charts, a monthly trend, and a ranked table. The KPI cards differ between the two pages; the charts, trend, and table read the same way on both.</p>
-    <p class="tab-desc reveal">KPI row: five cards plus a month selector. Wholesale Sell-Out shows Revenue, Units, Top 5 Partners Weight, Sell-Out Coverage, and Report Coverage. DTC / Boutique shows Revenue, Units, Average Price, Stores Count, and Stores Activity. The Select Month control filters the page to a single month or back to the full year.</p>
-    <p class="tab-desc reveal">Charts: Revenue by Region, four bars (EMEA, APAC, NA, LATAM), current year against prior year. Revenue by Collection, the same current-year/prior-year comparison as ten horizontal bars, one per collection. Retail vs Online, the same comparison across the two channel modes.</p>
-    <p class="tab-desc reveal">Below the charts: a twelve-month revenue trend, current year against prior year, and a ranked table next to it, Top 5 Partners on the Wholesale page, Top 5 Stores on the DTC page, each row showing revenue and growth vs last year.</p>
-    <p class="tab-desc reveal">Selecting a month, a region, a channel, or a partner/store row filters the whole page to that selection. Selecting a collection cross-highlights instead: every chart keeps its full total and shows the selected collection's share within it.</p>
-    <p class="dash-intro reveal">The report is a Power BI file, downloadable below. What follows is an HTML recreation of it for browser viewing, built to the same layout and interaction described above.</p>
-
-    <div class="dash-tabbar reveal" role="tablist" aria-label="Sell-out report pages">
-      <button type="button" role="tab" id="pagebtn-wholesale" aria-controls="page-wholesale" aria-selected="true">Wholesale Sell-Out</button>
-      <button type="button" role="tab" id="pagebtn-dtc" aria-controls="page-dtc" aria-selected="false">DTC / Boutique</button>
+    <div class="scope-note reveal">
+      <span class="scope-note-icon">Out of scope</span>
+      <p class="scope-note-text"><b>Cost and margin are not modeled.</b> Both pages report revenue and units only.</p>
     </div>
 
-    <div class="reveal" id="dash-root"></div>
+    <p class="visual-list-title reveal">What each visual shows</p>
+    <ul class="visual-list reveal">
+      <li><b>KPI row</b> — Revenue, Units, three page-specific metrics, and a month selector.</li>
+      <li><b>Revenue by Region</b> — EMEA, APAC, NA, LATAM, current year vs prior year.</li>
+      <li><b>Revenue by Collection</b> — ten collections, current year vs prior year.</li>
+      <li><b>Retail vs Online</b> — two channels, current year vs prior year.</li>
+      <li><b>Monthly trend</b> — twelve months, current year vs prior year.</li>
+      <li><b>Ranked table</b> — Top 5 Partners (Wholesale) or Top 5 Stores (DTC), revenue and growth vs last year.</li>
+      <li><b>Interaction</b> — selecting a month, region, channel, or partner/store filters the page; selecting a collection cross-highlights instead.</li>
+    </ul>
   </div>
 </section>
 
