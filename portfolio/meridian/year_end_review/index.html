@@ -71,13 +71,10 @@
   /* Tableau embed */
   #dashboard-section { background: var(--off-white); }
   .dash-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; max-width: 760px; margin-bottom: 2.2rem; }
-  /* Full-bleed frame: breaks out of the 1120px .container so the embed's fixed
-     1600px width has room to render at native size on wide viewports instead
-     of being squeezed down to a size Tableau's own layout can't fit numbers into.
-     Uses negative margins (not transform) to cancel the section's own 4rem side
-     padding, since .reveal's scroll-in animation already owns the transform property. */
-  .embed-frame { margin-left: -4rem; margin-right: -4rem; padding: 0 1.5rem; box-sizing: border-box; margin-bottom: 1rem; }
-  .tableau-embed-wrap { width: 100%; max-width: 1660px; margin: 0 auto; overflow-x: auto; background: var(--warm-white); border: 1px solid var(--rule); }
+  /* Capped to the dashboard's own fixed 1600x900 size and centered, rather than
+     stretched to fill a wider column. Narrower viewports scroll horizontally
+     instead of scaling or cropping the embed. */
+  .tableau-embed-wrap { width: 100%; max-width: 1600px; margin: 0 auto; overflow-x: auto; background: var(--warm-white); border: 1px solid var(--rule); }
   .tableau-embed-wrap .tableauPlaceholder { min-width: 520px; }
   .embed-fallback { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em; color: var(--ink-light); margin-top: 1rem; }
   .embed-fallback a { color: inherit; }
@@ -112,7 +109,6 @@
     .hamburger { display: flex; }
     footer { padding: 1.2rem 2rem; flex-direction: column; gap: 0.8rem; text-align: center; }
     .footer-nav { justify-content: center; flex-wrap: wrap; }
-    .embed-frame { margin-left: -2rem; margin-right: -2rem; padding: 0 0.75rem; }
   }
 </style>
 </head>
@@ -139,19 +135,17 @@
     <p class="dash-intro reveal">The live dashboard, published to Tableau Public and embedded directly below, not a static image. Try it directly: click any country, collection, or channel mark to cross-filter the rest of the view instantly.</p>
   </div>
 
-  <div class="embed-frame reveal">
-    <div class="tableau-embed-wrap">
-      <div class='tableauPlaceholder' id='viz1785599987838' style='position: relative'><noscript><a href='#'><img alt='Year-End Business Review, FY2025 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ye&#47;Year-EndBusinessReview&#47;Year-EndBusinessReview&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='Year-EndBusinessReview&#47;Year-EndBusinessReview' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ye&#47;Year-EndBusinessReview&#47;Year-EndBusinessReview&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>
-    </div>
-    <script type='text/javascript'>
-      var divElement = document.getElementById('viz1785599987838');
-      var vizElement = divElement.getElementsByTagName('object')[0];
-      if ( divElement.offsetWidth > 800 ) { vizElement.style.width='1600px';vizElement.style.minHeight='827px';vizElement.style.maxHeight='927px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='1600px';vizElement.style.minHeight='827px';vizElement.style.maxHeight='927px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1577px';}
-      var scriptElement = document.createElement('script');
-      scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-      vizElement.parentNode.insertBefore(scriptElement, vizElement);
-    </script>
+  <div class="tableau-embed-wrap reveal">
+    <div class='tableauPlaceholder' id='viz1785599987838' style='position: relative'><noscript><a href='#'><img alt='Year-End Business Review, FY2025 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ye&#47;Year-EndBusinessReview&#47;Year-EndBusinessReview&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='Year-EndBusinessReview&#47;Year-EndBusinessReview' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ye&#47;Year-EndBusinessReview&#47;Year-EndBusinessReview&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>
   </div>
+  <script type='text/javascript'>
+    var divElement = document.getElementById('viz1785599987838');
+    var vizElement = divElement.getElementsByTagName('object')[0];
+    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='1600px';vizElement.style.minHeight='827px';vizElement.style.maxHeight='927px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='1600px';vizElement.style.minHeight='827px';vizElement.style.maxHeight='927px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1577px';}
+    var scriptElement = document.createElement('script');
+    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+    vizElement.parentNode.insertBefore(scriptElement, vizElement);
+  </script>
 
   <div class="container">
     <p class="embed-fallback reveal">Dashboard not loading? <a href="https://public.tableau.com/app/profile/silvio.di.rubbo/viz/Year-EndBusinessReview/Year-EndBusinessReview" target="_blank">Open it directly on Tableau Public ↗</a></p>
