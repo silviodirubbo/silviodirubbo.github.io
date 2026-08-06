@@ -8,7 +8,7 @@ Built with plain HTML, CSS, and JavaScript. No frameworks, no dependencies. Shar
 
 - Home, CV, Portfolio, Projects, and Contact
 - CV: experience, education, skills, certifications, and Power BI/Tableau report samples (cv/powerbi/)
-- Portfolio: Meridian Time Group, a fictional FP&A/BI case study. Data Foundation is available; Master Budget Model is in progress; Rolling Forecast, Variance Analysis, Working Capital & CapEx, Standard Costing, Periodic Sales Reporting, and Year-End Business Review are planned
+- Portfolio: Meridian Time Group, a fictional FP&A-BI case study. Data Foundation is available; Master Budget Model is in progress; Rolling Forecast, Variance Analysis, Working Capital & CapEx, Standard Costing, Periodic Sales Reporting, and Year-End Business Review are planned
 - Projects: Borderliner newsletter, Cellar wine diary, Khollar (in development), and a Letterboxd film log
 
 ## Contact
