@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Vasseur · Wholesale Analyst Project · Silvio di Rubbo</title>
+<meta name="description" content="Maison Vasseur: a fictitious luxury footwear maison built through a Wholesale Analyst lens — a clean EMEA wholesale/franchise database of accounts, products, sell-in and sell-out, ready for Power Query.">
+<link rel="canonical" href="https://silviodirubbo.github.io/portfolio/vasseur/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Silvio di Rubbo">
+<meta property="og:url" content="https://silviodirubbo.github.io/portfolio/vasseur/">
+<meta property="og:title" content="Maison Vasseur · Wholesale Analyst Project · Silvio di Rubbo">
+<meta property="og:description" content="Maison Vasseur: a fictitious luxury footwear maison built through a Wholesale Analyst lens — a clean EMEA wholesale/franchise database of accounts, products, sell-in and sell-out, ready for Power Query.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Maison Vasseur · Wholesale Analyst Project · Silvio di Rubbo">
+<meta name="twitter:description" content="Maison Vasseur: a fictitious luxury footwear maison built through a Wholesale Analyst lens — a clean EMEA wholesale/franchise database of accounts, products, sell-in and sell-out, ready for Power Query.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Ccircle cx='55' cy='55' r='42' stroke='%231A1814' stroke-width='4' fill='none'/%3E%3Ccircle cx='55' cy='55' r='14' fill='%232C4A3E'/%3E%3Cpath d='M30 36 C30 36 44 44 55 55 C66 66 80 72 82 72' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M55 55 L80 84' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --off-white: #F7F5F0; --warm-white: #FDFCFA; --ink: #1A1814;
+    --ink-mid: #4A4640; --ink-light: #8A8480; --ink-faint: #C8C4BE;
+    --accent: #2C4A3E; --accent-warm: #8B6914; --rule: #E2DED8;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', 'Courier New', monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--warm-white); color: var(--ink); font-family: var(--serif); font-size: 18px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  #nav-container nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; background: var(--warm-white); border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+  #nav-container nav.scrolled { border-bottom-color: var(--rule); }
+  .nav-name { font-family: var(--serif); font-size: 0.95rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--mono); font-size: 0.68rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 1px; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 1px; background: var(--ink); transition: transform 0.3s, opacity 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .nav-mobile { display: none; position: fixed; top: 57px; left: 0; right: 0; z-index: 199; background: var(--warm-white); border-bottom: 1px solid var(--rule); padding: 1.5rem 2rem; flex-direction: column; gap: 1.2rem; }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; }
+  .nav-mobile a:hover, .nav-mobile a.active { color: var(--ink); }
+  section { padding: 6rem 4rem; }
+  .container { max-width: 1040px; margin: 0 auto; }
+  .section-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--rule); }
+  .tag { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); border: 1px solid var(--rule); padding: 0.3rem 0.7rem; }
+  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+  .footer-mark { opacity: 0.3; display: flex; align-items: center; }
+  .footer-mark svg circle, .footer-mark svg path { stroke: #fff; }
+  .footer-mark svg circle:nth-child(2) { fill: rgba(255,255,255,0.4); stroke: none; }
+  .footer-copy { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+  .footer-nav { display: flex; gap: 2rem; }
+  .footer-nav a { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
+  .footer-nav a:hover { color: rgba(255,255,255,0.5); }
+  .reveal { opacity: 1; transform: translateY(0); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .js-ready .reveal { opacity: 0; transform: translateY(24px); }
+  .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  #page-header { padding: 9rem 4rem 4rem; border-bottom: 1px solid var(--rule); }
+  .page-header-inner { max-width: 1040px; margin: 0 auto; }
+  .back-link { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: color 0.2s; }
+  .back-link:hover { color: var(--ink); }
+  .page-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .page-title { font-size: clamp(2.4rem, 4.5vw, 3.8rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .status-badge { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 0.9rem; border: 1px solid var(--accent); color: var(--accent); white-space: nowrap; margin-top: 0.5rem; }
+  .header-desc { font-size: 1rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; max-width: 740px; }
+  .header-desc p { margin-bottom: 1rem; }
+  .header-desc p:last-child { margin-bottom: 0; }
+
+  .process-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+  .process-step { background: var(--off-white); padding: 2.2rem 2rem; position: relative; }
+  .process-num { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1rem; }
+  .process-title { font-size: 1.25rem; font-weight: 400; color: var(--ink); margin-bottom: 0.7rem; }
+  .process-desc { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; }
+  .process-code { display: inline-block; margin-top: 1rem; font-family: var(--mono); font-size: 0.68rem; color: var(--accent-warm); background: rgba(139,105,20,0.08); padding: 0.25rem 0.6rem; }
+  @media (min-width: 769px) {
+    .process-step:not(:last-child)::after { content: '→'; position: absolute; right: -1.4rem; top: 50%; transform: translateY(-50%); color: var(--ink-faint); font-family: var(--mono); z-index: 1; }
+  }
+
+  .stats-strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; margin-top: 2px; }
+  .stat-card { background: var(--warm-white); border: 1px solid var(--rule); padding: 1.6rem 1rem; text-align: center; }
+  .stat-num { font-family: var(--mono); font-size: 1.35rem; color: var(--ink); margin-bottom: 0.3rem; }
+  .stat-label { font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-light); }
+
+  #structure { background: var(--off-white); }
+  .structure-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 700px; margin-bottom: 2.5rem; }
+  .table-grid { display: flex; flex-direction: column; gap: 2px; }
+  .table-card { background: var(--warm-white); border: 1px solid var(--rule); padding: 1.8rem 2rem; }
+  .table-card-top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+  .table-name { font-family: var(--mono); font-size: 0.95rem; color: var(--ink); }
+  .table-rows { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-warm); }
+  .table-cols { font-family: var(--mono); font-size: 0.72rem; color: var(--ink-light); line-height: 1.9; margin-bottom: 0.7rem; word-break: break-word; }
+  .table-desc { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.7; }
+
+  .downloads-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 680px; margin-bottom: 2.5rem; }
+  .download-panel { display: flex; flex-direction: column; gap: 2px; }
+  .download-item { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; background: var(--off-white); border: 1px solid var(--rule); padding: 1.6rem 2rem; }
+  .download-info { display: flex; align-items: flex-start; gap: 1rem; min-width: 0; }
+  .download-badge { flex-shrink: 0; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.04em; color: var(--accent-warm); background: rgba(139,105,20,0.08); border: 1px solid rgba(139,105,20,0.25); padding: 0.3rem 0.55rem; margin-top: 0.15rem; }
+  .download-text { min-width: 0; }
+  .download-name { font-family: var(--mono); font-size: 0.88rem; color: var(--ink); display: block; margin-bottom: 0.4rem; word-break: break-word; }
+  .download-desc { font-size: 0.85rem; font-weight: 300; color: var(--ink-mid); line-height: 1.6; }
+  .download-action { display: flex; align-items: center; gap: 1.2rem; flex-shrink: 0; }
+  .download-size { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-light); white-space: nowrap; }
+  .download-btn { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm-white); background: var(--ink); border: 1px solid var(--ink); padding: 0.65rem 1.3rem; text-decoration: none; white-space: nowrap; transition: background 0.2s, border-color 0.2s; }
+  .download-btn:hover { background: var(--accent); border-color: var(--accent); }
+  @media (max-width: 560px) {
+    .download-item { flex-direction: column; align-items: flex-start; }
+    .download-action { width: 100%; justify-content: space-between; }
+  }
+
+  .closing-note { margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid var(--rule); font-size: 0.92rem; font-weight: 300; color: var(--ink-light); font-style: italic; max-width: 680px; }
+
+  @media (max-width: 900px) {
+    .process-strip { grid-template-columns: repeat(2, 1fr); }
+    .process-step:not(:last-child)::after { display: none; }
+    .stats-strip { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 768px) {
+    #page-header { padding: 8rem 2rem 3rem; }
+    section { padding: 4rem 2rem; }
+    .process-strip { grid-template-columns: 1fr; }
+    .stats-strip { grid-template-columns: repeat(2, 1fr); }
+    #nav-container nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    footer { padding: 1.2rem 2rem; flex-direction: column; gap: 0.8rem; text-align: center; }
+    .footer-nav { justify-content: center; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div id="nav-container"></div>
+<script src="/nav.js"></script>
+
+<div id="page-header">
+  <div class="page-header-inner">
+    <a href="/portfolio/" class="back-link">← Back to Portfolio</a>
+    <div class="page-title-row">
+      <h1 class="page-title">Maison<br><em>Vasseur</em></h1>
+      <span class="status-badge">Wholesale Database: Available</span>
+    </div>
+    <div class="header-desc">
+      <p>This project demonstrates business analysis for a Wholesale Analyst role in luxury: reading sell-in and sell-out, tracking customer performance, and structuring data so a business review can actually be built on it. It's built here for Maison Vasseur, a fictitious footwear-led luxury maison with a small leather goods line, selling through 12 wholesale and franchise accounts across six EMEA regions.</p>
+      <p>This first stage is the raw source database only: three relational tables built in Excel, generated with realistic seasonality, lumpy wholesale ordering, and a month-by-month stock simulation, then packaged as a single workbook ready for Power Query. No pivots, formulas, or dashboards live in it on purpose — the sell-through, purchasing-trend, and customer-scorecard analysis is the next layer, to be built by hand on top of this data.</p>
+    </div>
+  </div>
+</div>
+
+<section id="build">
+  <div class="container">
+    <p class="section-label reveal">How it's built</p>
+    <div class="process-strip reveal">
+      <div class="process-step">
+        <p class="process-num">Step 1 · Scope</p>
+        <h2 class="process-title">Define the book</h2>
+        <p class="process-desc">6 EMEA regions, 12 wholesale/franchise accounts, 16 SKUs across Women's, Men's, and Leather Goods, priced to a ~CHF 200M/year target.</p>
+      </div>
+      <div class="process-step">
+        <p class="process-num">Step 2 · Generate</p>
+        <h2 class="process-title">Synthesize</h2>
+        <p class="process-desc">A Python script simulates 24 months of sell-in, sell-out, stock, and returns per account-product, with seasonality, lumpy delivery windows, and per-account performance profiles.</p>
+        <span class="process-code">generate_database.py</span>
+      </div>
+      <div class="process-step">
+        <p class="process-num">Step 3 · Package</p>
+        <h2 class="process-title">Flat &amp; relational</h2>
+        <p class="process-desc">Four clean sheets in a single workbook — no merged cells, no formulas, header row bold and frozen only.</p>
+        <span class="process-code">Vasseur_Wholesale_Database_2024_2025.xlsx</span>
+      </div>
+      <div class="process-step">
+        <p class="process-num">Step 4 · Next</p>
+        <h2 class="process-title">Power Query, by hand</h2>
+        <p class="process-desc">This source loads straight into Power Query. The analysis layer — sell-through, purchasing trend, customer scorecards — is the next stage, built separately.</p>
+      </div>
+    </div>
+
+    <div class="stats-strip reveal">
+      <div class="stat-card"><p class="stat-num">6</p><p class="stat-label">Regions</p></div>
+      <div class="stat-card"><p class="stat-num">12</p><p class="stat-label">Accounts</p></div>
+      <div class="stat-card"><p class="stat-num">16</p><p class="stat-label">Products</p></div>
+      <div class="stat-card"><p class="stat-num">2,478 / 11,627</p><p class="stat-label">Monthly / Weekly Rows</p></div>
+      <div class="stat-card"><p class="stat-num">~CHF 200M</p><p class="stat-label">Avg. Annual Sell-In</p></div>
+      <div class="stat-card"><p class="stat-num">2024–2025</p><p class="stat-label">History</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="structure">
+  <div class="container">
+    <p class="section-label reveal">Data structure</p>
+    <p class="structure-intro reveal">Four flat tables, built to join cleanly in Power Query: two dimension-style tables (Accounts, Products) and two fact tables at different grains (monthly for the full sell-in/sell-out/stock picture, weekly for sell-out only).</p>
+    <div class="table-grid reveal">
+      <div class="table-card">
+        <div class="table-card-top"><span class="table-name">Accounts</span><span class="table-rows">12 rows</span></div>
+        <p class="table-cols">Account ID · Account Name · Region · Country · Account Type</p>
+        <p class="table-desc">Two wholesale/franchise accounts per region across UK &amp; Ireland, Nordics &amp; Baltics, DACH, France &amp; Benelux, Iberia, and Southern Europe.</p>
+      </div>
+      <div class="table-card">
+        <div class="table-card-top"><span class="table-name">Products</span><span class="table-rows">16 rows</span></div>
+        <p class="table-cols">Product ID · Product Name · Category · Season · Wholesale Price (CHF) · Retail Price (CHF)</p>
+        <p class="table-desc">Women's Footwear, Men's Footwear, and Leather Goods, weighted so footwear carries the large majority of both SKU count and revenue.</p>
+      </div>
+      <div class="table-card">
+        <div class="table-card-top"><span class="table-name">Transactions_Monthly</span><span class="table-rows">2,478 rows</span></div>
+        <p class="table-cols">Account ID · Product ID · Month (YYYY-MM) · Sell-In Units · Sell-In Value (CHF) · Sell-Out Units · Sell-Out Value (CHF) · Stock Units · Returns Units</p>
+        <p class="table-desc">One row per active account-product-month. Stock rolls forward consistently: prior stock + sell-in − sell-out − returns.</p>
+      </div>
+      <div class="table-card">
+        <div class="table-card-top"><span class="table-name">Transactions_Weekly</span><span class="table-rows">11,627 rows</span></div>
+        <p class="table-cols">Account ID · Product ID · Week (ISO YYYY-Www) · Sell-Out Units · Sell-Out Value (CHF)</p>
+        <p class="table-desc">Weekly sell-out only, reconciling exactly to the monthly totals — the grain a weekly business review actually runs on.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="downloads">
+  <div class="container">
+    <p class="section-label reveal">Source files</p>
+    <p class="downloads-intro reveal">The database and the script used to generate it. Download them directly.</p>
+    <div class="download-panel reveal">
+      <div class="download-item">
+        <div class="download-info">
+          <span class="download-badge">.xlsx</span>
+          <div class="download-text">
+            <span class="download-name">Vasseur_Wholesale_Database_2024_2025.xlsx</span>
+            <p class="download-desc">The four-sheet source database: Accounts, Products, Transactions_Monthly, Transactions_Weekly.</p>
+          </div>
+        </div>
+        <div class="download-action">
+          <span class="download-size">388 KB</span>
+          <a href="/portfolio/vasseur/Vasseur_Wholesale_Database_2024_2025.xlsx" download class="download-btn">Download ↓</a>
+        </div>
+      </div>
+      <div class="download-item">
+        <div class="download-info">
+          <span class="download-badge">.py</span>
+          <div class="download-text">
+            <span class="download-name">generate_database.py</span>
+            <p class="download-desc">Seeded Python script used to synthesize the dataset — included for transparency and reproducibility.</p>
+          </div>
+        </div>
+        <div class="download-action">
+          <span class="download-size">18.5 KB</span>
+          <a href="/portfolio/vasseur/generate_database.py" download class="download-btn">Download ↓</a>
+        </div>
+      </div>
+      <div class="download-item">
+        <div class="download-info">
+          <span class="download-badge">.md</span>
+          <div class="download-text">
+            <span class="download-name">README.md</span>
+            <p class="download-desc">Full write-up of the dataset, its structure, and how it's meant to be used.</p>
+          </div>
+        </div>
+        <div class="download-action">
+          <span class="download-size">5.1 KB</span>
+          <a href="/portfolio/vasseur/README.md" download class="download-btn">Download ↓</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="closing-note reveal">This page reflects the data-foundation stage only. The sell-through, purchasing-trend, and customer-review capabilities built on top of it are planned as a separate, subsequent addition — the same way Meridian's roadmap ships in stages.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-mark"><svg width="28" height="28" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Silvio di Rubbo mark">
+  <circle cx="55" cy="55" r="42" stroke="#1A1814" stroke-width="2"/>
+  <circle cx="55" cy="55" r="14" fill="#2C4A3E"/>
+  <path d="M 30,36 C 30,36 44,44 55,55 C 66,66 80,72 82,72" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 55,55 L 80,84" stroke="#1A1814" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg></div>
+  <span class="footer-copy">© 2026 Silvio di Rubbo</span>
+  <nav class="footer-nav">
+    <a href="/">Home</a>
+    <a href="/cv/">CV</a>
+    <a href="/portfolio/">Portfolio</a>
+    <a href="/projects/">Projects</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+</footer>
+
+<script>
+  if ('IntersectionObserver' in window) {
+    document.body.classList.add('js-ready');
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  }
+</script>
+</body>
+</html>
