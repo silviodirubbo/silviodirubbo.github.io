@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maison Vasseur · Wholesale Analyst Project · Silvio di Rubbo</title>
-<meta name="description" content="Maison Vasseur: a fictitious luxury footwear maison built through a Wholesale Analyst lens — a clean EMEA wholesale/franchise database of accounts, products, sell-in and sell-out, ready for Power Query.">
+<meta name="description" content="Maison Vasseur: a fictitious luxury footwear maison built through a Wholesale Analyst lens — a relational EMEA wholesale/franchise database plus a Power Query and PivotTable-driven Business Review dashboard.">
 <link rel="canonical" href="https://silviodirubbo.github.io/portfolio/vasseur/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Silvio di Rubbo">
 <meta property="og:url" content="https://silviodirubbo.github.io/portfolio/vasseur/">
 <meta property="og:title" content="Maison Vasseur · Wholesale Analyst Project · Silvio di Rubbo">
-<meta property="og:description" content="Maison Vasseur: a fictitious luxury footwear maison built through a Wholesale Analyst lens — a clean EMEA wholesale/franchise database of accounts, products, sell-in and sell-out, ready for Power Query.">
+<meta property="og:description" content="Maison Vasseur: a fictitious luxury footwear maison built through a Wholesale Analyst lens — a relational EMEA wholesale/franchise database plus a Power Query and PivotTable-driven Business Review dashboard.">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Maison Vasseur · Wholesale Analyst Project · Silvio di Rubbo">
-<meta name="twitter:description" content="Maison Vasseur: a fictitious luxury footwear maison built through a Wholesale Analyst lens — a clean EMEA wholesale/franchise database of accounts, products, sell-in and sell-out, ready for Power Query.">
+<meta name="twitter:description" content="Maison Vasseur: a fictitious luxury footwear maison built through a Wholesale Analyst lens — a relational EMEA wholesale/franchise database plus a Power Query and PivotTable-driven Business Review dashboard.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Ccircle cx='55' cy='55' r='42' stroke='%231A1814' stroke-width='4' fill='none'/%3E%3Ccircle cx='55' cy='55' r='14' fill='%232C4A3E'/%3E%3Cpath d='M30 36 C30 36 44 44 55 55 C66 66 80 72 82 72' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M55 55 L80 84' stroke='%231A1814' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
 <style>
@@ -72,21 +72,6 @@
   .header-desc p { margin-bottom: 1rem; }
   .header-desc p:last-child { margin-bottom: 0; }
 
-  .process-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
-  .process-step { background: var(--off-white); padding: 2.2rem 2rem; position: relative; }
-  .process-num { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1rem; }
-  .process-title { font-size: 1.25rem; font-weight: 400; color: var(--ink); margin-bottom: 0.7rem; }
-  .process-desc { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; }
-  .process-code { display: inline-block; margin-top: 1rem; font-family: var(--mono); font-size: 0.68rem; color: var(--accent-warm); background: rgba(139,105,20,0.08); padding: 0.25rem 0.6rem; }
-  @media (min-width: 769px) {
-    .process-step:not(:last-child)::after { content: '→'; position: absolute; right: -1.4rem; top: 50%; transform: translateY(-50%); color: var(--ink-faint); font-family: var(--mono); z-index: 1; }
-  }
-
-  .stats-strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; margin-top: 2px; }
-  .stat-card { background: var(--warm-white); border: 1px solid var(--rule); padding: 1.6rem 1rem; text-align: center; }
-  .stat-num { font-family: var(--mono); font-size: 1.35rem; color: var(--ink); margin-bottom: 0.3rem; }
-  .stat-label { font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-light); }
-
   #structure { background: var(--off-white); }
   .structure-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 700px; margin-bottom: 2.5rem; }
   .table-grid { display: flex; flex-direction: column; gap: 2px; }
@@ -96,6 +81,20 @@
   .table-rows { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-warm); }
   .table-cols { font-family: var(--mono); font-size: 0.72rem; color: var(--ink-light); line-height: 1.9; margin-bottom: 0.7rem; word-break: break-word; }
   .table-desc { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.7; }
+
+  /* Sample-rows toggle (same pattern as the Budget / Sell-Out Reporting commentary toggles) */
+  .sample-toggle { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.55rem 1rem; background: var(--warm-white); border: 1px solid var(--rule); color: var(--ink-mid); cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; margin-top: 1.2rem; }
+  .sample-toggle:hover { color: var(--ink); border-color: var(--ink-mid); }
+  .sample-toggle.active { background: var(--ink); color: var(--warm-white); border-color: var(--ink); }
+  .sample-panel[hidden] { display: none; }
+  .sample-panel { margin-top: 1.4rem; }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--rule); }
+  table.data-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.75rem; white-space: nowrap; }
+  table.data-table th, table.data-table td { padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--rule); }
+  table.data-table.text th, table.data-table.text td { text-align: left; }
+  table.data-table.text th.num, table.data-table.text td.num { text-align: right; }
+  table.data-table thead th { font-size: 0.58rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-light); font-weight: 400; background: var(--off-white); white-space: nowrap; }
+  table.data-table tbody tr:last-child td { border-bottom: none; }
 
   .downloads-intro { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-width: 680px; margin-bottom: 2.5rem; }
   .download-panel { display: flex; flex-direction: column; gap: 2px; }
@@ -116,30 +115,27 @@
 
   .closing-note { margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid var(--rule); font-size: 0.92rem; font-weight: 300; color: var(--ink-light); font-style: italic; max-width: 680px; }
 
-  #business-review .structure-intro { margin-bottom: 2rem; }
-  .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 3rem; }
+  /* Wholesale Business Review section */
+  #business-review .structure-intro { margin-bottom: 2.5rem; }
+  .screen-stack { display: flex; flex-direction: column; gap: 2px; margin-bottom: 3rem; }
+  .screen-card { background: var(--warm-white); border: 1px solid var(--rule); padding: 1.4rem; }
+  .screen-card.narrow { max-width: 460px; }
+  .screen-card img { width: 100%; height: auto; display: block; border: 1px solid var(--rule); }
+  .screen-card figcaption { margin-top: 0.9rem; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); }
 
   .mapping-intro { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1rem; }
   .mapping-grid { display: flex; flex-direction: column; gap: 2px; margin-bottom: 3rem; }
-  .mapping-row { display: grid; grid-template-columns: minmax(200px, 300px) 1fr; gap: 1.5rem; background: var(--off-white); border: 1px solid var(--rule); padding: 1.4rem 1.8rem; align-items: baseline; }
-  .mapping-role { font-size: 0.95rem; color: var(--ink); line-height: 1.5; }
+  .mapping-row { display: grid; grid-template-columns: minmax(200px, 300px) 1fr; gap: 1.5rem; background: var(--off-white); border: 1px solid var(--rule); padding: 1.2rem 1.6rem; align-items: baseline; }
+  .mapping-role { font-size: 0.92rem; color: var(--ink); line-height: 1.5; }
   .mapping-role::before { content: '→ '; color: var(--accent-warm); font-family: var(--mono); }
-  .mapping-evidence { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.7; }
+  .mapping-evidence { font-size: 0.85rem; font-weight: 300; color: var(--ink-mid); line-height: 1.65; }
   @media (max-width: 700px) {
-    .kpi-grid { grid-template-columns: 1fr; }
     .mapping-row { grid-template-columns: 1fr; gap: 0.5rem; }
   }
 
-  @media (max-width: 900px) {
-    .process-strip { grid-template-columns: repeat(2, 1fr); }
-    .process-step:not(:last-child)::after { display: none; }
-    .stats-strip { grid-template-columns: repeat(3, 1fr); }
-  }
   @media (max-width: 768px) {
     #page-header { padding: 8rem 2rem 3rem; }
     section { padding: 4rem 2rem; }
-    .process-strip { grid-template-columns: 1fr; }
-    .stats-strip { grid-template-columns: repeat(2, 1fr); }
     #nav-container nav { padding: 1.2rem 2rem; }
     .nav-links { display: none; }
     .hamburger { display: flex; }
@@ -157,50 +153,71 @@
     <a href="/portfolio/" class="back-link">← Back to Portfolio</a>
     <div class="page-title-row">
       <h1 class="page-title">Maison<br><em>Vasseur</em></h1>
-      <span class="status-badge">Wholesale Database: Available</span>
+      <span class="status-badge">Database &amp; Business Review: Available</span>
     </div>
     <div class="header-desc">
       <p>This project demonstrates business analysis for a Wholesale Analyst role in luxury: reading sell-in and sell-out, tracking customer performance, and structuring data so a business review can actually be built on it. It's built here for Maison Vasseur, a fictitious footwear-led luxury maison with a small leather goods line, selling through 12 wholesale and franchise accounts across six EMEA regions.</p>
-      <p>This first stage is the raw source database only: three relational tables built in Excel, generated with realistic seasonality, lumpy wholesale ordering, and a month-by-month stock simulation, then packaged as a single workbook ready for Power Query. No pivots, formulas, or dashboards live in it on purpose — the sell-through, purchasing-trend, and customer-scorecard analysis is the next layer, to be built by hand on top of this data.</p>
+      <p>The deliverable has two parts, both below: a clean relational source database — four tables covering accounts, products, and two years of sell-in, sell-out, and stock movement — and a Wholesale Business Review Dashboard built on top of it in Power Query and native Excel PivotTables, covering sell-through, purchasing trend, and customer performance.</p>
     </div>
   </div>
 </div>
 
-<section id="build">
+<section id="business-review">
   <div class="container">
-    <p class="section-label reveal">How it's built</p>
-    <div class="process-strip reveal">
-      <div class="process-step">
-        <p class="process-num">Step 1 · Scope</p>
-        <h2 class="process-title">Define the book</h2>
-        <p class="process-desc">6 EMEA regions, 12 wholesale/franchise accounts, 16 SKUs across Women's, Men's, and Leather Goods, priced to a ~CHF 200M/year target.</p>
+    <p class="section-label reveal">Wholesale Business Review Dashboard</p>
+    <p class="structure-intro reveal">A business review built in Power Query and native Excel PivotTables on top of the source database — Sell-In, Sell-Out, Sell-Through %, and Return %, sliced live across Account Type, Region, Category, Product, Month, and named Account, with 2024 vs. 2025 built in throughout.</p>
+
+    <div class="screen-stack reveal">
+      <figure class="screen-card">
+        <img src="/portfolio/vasseur/screenshots/onepage_topline.png" alt="ONEPAGE Topline view: Total, Wholesale, and Franchise rows with Sell-In, Sell-Out, Sell-Through %, and Returns">
+        <figcaption>ONEPAGE — Topline</figcaption>
+      </figure>
+      <figure class="screen-card narrow">
+        <img src="/portfolio/vasseur/screenshots/onepage_region.png" alt="ONEPAGE Region view: Sell-In units and mix % across the six EMEA regions">
+        <figcaption>ONEPAGE — Region</figcaption>
+      </figure>
+    </div>
+
+    <p class="mapping-intro reveal">Wholesale Analyst responsibility → what this file demonstrates</p>
+    <div class="mapping-grid reveal">
+      <div class="mapping-row">
+        <span class="mapping-role">Business analysis, wholesale &amp; franchise</span>
+        <span class="mapping-evidence">Topline (Total / Wholesale / Franchise) plus Region and Country views.</span>
       </div>
-      <div class="process-step">
-        <p class="process-num">Step 2 · Generate</p>
-        <h2 class="process-title">Synthesize</h2>
-        <p class="process-desc">A Python script simulates 24 months of sell-in, sell-out, stock, and returns per account-product, with seasonality, lumpy delivery windows, and per-account performance profiles.</p>
-        <span class="process-code">generate_database.py</span>
+      <div class="mapping-row">
+        <span class="mapping-role">Sell-through analysis</span>
+        <span class="mapping-evidence">True cumulative Sell-Through %, opening-stock aware, plus the month-by-month trend.</span>
       </div>
-      <div class="process-step">
-        <p class="process-num">Step 3 · Package</p>
-        <h2 class="process-title">Flat &amp; relational</h2>
-        <p class="process-desc">Four clean sheets in a single workbook — no merged cells, no formulas, header row bold and frozen only.</p>
-        <span class="process-code">Vasseur_Wholesale_Database_2024_2025.xlsx</span>
+      <div class="mapping-row">
+        <span class="mapping-role">Purchasing / sell-in trend monitoring</span>
+        <span class="mapping-evidence">Sell-In units &amp; value vs. last year, by channel, category, product, and month.</span>
       </div>
-      <div class="process-step">
-        <p class="process-num">Step 4 · Next</p>
-        <h2 class="process-title">Power Query, by hand</h2>
-        <p class="process-desc">This source loads straight into Power Query. The analysis layer — sell-through, purchasing trend, customer scorecards — is the next stage, built separately.</p>
+      <div class="mapping-row">
+        <span class="mapping-role">Customer performance reporting</span>
+        <span class="mapping-evidence">Wholesale vs. Franchise, and all 12 named accounts individually.</span>
+      </div>
+      <div class="mapping-row">
+        <span class="mapping-role">KPI monitoring &amp; review cadence</span>
+        <span class="mapping-evidence">Sell-In, Sell-Out, Sell-Through %, Return % — 2024 vs. 2025, sliceable by month.</span>
       </div>
     </div>
 
-    <div class="stats-strip reveal">
-      <div class="stat-card"><p class="stat-num">6</p><p class="stat-label">Regions</p></div>
-      <div class="stat-card"><p class="stat-num">12</p><p class="stat-label">Accounts</p></div>
-      <div class="stat-card"><p class="stat-num">16</p><p class="stat-label">Products</p></div>
-      <div class="stat-card"><p class="stat-num">2,478 / 11,627</p><p class="stat-label">Monthly / Weekly Rows</p></div>
-      <div class="stat-card"><p class="stat-num">~CHF 200M</p><p class="stat-label">Avg. Annual Sell-In</p></div>
-      <div class="stat-card"><p class="stat-num">2024–2025</p><p class="stat-label">History</p></div>
+    <p class="closing-note reveal">This is a static Excel workbook — a formatted summary sheet (ONEPAGE) driven by lookups against native pivot tables (PIVOT) with live slicers — not a click-through web app. Full interactivity requires opening it in Excel.</p>
+
+    <div class="download-panel reveal" style="margin-top: 3rem;">
+      <div class="download-item">
+        <div class="download-info">
+          <span class="download-badge">.xlsx</span>
+          <div class="download-text">
+            <span class="download-name">Vasseur Dashboard.xlsx</span>
+            <p class="download-desc">The Wholesale Business Review: a formatted ONEPAGE summary plus the native pivot tables behind it, reconciled line-by-line to the source database.</p>
+          </div>
+        </div>
+        <div class="download-action">
+          <span class="download-size">344 KB</span>
+          <a href="/portfolio/vasseur/Vasseur%20Dashboard.xlsx" download class="download-btn">Download ↓</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -208,28 +225,97 @@
 <section id="structure">
   <div class="container">
     <p class="section-label reveal">Data structure</p>
-    <p class="structure-intro reveal">Four flat tables, built to join cleanly in Power Query: two dimension-style tables (Accounts, Products) and two fact tables at different grains (monthly for the full sell-in/sell-out/stock picture, weekly for sell-out only).</p>
+    <p class="structure-intro reveal">Four flat, relational tables — no formulas baked into the file itself. The real data work — merges, transformations, and the native PivotTables behind the Business Review above — happens in Power Query on top of this source, not inside these sheets. Click a table to see a sample of the actual rows.</p>
     <div class="table-grid reveal">
+
       <div class="table-card">
         <div class="table-card-top"><span class="table-name">Accounts</span><span class="table-rows">12 rows</span></div>
         <p class="table-cols">Account ID · Account Name · Region · Country · Account Type</p>
         <p class="table-desc">Two wholesale/franchise accounts per region across UK &amp; Ireland, Nordics &amp; Baltics, DACH, France &amp; Benelux, Iberia, and Southern Europe.</p>
+        <button type="button" class="sample-toggle" aria-expanded="false" aria-controls="sample-accounts" data-show="View sample rows ↓" data-hide="Hide sample rows ↑">View sample rows ↓</button>
+        <div class="sample-panel" id="sample-accounts" hidden>
+          <div class="table-wrap">
+            <table class="data-table text">
+              <thead><tr><th>Account ID</th><th>Account Name</th><th>Region</th><th>Country</th><th>Account Type</th></tr></thead>
+              <tbody>
+                <tr><td>ACC-01</td><td>Hartwell &amp; Vane</td><td>UK and Ireland</td><td>United Kingdom</td><td>Wholesale</td></tr>
+                <tr><td>ACC-02</td><td>Belgrave Maison</td><td>UK and Ireland</td><td>United Kingdom</td><td>Franchise</td></tr>
+                <tr><td>ACC-05</td><td>Alpenrose Schuhhaus</td><td>DACH</td><td>Germany</td><td>Wholesale</td></tr>
+                <tr><td>ACC-07</td><td>Le Comptoir de la Mode</td><td>France and Benelux</td><td>France</td><td>Wholesale</td></tr>
+                <tr><td>ACC-09</td><td>Casa Serrano</td><td>Iberia</td><td>Spain</td><td>Wholesale</td></tr>
+                <tr><td>ACC-11</td><td>Casa Lombardi</td><td>Southern Europe</td><td>Italy</td><td>Wholesale</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
+
       <div class="table-card">
         <div class="table-card-top"><span class="table-name">Products</span><span class="table-rows">16 rows</span></div>
         <p class="table-cols">Product ID · Product Name · Category · Season · Wholesale Price (CHF) · Retail Price (CHF)</p>
         <p class="table-desc">Women's Footwear, Men's Footwear, and Leather Goods, weighted so footwear carries the large majority of both SKU count and revenue.</p>
+        <button type="button" class="sample-toggle" aria-expanded="false" aria-controls="sample-products" data-show="View sample rows ↓" data-hide="Hide sample rows ↑">View sample rows ↓</button>
+        <div class="sample-panel" id="sample-products" hidden>
+          <div class="table-wrap">
+            <table class="data-table text">
+              <thead><tr><th>Product ID</th><th>Product Name</th><th>Category</th><th>Season</th><th class="num">Wholesale (CHF)</th><th class="num">Retail (CHF)</th></tr></thead>
+              <tbody>
+                <tr><td>PRD-01</td><td>Etoile Pump 100</td><td>Women's Footwear</td><td>SS24</td><td class="num">620</td><td class="num">1,550</td></tr>
+                <tr><td>PRD-02</td><td>Vasseur Oxford</td><td>Men's Footwear</td><td>FW24</td><td class="num">590</td><td class="num">1,450</td></tr>
+                <tr><td>PRD-05</td><td>Voltige Sandal</td><td>Women's Footwear</td><td>SS25</td><td class="num">560</td><td class="num">1,400</td></tr>
+                <tr><td>PRD-09</td><td>Aurore Ankle Boot</td><td>Women's Footwear</td><td>FW24</td><td class="num">710</td><td class="num">1,780</td></tr>
+                <tr><td>PRD-12</td><td>Cambon Card Holder</td><td>Leather Goods</td><td>SS24</td><td class="num">190</td><td class="num">450</td></tr>
+                <tr><td>PRD-13</td><td>Voltige Belt</td><td>Leather Goods</td><td>FW24</td><td class="num">340</td><td class="num">800</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
+
       <div class="table-card">
         <div class="table-card-top"><span class="table-name">Transactions_Monthly</span><span class="table-rows">2,478 rows</span></div>
         <p class="table-cols">Account ID · Product ID · Month (YYYY-MM) · Sell-In Units · Sell-In Value (CHF) · Sell-Out Units · Sell-Out Value (CHF) · Stock Units · Returns Units</p>
         <p class="table-desc">One row per active account-product-month. Stock rolls forward consistently: prior stock + sell-in − sell-out − returns.</p>
+        <button type="button" class="sample-toggle" aria-expanded="false" aria-controls="sample-monthly" data-show="View sample rows ↓" data-hide="Hide sample rows ↑">View sample rows ↓</button>
+        <div class="sample-panel" id="sample-monthly" hidden>
+          <div class="table-wrap">
+            <table class="data-table text">
+              <thead><tr><th>Account ID</th><th>Product ID</th><th>Month</th><th class="num">Sell-In Units</th><th class="num">Sell-In Value</th><th class="num">Sell-Out Units</th><th class="num">Sell-Out Value</th><th class="num">Stock Units</th><th class="num">Returns</th></tr></thead>
+              <tbody>
+                <tr><td>ACC-01</td><td>PRD-01</td><td>2024-01</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+                <tr><td>ACC-01</td><td>PRD-01</td><td>2024-02</td><td class="num">1,469</td><td class="num">910,780</td><td class="num">435</td><td class="num">674,250</td><td class="num">1,020</td><td class="num">14</td></tr>
+                <tr><td>ACC-01</td><td>PRD-01</td><td>2024-03</td><td class="num">0</td><td class="num">0</td><td class="num">339</td><td class="num">525,450</td><td class="num">673</td><td class="num">8</td></tr>
+                <tr><td>ACC-01</td><td>PRD-01</td><td>2024-04</td><td class="num">1,444</td><td class="num">895,280</td><td class="num">921</td><td class="num">1,427,550</td><td class="num">1,167</td><td class="num">29</td></tr>
+                <tr><td>ACC-01</td><td>PRD-01</td><td>2024-05</td><td class="num">0</td><td class="num">0</td><td class="num">471</td><td class="num">730,050</td><td class="num">679</td><td class="num">17</td></tr>
+                <tr><td>ACC-01</td><td>PRD-01</td><td>2024-06</td><td class="num">0</td><td class="num">0</td><td class="num">364</td><td class="num">564,200</td><td class="num">306</td><td class="num">9</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
+
       <div class="table-card">
         <div class="table-card-top"><span class="table-name">Transactions_Weekly</span><span class="table-rows">11,627 rows</span></div>
         <p class="table-cols">Account ID · Product ID · Week (ISO YYYY-Www) · Sell-Out Units · Sell-Out Value (CHF)</p>
         <p class="table-desc">Weekly sell-out only, reconciling exactly to the monthly totals — the grain a weekly business review actually runs on.</p>
+        <button type="button" class="sample-toggle" aria-expanded="false" aria-controls="sample-weekly" data-show="View sample rows ↓" data-hide="Hide sample rows ↑">View sample rows ↓</button>
+        <div class="sample-panel" id="sample-weekly" hidden>
+          <div class="table-wrap">
+            <table class="data-table text">
+              <thead><tr><th>Account ID</th><th>Product ID</th><th>Week</th><th class="num">Sell-Out Units</th><th class="num">Sell-Out Value</th></tr></thead>
+              <tbody>
+                <tr><td>ACC-01</td><td>PRD-01</td><td>2024-W05</td><td class="num">133</td><td class="num">206,150</td></tr>
+                <tr><td>ACC-01</td><td>PRD-01</td><td>2024-W06</td><td class="num">89</td><td class="num">137,950</td></tr>
+                <tr><td>ACC-01</td><td>PRD-01</td><td>2024-W07</td><td class="num">62</td><td class="num">96,100</td></tr>
+                <tr><td>ACC-01</td><td>PRD-01</td><td>2024-W08</td><td class="num">76</td><td class="num">117,800</td></tr>
+                <tr><td>ACC-01</td><td>PRD-01</td><td>2024-W10</td><td class="num">49</td><td class="num">75,950</td></tr>
+                <tr><td>ACC-01</td><td>PRD-01</td><td>2024-W11</td><td class="num">84</td><td class="num">130,200</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -237,7 +323,7 @@
 <section id="downloads">
   <div class="container">
     <p class="section-label reveal">Source files</p>
-    <p class="downloads-intro reveal">The database and the script used to generate it. Download them directly.</p>
+    <p class="downloads-intro reveal">The two files behind this case study. Download them directly.</p>
     <div class="download-panel reveal">
       <div class="download-item">
         <div class="download-info">
@@ -254,87 +340,10 @@
       </div>
       <div class="download-item">
         <div class="download-info">
-          <span class="download-badge">.py</span>
-          <div class="download-text">
-            <span class="download-name">generate_database.py</span>
-            <p class="download-desc">Seeded Python script used to synthesize the dataset — included for transparency and reproducibility.</p>
-          </div>
-        </div>
-        <div class="download-action">
-          <span class="download-size">18.5 KB</span>
-          <a href="/portfolio/vasseur/generate_database.py" download class="download-btn">Download ↓</a>
-        </div>
-      </div>
-      <div class="download-item">
-        <div class="download-info">
-          <span class="download-badge">.md</span>
-          <div class="download-text">
-            <span class="download-name">README.md</span>
-            <p class="download-desc">Full write-up of the dataset, its structure, and how it's meant to be used.</p>
-          </div>
-        </div>
-        <div class="download-action">
-          <span class="download-size">5.1 KB</span>
-          <a href="/portfolio/vasseur/README.md" download class="download-btn">Download ↓</a>
-        </div>
-      </div>
-    </div>
-
-    <p class="closing-note reveal">This is the raw source layer. The sell-through, purchasing-trend, and customer-performance analysis built on top of it is live in the Wholesale Business Review Dashboard section below.</p>
-  </div>
-</section>
-
-<section id="business-review">
-  <div class="container">
-    <p class="section-label reveal">Wholesale Business Review Dashboard</p>
-    <p class="structure-intro reveal">A single Excel workbook built to demonstrate the core of the Wholesale Analyst role end to end, on two full years of Maison Vasseur's book: reading sell-in and sell-out, tracking sell-through, watching purchasing trends, and reporting on customer performance — the working toolkit for running a luxury wholesale and franchise business, not a generic BI showcase. It's a formatted one-page summary sitting on top of a set of native Excel pivot tables, so the same core KPI set can be sliced live, in Excel, from a full EMEA topline down to a single account or a single SKU.</p>
-
-    <p class="mapping-intro reveal">Wholesale Analyst responsibility → what this file demonstrates</p>
-    <div class="mapping-grid reveal">
-      <div class="mapping-row">
-        <span class="mapping-role">Business analysis across a wholesale &amp; franchise portfolio</span>
-        <span class="mapping-evidence">Topline KPI view (Total / Wholesale / Franchise) plus Region and Country breakdowns — the full EMEA book at a glance.</span>
-      </div>
-      <div class="mapping-row">
-        <span class="mapping-role">Sell-through analysis</span>
-        <span class="mapping-evidence">True cumulative Sell-Through %, correctly accounting for opening stock rather than a naive sell-out ÷ sell-in ratio, plus the month-by-month cumulative trend.</span>
-      </div>
-      <div class="mapping-row">
-        <span class="mapping-role">Purchasing / sell-in trend monitoring</span>
-        <span class="mapping-evidence">Sell-In units and value vs. last year, broken out by channel, category, product, and month.</span>
-      </div>
-      <div class="mapping-row">
-        <span class="mapping-role">Customer performance reporting</span>
-        <span class="mapping-evidence">Named-account and Account Type breakdowns — Wholesale vs. Franchise, and every one of the 12 accounts individually.</span>
-      </div>
-      <div class="mapping-row">
-        <span class="mapping-role">Ongoing KPI monitoring &amp; business review cadence</span>
-        <span class="mapping-evidence">The full KPI set — Sell-In, Sell-Out, Sell-Through %, Return % — with 2024 vs. 2025 built in throughout, ready to slice by month for a recurring review.</span>
-      </div>
-    </div>
-
-    <div class="kpi-grid reveal">
-      <div class="table-card">
-        <div class="table-card-top"><span class="table-name">KPIs tracked</span><span class="table-rows">2024 vs 2025</span></div>
-        <p class="table-cols">Sell-In · Sell-Out · Sell-Through % · Return %</p>
-        <p class="table-desc">Units and value throughout, with year-over-year comparison built into every view rather than bolted on afterward.</p>
-      </div>
-      <div class="table-card">
-        <div class="table-card-top"><span class="table-name">Slice by</span><span class="table-rows">via slicers</span></div>
-        <p class="table-cols">Account Type · Region · Country · Category · Product · Month · Account</p>
-        <p class="table-desc">The same KPI set, live in Excel, from a full EMEA topline down to a single account or a single SKU.</p>
-      </div>
-    </div>
-
-    <p class="closing-note reveal">This is a static Excel workbook — a formatted summary sheet (ONEPAGE) driven by lookups against native pivot tables (PIVOT) — not a click-through web dashboard. Full interactivity, including the slicers, requires opening it in Excel.</p>
-
-    <div class="download-panel reveal" style="margin-top: 3rem;">
-      <div class="download-item">
-        <div class="download-info">
           <span class="download-badge">.xlsx</span>
           <div class="download-text">
             <span class="download-name">Vasseur Dashboard.xlsx</span>
-            <p class="download-desc">The Wholesale Business Review: a formatted ONEPAGE summary plus the native pivot tables behind it, reconciled line-by-line to the source database.</p>
+            <p class="download-desc">The Wholesale Business Review: a formatted ONEPAGE summary plus the native pivot tables behind it.</p>
           </div>
         </div>
         <div class="download-action">
@@ -343,68 +352,8 @@
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<section id="business-review">
-  <div class="container">
-    <p class="section-label reveal">Wholesale Business Review Dashboard</p>
-    <p class="structure-intro reveal">A single Excel workbook built to demonstrate the core of the Wholesale Analyst role end to end, on two full years of Maison Vasseur's book: reading sell-in and sell-out, tracking sell-through, watching purchasing trends, and reporting on customer performance — the working toolkit for running a luxury wholesale and franchise business, not a generic BI showcase. It's a formatted one-page summary sitting on top of a set of native Excel pivot tables, so the same core KPI set can be sliced live, in Excel, from a full EMEA topline down to a single account or a single SKU.</p>
-
-    <p class="mapping-intro reveal">Wholesale Analyst responsibility → what this file demonstrates</p>
-    <div class="mapping-grid reveal">
-      <div class="mapping-row">
-        <span class="mapping-role">Business analysis across a wholesale &amp; franchise portfolio</span>
-        <span class="mapping-evidence">Topline KPI view (Total / Wholesale / Franchise) plus Region and Country breakdowns — the full EMEA book at a glance.</span>
-      </div>
-      <div class="mapping-row">
-        <span class="mapping-role">Sell-through analysis</span>
-        <span class="mapping-evidence">True cumulative Sell-Through %, correctly accounting for opening stock rather than a naive sell-out ÷ sell-in ratio, plus the month-by-month cumulative trend.</span>
-      </div>
-      <div class="mapping-row">
-        <span class="mapping-role">Purchasing / sell-in trend monitoring</span>
-        <span class="mapping-evidence">Sell-In units and value vs. last year, broken out by channel, category, product, and month.</span>
-      </div>
-      <div class="mapping-row">
-        <span class="mapping-role">Customer performance reporting</span>
-        <span class="mapping-evidence">Named-account and Account Type breakdowns — Wholesale vs. Franchise, and every one of the 12 accounts individually.</span>
-      </div>
-      <div class="mapping-row">
-        <span class="mapping-role">Ongoing KPI monitoring &amp; business review cadence</span>
-        <span class="mapping-evidence">The full KPI set — Sell-In, Sell-Out, Sell-Through %, Return % — with 2024 vs. 2025 built in throughout, ready to slice by month for a recurring review.</span>
-      </div>
-    </div>
-
-    <div class="kpi-grid reveal">
-      <div class="table-card">
-        <div class="table-card-top"><span class="table-name">KPIs tracked</span><span class="table-rows">2024 vs 2025</span></div>
-        <p class="table-cols">Sell-In · Sell-Out · Sell-Through % · Return %</p>
-        <p class="table-desc">Units and value throughout, with year-over-year comparison built into every view rather than bolted on afterward.</p>
-      </div>
-      <div class="table-card">
-        <div class="table-card-top"><span class="table-name">Slice by</span><span class="table-rows">via slicers</span></div>
-        <p class="table-cols">Account Type · Region · Country · Category · Product · Month · Account</p>
-        <p class="table-desc">The same KPI set, live in Excel, from a full EMEA topline down to a single account or a single SKU.</p>
-      </div>
-    </div>
-
-    <p class="closing-note reveal">This is a static Excel workbook — a formatted summary sheet (ONEPAGE) driven by lookups against native pivot tables (PIVOT) — not a click-through web dashboard. Full interactivity, including the slicers, requires opening it in Excel.</p>
-
-    <div class="download-panel reveal" style="margin-top: 3rem;">
-      <div class="download-item">
-        <div class="download-info">
-          <span class="download-badge">.xlsx</span>
-          <div class="download-text">
-            <span class="download-name">Vasseur Dashboard.xlsx</span>
-            <p class="download-desc">The Wholesale Business Review: a formatted ONEPAGE summary plus the native pivot tables behind it, reconciled line-by-line to the source database.</p>
-          </div>
-        </div>
-        <div class="download-action">
-          <span class="download-size">344 KB</span>
-          <a href="/portfolio/vasseur/Vasseur%20Dashboard.xlsx" download class="download-btn">Download ↓</a>
-        </div>
-      </div>
-    </div>
+    <p class="closing-note reveal">This is the raw source layer. The sell-through, purchasing-trend, and customer-performance analysis built on top of it is live in the Wholesale Business Review Dashboard section above.</p>
   </div>
 </section>
 
@@ -434,6 +383,17 @@
     }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
     reveals.forEach(el => observer.observe(el));
   }
+
+  document.querySelectorAll('.sample-toggle').forEach(btn => {
+    const panel = document.getElementById(btn.getAttribute('aria-controls'));
+    btn.addEventListener('click', () => {
+      const isOpen = !panel.hidden;
+      panel.hidden = isOpen;
+      btn.classList.toggle('active', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      btn.textContent = isOpen ? btn.dataset.show : btn.dataset.hide;
+    });
+  });
 </script>
 </body>
 </html>
