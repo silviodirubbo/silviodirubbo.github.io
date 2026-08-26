@@ -116,22 +116,19 @@
   .closing-note { margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid var(--rule); font-size: 0.92rem; font-weight: 300; color: var(--ink-light); font-style: italic; max-width: 680px; }
 
   /* Wholesale Business Review section */
-  #business-review .structure-intro { margin-bottom: 2.5rem; }
-  .screen-stack { display: flex; flex-direction: column; gap: 2px; margin-bottom: 3rem; }
+  .review-intro { font-size: 1rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; max-width: 760px; margin-bottom: 2rem; }
+  .screen-stack { display: flex; flex-direction: column; gap: 2px; margin-bottom: 2rem; }
   .screen-card { background: var(--warm-white); border: 1px solid var(--rule); padding: 1.4rem; }
-  .screen-card.narrow { max-width: 460px; }
+  .screen-card.wide-narrow { max-width: 640px; }
   .screen-card img { width: 100%; height: auto; display: block; border: 1px solid var(--rule); }
   .screen-card figcaption { margin-top: 0.9rem; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); }
 
-  .mapping-intro { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1rem; }
-  .mapping-grid { display: flex; flex-direction: column; gap: 2px; margin-bottom: 3rem; }
-  .mapping-row { display: grid; grid-template-columns: minmax(200px, 300px) 1fr; gap: 1.5rem; background: var(--off-white); border: 1px solid var(--rule); padding: 1.2rem 1.6rem; align-items: baseline; }
-  .mapping-role { font-size: 0.92rem; color: var(--ink); line-height: 1.5; }
-  .mapping-role::before { content: '→ '; color: var(--accent-warm); font-family: var(--mono); }
-  .mapping-evidence { font-size: 0.85rem; font-weight: 300; color: var(--ink-mid); line-height: 1.65; }
-  @media (max-width: 700px) {
-    .mapping-row { grid-template-columns: 1fr; gap: 0.5rem; }
-  }
+  .review-caveat { margin-top: 0.9rem; margin-bottom: 3rem; font-size: 0.82rem; font-weight: 300; font-style: italic; color: var(--ink-light); }
+
+  .mapping-intro { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1.2rem; }
+  .responsibility-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; max-width: 780px; }
+  .responsibility-list li { font-size: 0.95rem; font-weight: 300; color: var(--ink-mid); line-height: 1.7; padding-left: 1.5rem; position: relative; }
+  .responsibility-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent-warm); font-family: var(--mono); }
 
   @media (max-width: 768px) {
     #page-header { padding: 8rem 2rem 3rem; }
@@ -165,52 +162,26 @@
 <section id="business-review">
   <div class="container">
     <p class="section-label reveal">Wholesale Business Review Dashboard</p>
-    <p class="structure-intro reveal">A business review built in Power Query and native Excel PivotTables on top of the source database — Sell-In, Sell-Out, Sell-Through %, and Return %, sliced live across Account Type, Region, Category, Product, Month, and named Account, with 2024 vs. 2025 built in throughout.</p>
+    <p class="review-intro reveal">A dashboard covering the core of the role: Sell-In, Sell-Out, Sell-Through %, and Returns — sliceable by month, division, region, channel, account, and product.</p>
 
     <div class="screen-stack reveal">
       <figure class="screen-card">
         <img src="/portfolio/vasseur/screenshots/onepage_topline.png" alt="ONEPAGE Topline view: Total, Wholesale, and Franchise rows with Sell-In, Sell-Out, Sell-Through %, and Returns">
         <figcaption>ONEPAGE — Topline</figcaption>
       </figure>
-      <figure class="screen-card narrow">
+      <figure class="screen-card wide-narrow">
         <img src="/portfolio/vasseur/screenshots/onepage_region.png" alt="ONEPAGE Region view: Sell-In units and mix % across the six EMEA regions">
         <figcaption>ONEPAGE — Region</figcaption>
       </figure>
     </div>
 
-    <p class="mapping-intro reveal">Wholesale Analyst responsibility → what this file demonstrates</p>
-    <div class="mapping-grid reveal">
-      <div class="mapping-row">
-        <span class="mapping-role">Business analysis, wholesale &amp; franchise</span>
-        <span class="mapping-evidence">Topline (Total / Wholesale / Franchise) plus Region and Country views.</span>
-      </div>
-      <div class="mapping-row">
-        <span class="mapping-role">Sell-through analysis</span>
-        <span class="mapping-evidence">True cumulative Sell-Through %, opening-stock aware, plus the month-by-month trend.</span>
-      </div>
-      <div class="mapping-row">
-        <span class="mapping-role">Purchasing / sell-in trend monitoring</span>
-        <span class="mapping-evidence">Sell-In units &amp; value vs. last year, by channel, category, product, and month.</span>
-      </div>
-      <div class="mapping-row">
-        <span class="mapping-role">Customer performance reporting</span>
-        <span class="mapping-evidence">Wholesale vs. Franchise, and all 12 named accounts individually.</span>
-      </div>
-      <div class="mapping-row">
-        <span class="mapping-role">KPI monitoring &amp; review cadence</span>
-        <span class="mapping-evidence">Sell-In, Sell-Out, Sell-Through %, Return % — 2024 vs. 2025, sliceable by month.</span>
-      </div>
-    </div>
-
-    <p class="closing-note reveal">This is a static Excel workbook — a formatted summary sheet (ONEPAGE) driven by lookups against native pivot tables (PIVOT) with live slicers — not a click-through web app. Full interactivity requires opening it in Excel.</p>
-
-    <div class="download-panel reveal" style="margin-top: 3rem;">
+    <div class="download-panel reveal">
       <div class="download-item">
         <div class="download-info">
           <span class="download-badge">.xlsx</span>
           <div class="download-text">
             <span class="download-name">Vasseur Dashboard.xlsx</span>
-            <p class="download-desc">The Wholesale Business Review: a formatted ONEPAGE summary plus the native pivot tables behind it, reconciled line-by-line to the source database.</p>
+            <p class="download-desc">Download and explore the live slicers yourself.</p>
           </div>
         </div>
         <div class="download-action">
@@ -219,6 +190,16 @@
         </div>
       </div>
     </div>
+    <p class="review-caveat reveal">Static Excel workbook with live slicers — full interactivity requires opening it in Excel.</p>
+
+    <p class="mapping-intro reveal">What this dashboard is built for</p>
+    <ul class="responsibility-list reveal">
+      <li>Analyze wholesale and franchise customer performance, sell-through, and purchasing trends.</li>
+      <li>Prepare and maintain regular reporting tools and dashboards for Wholesale, Merchandising, and senior management teams.</li>
+      <li>Gather and consolidate customer data to produce weekly and monthly business reviews.</li>
+      <li>Support preparation for commercial meetings with Women's, Men's, and Leather Goods teams by providing insights and performance analysis.</li>
+      <li>Monitor key business KPIs and proactively highlight areas requiring attention or action.</li>
+    </ul>
   </div>
 </section>
 
