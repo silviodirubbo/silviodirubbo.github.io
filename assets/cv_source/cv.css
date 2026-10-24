@@ -29,7 +29,7 @@ a { color: inherit; text-decoration: none; }
 .name { font-size: 34pt; font-weight: 400; line-height: 1.05; letter-spacing: -0.01em; color: var(--ink); }
 .name em { font-style: italic; color: var(--accent); }
 .headline { font-size: 13pt; font-style: italic; font-weight: 400; color: var(--ink-mid); margin-top: 1.5mm; }
-.contact { margin-top: 4mm; font-family: var(--mono); font-size: 7.4pt; letter-spacing: 0.06em; line-height: 1.85; color: var(--ink-mid); }
+.contact { margin-top: 3.4mm; font-family: var(--mono); font-size: 7.4pt; letter-spacing: 0.06em; line-height: 1.85; color: var(--ink-mid); }
 .contact .sep { color: var(--ink-light); padding: 0 1.2mm; }
 .photo { width: 32mm; height: 32mm; border-radius: 50%; display: block; object-fit: cover; }
 
@@ -69,3 +69,11 @@ ul.bullets li::before { content: ''; position: absolute; left: 0.6mm; top: 0.62e
 .rows .row-title { color: var(--ink); font-weight: 600; }
 .rows .row-sub { font-style: italic; font-weight: 400; color: var(--ink-light); }
 .rows-earlier { margin-top: 3.5mm; padding-top: 3.5mm; border-top: 0.5pt solid var(--rule); }
+
+/* Portfolio entry point in the header */
+.portfolio-line { margin-top: 2.2mm; display: flex; align-items: baseline; gap: 2.5mm; }
+.portfolio-key { font-family: var(--mono); font-size: 7pt; letter-spacing: 0.16em; text-transform: uppercase; color: var(--warm-white); background: var(--accent); padding: 0.5mm 1.8mm; }
+.portfolio-line a { font-size: 12pt; font-weight: 600; color: var(--accent); border-bottom: 0.5pt solid var(--accent); line-height: 1.2; }
+.portfolio-note { margin-top: 1mm; font-size: 10pt; font-style: italic; font-weight: 400; color: var(--ink-mid); line-height: 1.4; }
+.row-url { font-family: var(--mono); font-size: 6.9pt; letter-spacing: 0.04em; color: var(--accent); white-space: nowrap; margin-left: 1mm; }
+.portfolio-hint { font-size: 10pt; font-style: italic; font-weight: 400; color: var(--ink-light); }
