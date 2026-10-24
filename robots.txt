@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /assets/cv_source/
 
 Sitemap: https://silviodirubbo.github.io/sitemap.xml
