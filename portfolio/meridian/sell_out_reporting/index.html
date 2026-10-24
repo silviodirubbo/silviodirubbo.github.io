@@ -93,7 +93,7 @@
   #scope { background: var(--off-white); }
   .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 1.5rem; }
   .contrast-card { background: var(--warm-white); border: 1px solid var(--rule); padding: 1.8rem 2rem; }
-  .contrast-card h3 { font-size: 1.15rem; font-weight: 500; margin-bottom: 1rem; color: var(--accent); }
+  .contrast-card h2 { font-size: 1.15rem; font-weight: 500; margin-bottom: 1rem; color: var(--accent); }
   .contrast-card p { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; }
   .scope-note { display: flex; gap: 1.4rem; align-items: flex-start; background: var(--warm-white); border: 1px solid var(--rule); padding: 1.6rem 1.8rem; margin-top: 1.5rem; margin-bottom: 2.5rem; }
   .scope-note-icon { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--v-neg); background: rgba(163,58,46,0.08); border: 1px solid rgba(163,58,46,0.25); padding: 0.3rem 0.55rem; flex-shrink: 0; margin-top: 0.2rem; }
@@ -316,11 +316,11 @@
 
     <div class="contrast-grid reveal">
       <div class="contrast-card">
-        <h3>Wholesale Sell-Out</h3>
+        <h2>Wholesale Sell-Out</h2>
         <p>Point-of-sale data reported by wholesale partners, read from <code>fact_sell_out</code>. Only accounts flagged <code>reports_sellout = TRUE</code> feed this page: 119 of 224 wholesale accounts. Cut by region, channel, collection, and partner.</p>
       </div>
       <div class="contrast-card">
-        <h3>DTC / Boutique</h3>
+        <h2>DTC / Boutique</h2>
         <p>Transaction data from Meridian's own boutique register systems, read from <code>fact_boutique_sales</code>, Retail and Online. Covers all 56 boutiques with no partner-reporting dependency. Cut by region, channel, collection, and store.</p>
       </div>
     </div>
@@ -332,13 +332,13 @@
 
     <p class="visual-list-title reveal">What each visual shows</p>
     <ul class="visual-list reveal">
-      <li><b>KPI row</b> — Revenue, Units, three page-specific metrics, and a month selector.</li>
-      <li><b>Revenue by Region</b> — EMEA, APAC, NA, LATAM, current year vs prior year.</li>
-      <li><b>Revenue by Collection</b> — ten collections, current year vs prior year.</li>
-      <li><b>Retail vs Online</b> — two channels, current year vs prior year.</li>
-      <li><b>Monthly trend</b> — twelve months, current year vs prior year.</li>
-      <li><b>Ranked table</b> — Top 5 Partners (Wholesale) or Top 5 Stores (DTC), revenue and growth vs last year.</li>
-      <li><b>Interaction</b> — selecting a month, region, channel, or partner/store filters the page; selecting a collection cross-highlights instead.</li>
+      <li><b>KPI row</b>: Revenue, Units, three page-specific metrics, and a month selector.</li>
+      <li><b>Revenue by Region</b>: EMEA, APAC, NA, LATAM, current year vs prior year.</li>
+      <li><b>Revenue by Collection</b>: ten collections, current year vs prior year.</li>
+      <li><b>Retail vs Online</b>: two channels, current year vs prior year.</li>
+      <li><b>Monthly trend</b>: twelve months, current year vs prior year.</li>
+      <li><b>Ranked table</b>: Top 5 Partners (Wholesale) or Top 5 Stores (DTC), revenue and growth vs last year.</li>
+      <li><b>Interaction</b>: selecting a month, region, channel, or partner/store filters the page; selecting a collection cross-highlights instead.</li>
     </ul>
   </div>
 </section>

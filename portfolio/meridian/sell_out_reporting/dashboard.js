@@ -1,5 +1,5 @@
 /* Interactive Power BI-style mockup for the Sell-Out Reporting Pack.
-   Renders from the static dataset in mockup-data.js — no live connection.
+   Renders from the static dataset in mockup-data.js, no live connection.
    Two instances (Wholesale / DTC) share the same engine via buildConfig(). */
 (function () {
   const D = window.MERIDIAN_SELLOUT_DATA;
@@ -20,7 +20,7 @@
     return String(Math.round(v));
   }
   function fmtPct(v, decimals) {
-    if (v === null || v === undefined || isNaN(v)) return '—';
+    if (v === null || v === undefined || isNaN(v)) return 'n/a';
     const d = decimals == null ? 1 : decimals;
     return (v >= 0 ? '▲ ' : '▼ ') + Math.abs(v).toFixed(d) + '%';
   }
