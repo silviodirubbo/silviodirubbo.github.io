@@ -7,9 +7,11 @@ Built with plain HTML, CSS, and JavaScript. No frameworks, no dependencies. Shar
 ## Content
 
 - Home, CV, Portfolio, Projects, and Contact
-- CV: experience, education, skills, certifications, and Power BI/Tableau report samples (cv/powerbi/)
-- Portfolio: Meridian Time Group, a fictional FP&A-BI case study. Data Foundation is available; Master Budget Model is in progress; Rolling Forecast, Variance Analysis, Working Capital & CapEx, Standard Costing, Periodic Sales Reporting, and Year-End Business Review are planned
-- Projects: Borderliner newsletter, Cellar wine diary, Khollar (in development), and a Letterboxd film log
+- CV: experience, education (with dissertations and exam grades), volunteering, skills, certifications, and Power BI/Tableau report samples (cv/powerbi/)
+- Portfolio: Meridian Time Group, a fictional FP&A and BI case study. Data Foundation, Master Budget Model, Forecast Model, Sell-Out Reporting Pack, and Year-End Business Review are available; Variance Analysis, Working Capital & CapEx, and Standard Costing are planned
+- Portfolio: Maison Vasseur, a fictional wholesale case study with a relational Excel database and a Wholesale Business Review dashboard
+- Excel deliverables (portfolio/excel/): budget model, forecast model, and the Vasseur business review dashboard
+- Projects: Borderliner, an editorial project on economics and culture; Cellar, a private wine tasting series in Geneva; Khollar (in development); and a Letterboxd film log
 
 ## Contact
 
