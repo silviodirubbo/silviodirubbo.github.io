@@ -10,3 +10,4 @@
 *.twbx binary
 *.pbix binary
 *.db binary
+*.woff2 binary
