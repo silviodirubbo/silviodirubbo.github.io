@@ -40,6 +40,30 @@
   .edu-degree { font-size: 1.15rem; font-weight: 400; color: var(--ink); margin-bottom: 0.4rem; line-height: 1.3; }
   .edu-school { font-size: 0.9rem; font-weight: 300; color: var(--ink-mid); margin-bottom: 1rem; font-style: italic; }
   .edu-grade { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; color: var(--accent-warm); }
+  .edu-major { font-size: 0.9rem; font-weight: 300; color: var(--ink-mid); line-height: 1.5; margin-bottom: 0.4rem; }
+  .edu-facts { margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 1.2rem; }
+  .edu-facts dt { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); padding-top: 0.3rem; }
+  .edu-facts dd { font-size: 0.92rem; font-weight: 300; color: var(--ink-mid); line-height: 1.6; }
+  .edu-exams { margin-top: 1.4rem; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .edu-exams summary { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); padding: 0.9rem 0; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .edu-exams summary::-webkit-details-marker { display: none; }
+  .edu-exams summary::after { content: 'Show +'; color: var(--ink-light); white-space: nowrap; }
+  .edu-exams[open] summary::after { content: 'Hide \00D7'; }
+  .edu-exams summary:hover { color: var(--ink); }
+  .edu-exams summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .edu-exam-group { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); margin: 1rem 0 0.4rem; }
+  .edu-exam-list { list-style: none; margin-bottom: 0.6rem; }
+  .edu-exam-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.5; padding: 0.35rem 0; border-top: 1px solid var(--rule); }
+  .edu-exam-grade { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.06em; color: var(--ink); white-space: nowrap; }
+  .edu-doc { margin-top: 1.4rem; display: inline-block; }
+  .vol-item { display: grid; grid-template-columns: 200px 1fr; gap: 3rem; padding: 1.8rem 0; border-top: 1px solid var(--rule); }
+  .vol-item:last-child { border-bottom: 1px solid var(--rule); }
+  .vol-role { font-size: 1.1rem; font-weight: 400; color: var(--ink); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+  .vol-compact { padding: 1.1rem 0; align-items: baseline; }
+  .vol-compact .exp-period { margin-bottom: 0; }
+  .vol-line { font-size: 0.92rem; font-weight: 300; color: var(--ink-mid); line-height: 1.7; }
+  .vol-line-role { font-weight: 400; color: var(--ink); }
+  .vol-line-cause { display: block; margin-top: 0.3rem; font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); }
   .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 0.5rem; }
   .skill-group { background: var(--off-white); padding: 2rem 1.75rem; }
   .skill-group-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--rule); }
@@ -63,8 +87,8 @@
   .tool-card-desc { font-size: 0.92rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; margin-bottom: 1.2rem; }
   .tool-card-link { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mid); border-bottom: 1px solid var(--rule); padding-bottom: 2px; }
   .tool-card:hover .tool-card-link { color: var(--ink); border-color: var(--ink-mid); }
-  @media (max-width: 768px) { #page-header { padding: 8rem 2rem 4rem; } .page-header-inner { grid-template-columns: 1fr; gap: 2rem; } .exp-item { grid-template-columns: 1fr; gap: 0.8rem; } .edu-grid { grid-template-columns: 1fr; } .skills-grid { grid-template-columns: 1fr 1fr; } .tools-grid { grid-template-columns: 1fr; } .cert-strip { flex-direction: column; align-items: flex-start; } }
-  @media (max-width: 480px) { .skills-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 768px) { #page-header { padding: 8rem 2rem 4rem; } .page-header-inner { grid-template-columns: 1fr; gap: 2rem; } .exp-item, .vol-item { grid-template-columns: 1fr; gap: 0.8rem; } .edu-grid { grid-template-columns: 1fr; } .skills-grid { grid-template-columns: 1fr 1fr; } .tools-grid { grid-template-columns: 1fr; } .cert-strip { flex-direction: column; align-items: flex-start; } }
+  @media (max-width: 480px) { .skills-grid { grid-template-columns: 1fr; } .edu-card { padding: 2rem 1.5rem; } .edu-facts { grid-template-columns: 1fr; gap: 0.2rem; } .edu-facts dd { margin-bottom: 0.6rem; } }
 </style>
 </head>
 <body>
@@ -161,8 +185,136 @@
   <div class="container">
     <h2 class="section-label reveal">Education</h2>
     <div class="edu-grid reveal">
-      <div class="edu-card"><p class="edu-degree-label">Master of Science · 2022</p><p class="edu-degree">Economics &amp; Management for Arts, Culture, Media and Entertainment</p><p class="edu-school">Università Bocconi, Milan</p><p class="edu-grade">110 / 110</p><a href="/assets/CV%20Attachments/Bocconi_Diplomas.pdf" target="_blank" class="btn-secondary" style="margin-top:1.2rem;display:inline-block;">View diploma</a></div>
-      <div class="edu-card"><p class="edu-degree-label">Bachelor of Science · 2020</p><p class="edu-degree">Economics &amp; Management for Arts, Culture, Media and Entertainment</p><p class="edu-school">Università Bocconi, Milan</p><p class="edu-grade">100 / 110</p><a href="/assets/CV%20Attachments/Bocconi_Diplomas.pdf" target="_blank" class="btn-secondary" style="margin-top:1.2rem;display:inline-block;">View diploma</a></div>
+      <div class="edu-card">
+        <p class="edu-degree-label">Master of Science (MS) · Sep 2020 to Oct 2022</p>
+        <p class="edu-degree">Economics &amp; Management</p>
+        <p class="edu-major">Major: Economics and Management in Arts, Culture, Media and Entertainment</p>
+        <p class="edu-school">Università Bocconi, Milan</p>
+        <p class="edu-grade">110 / 110 · GPA equivalent 4.0</p>
+        <dl class="edu-facts">
+          <dt>Dissertation</dt><dd>"Wine tourism in Irpinia: a study of the reasons to enter the industry."</dd>
+          <dt>Advisor</dt><dd>Prof. Cristina Mottironi</dd>
+        </dl>
+        <details class="edu-exams">
+          <summary>Core exams and grades</summary>
+          <p class="edu-exam-group">Core exams</p>
+          <ul class="edu-exam-list">
+            <li><span>Management of Cultural Industries</span><span class="edu-exam-grade">30/30</span></li>
+            <li><span>Quantitative Methods for Management</span><span class="edu-exam-grade">26/30</span></li>
+            <li><span>Performance Measurement</span><span class="edu-exam-grade">27/30</span></li>
+            <li><span>European and International Advanced IP Law</span><span class="edu-exam-grade">28/30</span></li>
+            <li><span>Marketing and CRM in the Arts</span><span class="edu-exam-grade">28/30</span></li>
+            <li><span>Cultural Mediation</span><span class="edu-exam-grade">30/30</span></li>
+            <li><span>Project and Team Management</span><span class="edu-exam-grade">29/30</span></li>
+          </ul>
+          <p class="edu-exam-group">Major in Art Markets, Heritage, and Museums</p>
+          <ul class="edu-exam-list">
+            <li><span>Art Management and Markets</span><span class="edu-exam-grade">28/30</span></li>
+            <li><span>Heritage Management</span><span class="edu-exam-grade">29/30</span></li>
+            <li><span>Museum Management</span><span class="edu-exam-grade">30/30</span></li>
+          </ul>
+          <p class="edu-exam-group">Electives</p>
+          <ul class="edu-exam-list">
+            <li><span>Cities, Cultural Tourism and Urban Life</span><span class="edu-exam-grade">30/30</span></li>
+            <li><span>Economics of Sustainable Urban Regeneration</span><span class="edu-exam-grade">25/30</span></li>
+            <li><span>Mergers and Acquisitions</span><span class="edu-exam-grade">26/30</span></li>
+          </ul>
+          <p class="edu-exam-group">Seminars (no grades)</p>
+          <ul class="edu-exam-list">
+            <li><span>Ethics and Moral Philosophy</span></li>
+            <li><span>Professional English</span></li>
+            <li><span>Career Starter Pack</span></li>
+            <li><span>Behavioral Skills</span></li>
+          </ul>
+        </details>
+        <a href="/assets/CV%20Attachments/Bocconi_Diplomas.pdf" target="_blank" class="btn-secondary edu-doc">View diploma</a>
+      </div>
+      <div class="edu-card">
+        <p class="edu-degree-label">Bachelor of Science (BS) · 2017 to 2020</p>
+        <p class="edu-degree">Economics &amp; Management</p>
+        <p class="edu-major">Major: Economics and Management for Arts, Culture and Communication</p>
+        <p class="edu-school">Università Bocconi, Milan</p>
+        <p class="edu-grade">100 / 110 · GPA equivalent 3.7</p>
+        <dl class="edu-facts">
+          <dt>Dissertation</dt><dd>"Transcript and Analysis of the Accounting Ledger from Antique Dealers Grandi, Milan."</dd>
+          <dt>Advisor</dt><dd>Prof. Giovanni Agosti</dd>
+        </dl>
+        <details class="edu-exams">
+          <summary>Exams and grades</summary>
+          <p class="edu-exam-group">Exams</p>
+          <ul class="edu-exam-list">
+            <li><span>Management of Cultural Industries</span><span class="edu-exam-grade">27/30</span></li>
+            <li><span>Microeconomics</span><span class="edu-exam-grade">27/30</span></li>
+            <li><span>Macroeconomics</span><span class="edu-exam-grade">27/30</span></li>
+            <li><span>Marketing of Creative Industries</span><span class="edu-exam-grade">29/30</span></li>
+            <li><span>Economic History and History of Economic Thought</span><span class="edu-exam-grade">28/30</span></li>
+            <li><span>Private Law</span><span class="edu-exam-grade">27/30</span></li>
+            <li><span>Business Law</span><span class="edu-exam-grade">26/30</span></li>
+            <li><span>Philosophy of Art</span><span class="edu-exam-grade">25/30</span></li>
+            <li><span>Cultural Anthropology</span><span class="edu-exam-grade">27/30</span></li>
+            <li><span>Critical Approaches to Art</span><span class="edu-exam-grade">25/30</span></li>
+            <li><span>Storia dell'architettura, Bauhaus</span><span class="edu-exam-grade">27/30</span></li>
+            <li><span>Mathematics</span><span class="edu-exam-grade">21/30</span></li>
+            <li><span>Statistics</span><span class="edu-exam-grade">24/30</span></li>
+            <li><span>Public Finance</span><span class="edu-exam-grade">23/30</span></li>
+            <li><span>Financial Markets and Institutions</span><span class="edu-exam-grade">20/30</span></li>
+            <li><span>Corporate Finance</span><span class="edu-exam-grade">30/30</span></li>
+            <li><span>Accounting</span><span class="edu-exam-grade">26/30</span></li>
+            <li><span>Managerial Accounting</span><span class="edu-exam-grade">30/30</span></li>
+            <li><span>Competitive Strategies in Creative Industries</span><span class="edu-exam-grade">22/30</span></li>
+            <li><span>Organisational Behaviour</span><span class="edu-exam-grade">23/30</span></li>
+            <li><span>Management of Public and Non-profit Organisations</span><span class="edu-exam-grade">26/30</span></li>
+          </ul>
+        </details>
+        <a href="/assets/CV%20Attachments/Bocconi_Diplomas.pdf" target="_blank" class="btn-secondary edu-doc">View diploma</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="volunteering">
+  <div class="container">
+    <h2 class="section-label reveal">Volunteering</h2>
+    <div class="vol-item reveal">
+      <div class="exp-meta">
+        <p class="exp-period">May 2026 to Oct 2026</p>
+        <p class="exp-company">Musée d'art et d'histoire de Genève (MAH)</p>
+      </div>
+      <div class="exp-content">
+        <p class="vol-role">Visitor Welcome &amp; Information</p>
+        <p class="exp-desc">Volunteer at the MAH (Musée d'art et d'histoire de Genève), one of Switzerland's leading art and history museums.</p>
+        <div class="exp-tags"><span class="tag">Arts and Culture</span></div>
+      </div>
+    </div>
+    <div class="vol-item reveal">
+      <div class="exp-meta">
+        <p class="exp-period">Oct 2025 to Nov 2025</p>
+        <p class="exp-company">Geneva International Film Festival (GIFF)</p>
+      </div>
+      <div class="exp-content">
+        <p class="vol-role">Public Reception &amp; Event Support</p>
+        <p class="exp-desc">Actively supported the Geneva International Film Festival (GIFF) by assisting in guest reception and information services across multiple venues.</p>
+        <div class="exp-tags"><span class="tag">Arts and Culture</span></div>
+      </div>
+    </div>
+    <div class="vol-item reveal">
+      <div class="exp-meta">
+        <p class="exp-period">Nov 2020 to May 2021</p>
+        <p class="exp-company">Università Bocconi</p>
+      </div>
+      <div class="exp-content">
+        <p class="vol-role">Maths Tutor</p>
+        <p class="exp-desc">TOP | Tutoring Online Project.</p>
+        <div class="exp-tags"><span class="tag">Education</span></div>
+      </div>
+    </div>
+    <div class="vol-item vol-compact reveal">
+      <p class="exp-period">Mar 2016</p>
+      <p class="vol-line"><span class="vol-line-role">Guide, Fondo Ambiente Italiano (FAI).</span> Tour guide on the occasion of the FAI Giornate di Primavera, at Palazzo Archinto (via Passione, 12). <span class="vol-line-cause">Arts and Culture</span></p>
+    </div>
+    <div class="vol-item vol-compact reveal">
+      <p class="exp-period">Apr 2015</p>
+      <p class="vol-line"><span class="vol-line-role">Cicerone, Pinacoteca di Brera.</span> Giovane Cicerone at the "Giovani Ciceroni alla Pinacoteca" initiative by Gli Amici di Brera. <span class="vol-line-cause">Arts and Culture</span></p>
     </div>
   </div>
 </section>
